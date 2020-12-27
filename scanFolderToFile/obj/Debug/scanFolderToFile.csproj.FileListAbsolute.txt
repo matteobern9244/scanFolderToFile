@@ -1,0 +1,36 @@
+C:\Users\MATTEO\Desktop\scanFolderToFile\scanFolderToFile\bin\Debug\scanFolderToFile.exe.config
+C:\Users\MATTEO\Desktop\scanFolderToFile\scanFolderToFile\bin\Debug\scanFolderToFile.exe
+C:\Users\MATTEO\Desktop\scanFolderToFile\scanFolderToFile\bin\Debug\scanFolderToFile.pdb
+C:\Users\MATTEO\Desktop\scanFolderToFile\scanFolderToFile\obj\Debug\scanFolderToFile.csprojResolveAssemblyReference.cache
+C:\Users\MATTEO\Desktop\scanFolderToFile\scanFolderToFile\obj\Debug\scanFolderToFile.Form1.resources
+C:\Users\MATTEO\Desktop\scanFolderToFile\scanFolderToFile\obj\Debug\scanFolderToFile.Properties.Resources.resources
+C:\Users\MATTEO\Desktop\scanFolderToFile\scanFolderToFile\obj\Debug\scanFolderToFile.csproj.GenerateResource.Cache
+C:\Users\MATTEO\Desktop\scanFolderToFile\scanFolderToFile\obj\Debug\scanFolderToFile.exe
+C:\Users\MATTEO\Desktop\scanFolderToFile\scanFolderToFile\obj\Debug\scanFolderToFile.pdb
+C:\Users\MATTEO\Desktop\Personal Projects\OK\scanFolderToFile\scanFolderToFile\bin\Debug\scanFolderToFile.exe.config
+C:\Users\MATTEO\Desktop\Personal Projects\OK\scanFolderToFile\scanFolderToFile\obj\Debug\scanFolderToFile.exe
+C:\Users\MATTEO\Desktop\Personal Projects\OK\scanFolderToFile\scanFolderToFile\obj\Debug\scanFolderToFile.pdb
+C:\Users\MATTEO\Desktop\Personal Projects\finiti\scanFolderToFile\scanFolderToFile\bin\Debug\scanFolderToFile.exe.config
+C:\Users\MATTEO\Desktop\Personal Projects\finiti\scanFolderToFile\scanFolderToFile\obj\Debug\scanFolderToFile.exe
+C:\Users\MATTEO\Desktop\Personal Projects\finiti\scanFolderToFile\scanFolderToFile\obj\Debug\scanFolderToFile.pdb
+C:\Users\MATTEO\Desktop\Personal Projects\finiti\scanFolderToFile\scanFolderToFile\bin\Debug\scanFolderToFile.exe
+C:\Users\MATTEO\Desktop\Personal Projects\finiti\scanFolderToFile\scanFolderToFile\bin\Debug\scanFolderToFile.pdb
+C:\Users\MATTEO\Desktop\Personal Projects\finiti\scanFolderToFile\scanFolderToFile\obj\Debug\scanFolderToFile.csprojResolveAssemblyReference.cache
+C:\Users\MATTEO\Desktop\Personal Projects\finiti\scanFolderToFile\scanFolderToFile\obj\Debug\scanFolderToFile.Form1.resources
+C:\Users\MATTEO\Desktop\Personal Projects\finiti\scanFolderToFile\scanFolderToFile\obj\Debug\scanFolderToFile.Properties.Resources.resources
+C:\Users\MATTEO\Desktop\Personal Projects\finiti\scanFolderToFile\scanFolderToFile\obj\Debug\scanFolderToFile.csproj.GenerateResource.Cache
+C:\Users\MATTEO\Desktop\Personal Projects\[IN CORSO]\program\scanFolderToFile\scanFolderToFile\bin\Debug\scanFolderToFile.exe.config
+C:\Users\MATTEO\Desktop\Personal Projects\[IN CORSO]\program\scanFolderToFile\scanFolderToFile\obj\Debug\scanFolderToFile.exe
+C:\Users\MATTEO\Desktop\Personal Projects\[IN CORSO]\program\scanFolderToFile\scanFolderToFile\obj\Debug\scanFolderToFile.pdb
+C:\Users\MATTEO\Desktop\Personal Projects\[IN CORSO]\program\scanFolderToFile\scanFolderToFile\bin\Debug\scanFolderToFile.exe
+C:\Users\MATTEO\Desktop\Personal Projects\[IN CORSO]\program\scanFolderToFile\scanFolderToFile\bin\Debug\scanFolderToFile.pdb
+C:\Users\MATTEO\Desktop\Personal Projects\[IN CORSO]\program\scanFolderToFile\scanFolderToFile\obj\Debug\scanFolderToFile.csprojResolveAssemblyReference.cache
+C:\Users\MATTEO\Desktop\Personal Projects\[IN CORSO]\program\scanFolderToFile\scanFolderToFile\obj\Debug\scanFolderToFile.Properties.Resources.resources
+C:\Users\MATTEO\Desktop\Personal Projects\[IN CORSO]\program\scanFolderToFile\scanFolderToFile\obj\Debug\scanFolderToFile.csproj.GenerateResource.Cache
+C:\Users\MATTEO\Desktop\Personal Projects\[IN CORSO]\program\scanFolderToFile\scanFolderToFile\obj\Debug\scanFolderToFile.formPrincipale.resources
+C:\Users\MATTEO\Desktop\Personal Projects\program\scanFolderToFile\scanFolderToFile\bin\Debug\scanFolderToFile.exe.config
+C:\Users\MATTEO\Desktop\Personal Projects\program\scanFolderToFile\scanFolderToFile\obj\Debug\scanFolderToFile.exe
+C:\Users\MATTEO\Desktop\Personal Projects\program\scanFolderToFile\scanFolderToFile\obj\Debug\scanFolderToFile.pdb
+H:\Personal Projects\program\scanFolderToFile\scanFolderToFile\bin\Debug\scanFolderToFile.exe.config
+H:\Personal Projects\program\scanFolderToFile\scanFolderToFile\obj\Debug\scanFolderToFile.exe
+H:\Personal Projects\program\scanFolderToFile\scanFolderToFile\obj\Debug\scanFolderToFile.pdb

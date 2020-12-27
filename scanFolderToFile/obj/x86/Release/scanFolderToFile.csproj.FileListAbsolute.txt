@@ -1,0 +1,8 @@
+C:\Users\MATTEO\Desktop\Personal Projects\OK\scanFolderToFile\scanFolderToFile\bin\x86\Release\scanFolderToFile.exe.config
+C:\Users\MATTEO\Desktop\Personal Projects\OK\scanFolderToFile\scanFolderToFile\bin\x86\Release\scanFolderToFile.exe
+C:\Users\MATTEO\Desktop\Personal Projects\OK\scanFolderToFile\scanFolderToFile\bin\x86\Release\scanFolderToFile.pdb
+C:\Users\MATTEO\Desktop\Personal Projects\OK\scanFolderToFile\scanFolderToFile\obj\x86\Release\scanFolderToFile.Form1.resources
+C:\Users\MATTEO\Desktop\Personal Projects\OK\scanFolderToFile\scanFolderToFile\obj\x86\Release\scanFolderToFile.Properties.Resources.resources
+C:\Users\MATTEO\Desktop\Personal Projects\OK\scanFolderToFile\scanFolderToFile\obj\x86\Release\scanFolderToFile.csproj.GenerateResource.Cache
+C:\Users\MATTEO\Desktop\Personal Projects\OK\scanFolderToFile\scanFolderToFile\obj\x86\Release\scanFolderToFile.exe
+C:\Users\MATTEO\Desktop\Personal Projects\OK\scanFolderToFile\scanFolderToFile\obj\x86\Release\scanFolderToFile.pdb
