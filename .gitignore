@@ -1,0 +1,11 @@
+bin/
+obj/
+packages/
+
+.vs/
+
+*.suo
+*.user
+*.dll
+*.exe
+*.log
