@@ -42,3 +42,12 @@ H:\Personal Projects\program\scanFolderToFile\scanFolderToFile\obj\Release\scanF
 H:\Personal Projects\program\scanFolderToFile\scanFolderToFile\obj\Release\scanFolderToFile.formPrincipale.resources
 H:\Personal Projects\program\scanFolderToFile\scanFolderToFile\obj\Release\scanFolderToFile.Properties.Resources.resources
 H:\Personal Projects\program\scanFolderToFile\scanFolderToFile\obj\Release\scanFolderToFile.csproj.GenerateResource.Cache
+E:\progettiGIT\scanFolderToFile\scanFolderToFile\bin\Release\scanFolderToFile.exe.config
+E:\progettiGIT\scanFolderToFile\scanFolderToFile\bin\Release\scanFolderToFile.exe
+E:\progettiGIT\scanFolderToFile\scanFolderToFile\bin\Release\scanFolderToFile.pdb
+E:\progettiGIT\scanFolderToFile\scanFolderToFile\obj\Release\scanFolderToFile.formPrincipale.resources
+E:\progettiGIT\scanFolderToFile\scanFolderToFile\obj\Release\scanFolderToFile.Properties.Resources.resources
+E:\progettiGIT\scanFolderToFile\scanFolderToFile\obj\Release\scanFolderToFile.csproj.GenerateResource.cache
+E:\progettiGIT\scanFolderToFile\scanFolderToFile\obj\Release\scanFolderToFile.csproj.CoreCompileInputs.cache
+E:\progettiGIT\scanFolderToFile\scanFolderToFile\obj\Release\scanFolderToFile.exe
+E:\progettiGIT\scanFolderToFile\scanFolderToFile\obj\Release\scanFolderToFile.pdb

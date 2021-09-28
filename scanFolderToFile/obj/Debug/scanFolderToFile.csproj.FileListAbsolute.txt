@@ -34,3 +34,13 @@ C:\Users\MATTEO\Desktop\Personal Projects\program\scanFolderToFile\scanFolderToF
 H:\Personal Projects\program\scanFolderToFile\scanFolderToFile\bin\Debug\scanFolderToFile.exe.config
 H:\Personal Projects\program\scanFolderToFile\scanFolderToFile\obj\Debug\scanFolderToFile.exe
 H:\Personal Projects\program\scanFolderToFile\scanFolderToFile\obj\Debug\scanFolderToFile.pdb
+E:\progettiGIT\scanFolderToFile\scanFolderToFile\bin\Debug\scanFolderToFile.exe.config
+E:\progettiGIT\scanFolderToFile\scanFolderToFile\bin\Debug\scanFolderToFile.exe
+E:\progettiGIT\scanFolderToFile\scanFolderToFile\bin\Debug\scanFolderToFile.pdb
+E:\progettiGIT\scanFolderToFile\scanFolderToFile\obj\Debug\scanFolderToFile.csproj.AssemblyReference.cache
+E:\progettiGIT\scanFolderToFile\scanFolderToFile\obj\Debug\scanFolderToFile.formPrincipale.resources
+E:\progettiGIT\scanFolderToFile\scanFolderToFile\obj\Debug\scanFolderToFile.Properties.Resources.resources
+E:\progettiGIT\scanFolderToFile\scanFolderToFile\obj\Debug\scanFolderToFile.csproj.GenerateResource.cache
+E:\progettiGIT\scanFolderToFile\scanFolderToFile\obj\Debug\scanFolderToFile.csproj.CoreCompileInputs.cache
+E:\progettiGIT\scanFolderToFile\scanFolderToFile\obj\Debug\scanFolderToFile.exe
+E:\progettiGIT\scanFolderToFile\scanFolderToFile\obj\Debug\scanFolderToFile.pdb

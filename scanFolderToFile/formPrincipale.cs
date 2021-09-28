@@ -20,7 +20,7 @@ namespace scanFolderToFile
             InitializeComponent();
         }
 
-        private void creaCartella()
+        private void createFolder()
         {
             try
             {
@@ -40,17 +40,36 @@ namespace scanFolderToFile
                 DialogResult result = folderBrowserDialog1.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    creaCartella();
+                    createFolder();
                     string[] pathFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath);
                     textBox1.Text = folderBrowserDialog1.SelectedPath;
 
-                    MessageBox.Show("Files trovati: " + pathFiles.Length.ToString(), "FILES TROVATI", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Elaborazione completata senza errori", "ELABORAZIONE", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     StreamWriter file = new StreamWriter(@"C:\\CONTENT SELECTED\\CONTENUTO.txt");
 
-                    foreach (string nomeFile in Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.*", SearchOption.AllDirectories))
+                    bool onlyExtension = cbOnlyExtensions.Checked;
+                    
+                    List<String> listExtensions = new List<string>();
+
+                    foreach (string sFile in Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.*", SearchOption.AllDirectories))
                     {
-                        file.WriteLine(Path.GetFileName(nomeFile));
+                        if(onlyExtension)
+                        {
+                            string extension = Path.GetExtension(sFile).Trim();
+                            if(!listExtensions.Contains(extension))
+                                listExtensions.Add(extension);
+                        }
+                        else
+                            file.WriteLine(Path.GetFileName(sFile));
+                    }
+                    
+                    if(listExtensions != null && listExtensions.Any())
+                    {
+                        foreach (string extension in listExtensions)
+                        {
+                            file.WriteLine(extension);
+                        }
                     }
 
                     file.Close();
@@ -155,6 +174,11 @@ namespace scanFolderToFile
                 }
             }
             catch (Exception) { }
+        }
+
+        private void cbOnlyExtensions_CheckedChanged(object sender, EventArgs e)
+        {
+            button1.PerformClick();
         }
     }
 }
