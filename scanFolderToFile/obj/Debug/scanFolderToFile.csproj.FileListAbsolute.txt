@@ -37,7 +37,6 @@ H:\Personal Projects\program\scanFolderToFile\scanFolderToFile\obj\Debug\scanFol
 E:\progettiGIT\scanFolderToFile\scanFolderToFile\bin\Debug\scanFolderToFile.exe.config
 E:\progettiGIT\scanFolderToFile\scanFolderToFile\bin\Debug\scanFolderToFile.exe
 E:\progettiGIT\scanFolderToFile\scanFolderToFile\bin\Debug\scanFolderToFile.pdb
-E:\progettiGIT\scanFolderToFile\scanFolderToFile\obj\Debug\scanFolderToFile.csproj.AssemblyReference.cache
 E:\progettiGIT\scanFolderToFile\scanFolderToFile\obj\Debug\scanFolderToFile.formPrincipale.resources
 E:\progettiGIT\scanFolderToFile\scanFolderToFile\obj\Debug\scanFolderToFile.Properties.Resources.resources
 E:\progettiGIT\scanFolderToFile\scanFolderToFile\obj\Debug\scanFolderToFile.csproj.GenerateResource.cache

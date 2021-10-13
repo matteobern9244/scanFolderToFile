@@ -24,8 +24,8 @@ namespace scanFolderToFile
         {
             try
             {
-                if (!(Directory.Exists(@"C:\CONTENT SELECTED")))
-                    Directory.CreateDirectory(@"C:\CONTENT SELECTED");
+                if (!(Directory.Exists(Constants.PATH_FOLDER)))
+                    Directory.CreateDirectory(Constants.PATH_FOLDER);
             }
             catch (Exception) { }
         }
@@ -35,28 +35,28 @@ namespace scanFolderToFile
         {
             try
             {
-                MessageBox.Show("Verra' creata la cartella 'CONTENT SELECTED' in C: con il file 'CONTENUTO.TXT'", "ATTENZIONE", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(Constants.ALERT_MESSAGE, Constants.ALERT_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 DialogResult result = folderBrowserDialog1.ShowDialog();
                 if (result == DialogResult.OK)
                 {
                     createFolder();
-                    string[] pathFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath);
+                    var pathFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath);
                     textBox1.Text = folderBrowserDialog1.SelectedPath;
 
-                    MessageBox.Show("Elaborazione completata senza errori", "ELABORAZIONE", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(Constants.ELABORATION_CONFIRM, Constants.ELABORATION_TITLE , MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    StreamWriter file = new StreamWriter(@"C:\\CONTENT SELECTED\\CONTENUTO.txt");
+                    var file = new StreamWriter(Path.Combine(Constants.PATH_FOLDER, Constants.FILE_FINAL));
 
-                    bool onlyExtension = cbOnlyExtensions.Checked;
+                    var onlyExtension = cbOnlyExtensions.Checked;
                     
-                    List<String> listExtensions = new List<string>();
+                    var listExtensions = new List<string>();
 
-                    foreach (string sFile in Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.*", SearchOption.AllDirectories))
+                    foreach (var sFile in Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.*", SearchOption.AllDirectories))
                     {
                         if(onlyExtension)
                         {
-                            string extension = Path.GetExtension(sFile).Trim();
+                            var extension = Path.GetExtension(sFile).Trim();
                             if(!listExtensions.Contains(extension))
                                 listExtensions.Add(extension);
                         }
@@ -66,7 +66,7 @@ namespace scanFolderToFile
                     
                     if(listExtensions != null && listExtensions.Any())
                     {
-                        foreach (string extension in listExtensions)
+                        foreach (var extension in listExtensions)
                         {
                             file.WriteLine(extension);
                         }
@@ -84,13 +84,13 @@ namespace scanFolderToFile
         {
             try
             {
-                string path = "C:\\CONTENT SELECTED\\CONTENUTO.txt";
-
-                if (File.Exists(path))
+                if (File.Exists(Path.Combine(Constants.PATH_FOLDER, Constants.FILE_FINAL)))
                 {
                     ProcessStartInfo psi;
-                    psi = new ProcessStartInfo(@"C:\\CONTENT SELECTED\\CONTENUTO.txt");
-                    psi.UseShellExecute = true;
+                    psi = new ProcessStartInfo(Path.Combine(Constants.PATH_FOLDER, Constants.FILE_FINAL))
+                    {
+                        UseShellExecute = true
+                    };
                     Process.Start(psi);
                 }
                 else
@@ -106,12 +106,13 @@ namespace scanFolderToFile
         {
             try
             {
-                string path = "C:\\CONTENT SELECTED";
-                if (Directory.Exists(path))
+                if (Directory.Exists(Constants.PATH_FOLDER))
                 {
                     ProcessStartInfo psi;
-                    psi = new ProcessStartInfo(@"C:\\CONTENT SELECTED");
-                    psi.UseShellExecute = true;
+                    psi = new ProcessStartInfo(Constants.PATH_FOLDER)
+                    {
+                        UseShellExecute = true
+                    };
                     Process.Start(psi);
                 }
                 else
@@ -131,8 +132,10 @@ namespace scanFolderToFile
                 for (int i = 0; i < PrinterSettings.InstalledPrinters.Count; i++)
                 {
                     pkInstalledPrinters = PrinterSettings.InstalledPrinters[i];
-                    PrinterSettings settings = new PrinterSettings();
-                    settings.PrinterName = pkInstalledPrinters;
+                    PrinterSettings settings = new PrinterSettings
+                    {
+                        PrinterName = pkInstalledPrinters
+                    };
                     if (settings.IsDefaultPrinter) return pkInstalledPrinters;
                 }
                 return "";
@@ -148,18 +151,21 @@ namespace scanFolderToFile
         {
             try
             {
-                string path = "C:\\CONTENT SELECTED\\CONTENUTO.txt";
-                if (File.Exists(path))
+                if (File.Exists(Path.Combine(Constants.PATH_FOLDER, Constants.FILE_FINAL)))
                 {
-                    ProcessStartInfo psi = new ProcessStartInfo(@"C:\\CONTENT SELECTED\\CONTENUTO.txt");
-                    psi.Verb = "print";
+                    var psi = new ProcessStartInfo(Path.Combine(Constants.PATH_FOLDER, Constants.FILE_FINAL))
+                    {
+                        Verb = "print"
+                    };
                     try
                     {
                         psi.Arguments = GetDefaultPrinterName();
                         if (!(psi.Arguments == ""))
                         {
-                            Process print = new Process();
-                            print.StartInfo = psi;
+                            var print = new Process
+                            {
+                                StartInfo = psi
+                            };
                             print.Start();
                         }
                     }
