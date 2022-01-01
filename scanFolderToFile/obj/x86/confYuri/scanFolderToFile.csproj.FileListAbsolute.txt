@@ -1,7 +1,0 @@
-C:\Users\MATTEO\Desktop\Personal Projects\OK\scanFolderToFile\scanFolderToFile\bin\x86\confYuri\scanFolderToFile.exe.config
-C:\Users\MATTEO\Desktop\Personal Projects\OK\scanFolderToFile\scanFolderToFile\bin\x86\confYuri\scanFolderToFile.exe
-C:\Users\MATTEO\Desktop\Personal Projects\OK\scanFolderToFile\scanFolderToFile\obj\x86\confYuri\scanFolderToFile.csprojResolveAssemblyReference.cache
-C:\Users\MATTEO\Desktop\Personal Projects\OK\scanFolderToFile\scanFolderToFile\obj\x86\confYuri\scanFolderToFile.Form1.resources
-C:\Users\MATTEO\Desktop\Personal Projects\OK\scanFolderToFile\scanFolderToFile\obj\x86\confYuri\scanFolderToFile.Properties.Resources.resources
-C:\Users\MATTEO\Desktop\Personal Projects\OK\scanFolderToFile\scanFolderToFile\obj\x86\confYuri\scanFolderToFile.csproj.GenerateResource.Cache
-C:\Users\MATTEO\Desktop\Personal Projects\OK\scanFolderToFile\scanFolderToFile\obj\x86\confYuri\scanFolderToFile.exe
