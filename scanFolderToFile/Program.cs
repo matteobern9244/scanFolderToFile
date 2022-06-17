@@ -16,7 +16,7 @@ namespace scanFolderToFile
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new formPrincipale());
+            Application.Run(new frmPrincipal());
         }
     }
 }
