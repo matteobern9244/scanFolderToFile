@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // Le informazioni generali relative a un assembly sono controllate dal seguente 
 // set di attributi. Per modificare le informazioni associate a un assembly
 // occorre quindi modificare i valori di questi attributi.
-[assembly: AssemblyTitle("scanFolderToFile")]
-[assembly: AssemblyDescription("Scannerizza una cartella e restituisce un file con il suo contenuto")]
+[assembly: AssemblyTitle("ScanFolderToFile")]
+[assembly: AssemblyDescription("Scansione di una cartella e restituisce un file con il suo contenuto")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Matteo Bernardini - privato©")]
-[assembly: AssemblyProduct("scanFolderToFile")]
-[assembly: AssemblyCopyright("Matteo Bernardini - Copyright ©  2013")]
+[assembly: AssemblyProduct("ScanFolderToFile")]
+[assembly: AssemblyCopyright("Matteo Bernardini - Copyright ©  2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // È possibile specificare tutti i valori oppure impostare valori predefiniti per i numeri relativi alla revisione e alla build 
 // utilizzando l'asterisco (*) come descritto di seguito:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.2.2.3")]
-[assembly: AssemblyFileVersion("1.2.2.3")]
+[assembly: AssemblyVersion("1.3.0.0")]
+[assembly: AssemblyFileVersion("1.3.0.0")]

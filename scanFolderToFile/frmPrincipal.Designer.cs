@@ -1,6 +1,6 @@
-﻿namespace scanFolderToFile
+﻿namespace ScanFolderToFile
 {
-    partial class frmPrincipal
+    partial class FrmPrincipal
     {
         /// <summary>
         /// Variabile di progettazione necessaria.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPrincipal));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPrincipal));
             this.txtSelectedPath = new System.Windows.Forms.TextBox();
             this.btnSfoglia = new System.Windows.Forms.Button();
             this.fbd = new System.Windows.Forms.FolderBrowserDialog();
@@ -89,7 +89,7 @@
             // btnOpenFolder
             // 
             this.btnOpenFolder.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnOpenFolder.BackgroundImage = global::scanFolderToFile.Properties.Resources.open;
+            this.btnOpenFolder.BackgroundImage = global::ScanFolderToFile.Properties.Resources.open;
             this.btnOpenFolder.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnOpenFolder.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOpenFolder.ForeColor = System.Drawing.Color.Red;
@@ -106,7 +106,7 @@
             // btnStampaFile
             // 
             this.btnStampaFile.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnStampaFile.BackgroundImage = global::scanFolderToFile.Properties.Resources.print;
+            this.btnStampaFile.BackgroundImage = global::ScanFolderToFile.Properties.Resources.print;
             this.btnStampaFile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnStampaFile.Font = new System.Drawing.Font("Comic Sans MS", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStampaFile.ForeColor = System.Drawing.Color.Red;
@@ -123,7 +123,7 @@
             // btnOpenFile
             // 
             this.btnOpenFile.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnOpenFile.BackgroundImage = global::scanFolderToFile.Properties.Resources.file;
+            this.btnOpenFile.BackgroundImage = global::ScanFolderToFile.Properties.Resources.file;
             this.btnOpenFile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnOpenFile.Font = new System.Drawing.Font("Comic Sans MS", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOpenFile.ForeColor = System.Drawing.Color.Red;
@@ -163,7 +163,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.Name = "frmPrincipal";
+            this.Name = "FrmPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Scan Folder To File";
             this.groupBox1.ResumeLayout(false);

@@ -1,4 +1,4 @@
-﻿namespace scanFolderToFile
+﻿namespace ScanFolderToFile
 {
     public class Constants
     {

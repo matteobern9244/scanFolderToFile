@@ -5,13 +5,14 @@ using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using static scanFolderToFile.Constants;
 
-namespace scanFolderToFile
+using static ScanFolderToFile.Constants;
+
+namespace ScanFolderToFile
 {
-    public partial class frmPrincipal : Form
+    public partial class FrmPrincipal : Form
     {
-        public frmPrincipal()
+        public FrmPrincipal()
         {
             InitializeComponent();
         }

@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace scanFolderToFile
+namespace ScanFolderToFile
 {
     static class Program
     {
@@ -16,7 +13,7 @@ namespace scanFolderToFile
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmPrincipal());
+            Application.Run(new FrmPrincipal());
         }
     }
 }

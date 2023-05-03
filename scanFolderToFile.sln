@@ -1,7 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "scanFolderToFile", "scanFolderToFile\scanFolderToFile.csproj", "{687BFA94-90AD-4B3F-AA23-4598A5CAD105}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33530.505
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScanFolderToFile", "scanFolderToFile\ScanFolderToFile.csproj", "{687BFA94-90AD-4B3F-AA23-4598A5CAD105}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
