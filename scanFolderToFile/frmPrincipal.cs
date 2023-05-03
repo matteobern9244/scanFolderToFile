@@ -5,6 +5,7 @@ using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using static scanFolderToFile.Constants;
 
 namespace scanFolderToFile
 {
@@ -15,12 +16,12 @@ namespace scanFolderToFile
             InitializeComponent();
         }
 
-        private static void CreateFolder()
+        private static void CheckFolder()
         {
             try
             {
-                if (!(Directory.Exists(Constants.PathFolder)))
-                    Directory.CreateDirectory(Constants.PathFolder);
+                if (!(Directory.Exists(PATH_FOLDER)))
+                    Directory.CreateDirectory(PATH_FOLDER);
             }
             catch (Exception) { }
         }
@@ -30,25 +31,24 @@ namespace scanFolderToFile
         {
             try
             {
-                MessageBox.Show(Constants.AlertMessage, Constants.AlertTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(ALERT_MESSAGE, ALERT_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 if (fbd.ShowDialog() != DialogResult.OK) return;
 
-                CreateFolder();
+                CheckFolder();
 
-                var pathFiles = Directory.GetFiles(fbd.SelectedPath);
                 txtSelectedPath.Text = fbd.SelectedPath;
 
-                MessageBox.Show(Constants.ElaborationConfirm, Constants.ElaborationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(ELABORATION_CONFIRM, ELABORATION_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                var file = new StreamWriter(Path.Combine(Constants.PathFolder, Constants.FileFinal));
+                var file = new StreamWriter(Path.Combine(PATH_FOLDER, FILE_FINAL));
 
                 var onlyExtension = cbOnlyExtensions.Checked;
 
                 var listElement = new List<string>();
 
                 var content = Directory.GetFiles(fbd.SelectedPath, "*.*", SearchOption.AllDirectories)
-                                            .Where(files => !files.ToLower().Contains("desktop.ini"))
+                                            .Where(files => !files.ToLower().Contains(DESKTOP_INI))
                                             .OrderBy(i => i)
                                             .ToList();
                 if (content.Any())
@@ -84,9 +84,9 @@ namespace scanFolderToFile
         {
             try
             {
-                if (File.Exists(Path.Combine(Constants.PathFolder, Constants.FileFinal)))
+                if (File.Exists(Path.Combine(PATH_FOLDER, FILE_FINAL)))
                 {
-                    var psi = new ProcessStartInfo(Path.Combine(Constants.PathFolder, Constants.FileFinal))
+                    var psi = new ProcessStartInfo(Path.Combine(PATH_FOLDER, FILE_FINAL))
                     {
                         UseShellExecute = true
                     };
@@ -94,7 +94,7 @@ namespace scanFolderToFile
                 }
                 else
                 {
-                    MessageBox.Show("File non ancora creato.", "FILE NON PRESENTE", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(@"File non ancora creato.", @"FILE NON PRESENTE", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception) { }
@@ -105,9 +105,9 @@ namespace scanFolderToFile
         {
             try
             {
-                if (Directory.Exists(Constants.PathFolder))
+                if (Directory.Exists(PATH_FOLDER))
                 {
-                    var psi = new ProcessStartInfo(Constants.PathFolder)
+                    var psi = new ProcessStartInfo(PATH_FOLDER)
                     {
                         UseShellExecute = true
                     };
@@ -115,14 +115,14 @@ namespace scanFolderToFile
                 }
                 else
                 {
-                    MessageBox.Show("Cartella non ancora creata.", "CARTELLA NON PRESENTE", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(@"Cartella non ancora creata.", @"CARTELLA NON CREATA", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception) { }
         }
 
         //CARICA STAMPANTE DI DEFAULT
-        private string GetDefaultPrinterName()
+        private static string GetDefaultPrinterName()
         {
             try
             {
@@ -133,7 +133,7 @@ namespace scanFolderToFile
                     {
                         PrinterName = pkInstalledPrinters
                     };
-                    if (settings.IsDefaultPrinter) 
+                    if (settings.IsDefaultPrinter)
                         return pkInstalledPrinters;
                 }
                 return string.Empty;
@@ -149,9 +149,9 @@ namespace scanFolderToFile
         {
             try
             {
-                if (File.Exists(Path.Combine(Constants.PathFolder, Constants.FileFinal)))
+                if (File.Exists(Path.Combine(PATH_FOLDER, FILE_FINAL)))
                 {
-                    var psi = new ProcessStartInfo(Path.Combine(Constants.PathFolder, Constants.FileFinal))
+                    var psi = new ProcessStartInfo(Path.Combine(PATH_FOLDER, FILE_FINAL))
                     {
                         Verb = "print"
                     };
@@ -168,12 +168,12 @@ namespace scanFolderToFile
                     catch (Exception ex)
                     {
                         if (ex.Message != null)
-                            MessageBox.Show($"Si sono verificati problemi per la stampa : {ex.Message}");
+                            MessageBox.Show($@"Si sono verificati problemi per la stampa : {ex.Message}");
                     }
                 }
                 else
-                    MessageBox.Show("File non ancora creato.", "FILE NON PRESENTE", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                
+                    MessageBox.Show(@"File non ancora creato.", @"FILE NON PRESENTE", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             }
             catch (Exception) { }
         }
