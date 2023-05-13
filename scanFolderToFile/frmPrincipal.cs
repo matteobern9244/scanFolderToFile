@@ -5,6 +5,7 @@ using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using NLog;
 using Spire.Pdf;
 using Spire.Pdf.Graphics;
 using Spire.Pdf.Lists;
@@ -14,6 +15,8 @@ namespace ScanFolderToFile
 {
     public partial class FrmPrincipal : Form
     {
+        private static readonly ILogger _logger = LogManager.GetCurrentClassLogger();
+
         public FrmPrincipal()
         {
             InitializeComponent();
@@ -23,8 +26,10 @@ namespace ScanFolderToFile
         {
             try
             {
-                if (!(Directory.Exists(PathFolder)))
-                    Directory.CreateDirectory(PathFolder);
+                if (Directory.Exists(PathFolder)) return;
+                Directory.CreateDirectory(PathFolder);
+                _logger.Info($"Non esiste la cartella di destinazione, creata cartella {PathFolder}");
+
             }
             catch (Exception) { }
         }
