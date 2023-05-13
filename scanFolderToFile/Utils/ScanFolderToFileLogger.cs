@@ -18,5 +18,17 @@ namespace ScanFolderToFile.Utils
             Logger.Error(ex, $"Error in {method} - {ex.Message}");
             MessageBox.Show($@" {message} - {ex.Message}");
         }
+
+        public static void Fatal(Exception ex, string method, string message)
+        {
+            Logger.Fatal(ex, $"Fatal in {method} - {ex.Message}");
+            MessageBox.Show($@" {message} - {ex.Message}");
+        }
+
+        public static void Warn(Exception ex, string method, string message)
+        {
+            Logger.Warn(ex, $"Warn in {method} - {ex.Message}");
+            MessageBox.Show($@" {message} - {ex.Message}");
+        }
     }
 }

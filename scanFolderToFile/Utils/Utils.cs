@@ -29,80 +29,100 @@ namespace ScanFolderToFile.Utils
 
         public static void CreateFilePdf(bool onlyExtension, List<string> content)
         {
-            var doc = new PdfDocument();
-
-            //Set the margins
-            var margins = new PdfMargins(30);
-
-            //Add a page
-            var page = doc.Pages.Add(PdfPageSize.A4, margins);
-
-            //Create a brush
-            var brush = PdfBrushes.Black;
-
-            //Create two fonts
-            var titleFont = new PdfFont(PdfFontFamily.TimesRoman, 12f, PdfFontStyle.Bold);
-            var listFont = new PdfFont(PdfFontFamily.TimesRoman, 12f, PdfFontStyle.Regular);
-
-            //Specify the initial coordinate
-            float x = 0;
-            float y = 0;
-
-            //Draw title
-            var title = "CONTENT";
-            page.Canvas.DrawString(title, titleFont, brush, x, y);
-            y = y + (float)titleFont.MeasureString(title).Height;
-            y = y + 5;
-
-            var list = new PdfSortedList(string.Join(Environment.NewLine, content))
+            try
             {
-                //Set the font, indent, text indent, brush of the list
-                Font = listFont,
-                Indent = 2,
-                TextIndent = 4,
-                Brush = brush
-            };
+                //Create the pdf document
+                var doc = new PdfDocument();
 
-            //Draw list on the page at the specified location
-            list.Draw(page, 0, y);
+                //Set the margins
+                var margins = new PdfMargins(30);
 
-            //Save to file
-            doc.SaveToFile(Path.Combine(PathFolder, PdfFileFinal));
+                //Add a page
+                var page = doc.Pages.Add(PdfPageSize.A4, margins);
+
+                //Create a brush
+                var brush = PdfBrushes.Black;
+
+                //Create two fonts
+                var titleFont = new PdfFont(PdfFontFamily.TimesRoman, 12f, PdfFontStyle.Bold);
+                var listFont = new PdfFont(PdfFontFamily.TimesRoman, 12f, PdfFontStyle.Regular);
+
+                //Specify the initial coordinate
+                float x = 0;
+                float y = 0;
+
+                //Draw title
+                var title = "CONTENT";
+                page.Canvas.DrawString(title, titleFont, brush, x, y);
+                y = y + titleFont.MeasureString(title).Height;
+                y = y + 5;
+
+                var list = new PdfSortedList(string.Join(Environment.NewLine, content))
+                {
+                    //Set the font, indent, text indent, brush of the list
+                    Font = listFont,
+                    Indent = 2,
+                    TextIndent = 4,
+                    Brush = brush
+                };
+
+                //Draw list on the page at the specified location
+                list.Draw(page, 0, y);
+
+                //Save to file
+                doc.SaveToFile(Path.Combine(PathFolder, PdfFileFinal));
+
+                ScanFolderToFileLogger.Info(nameof(CreateFilePdf),
+                    $"Creato file {PdfFileFinal} in {PathFolder}");
+            }
+            catch (Exception ex)
+            {
+                ScanFolderToFileLogger.Error(ex, nameof(CreateFilePdf), "Errore in creazione del file PDF.");
+            }
         }
 
         public static void CreateFileTxt(bool onlyExtension, List<string> content)
         {
-            var file = new StreamWriter(Path.Combine(PathFolder, TxtFileFinal));
-
-            var listElement = new List<string>();
-
-            if (content.Any())
+            try
             {
-                foreach (var sFile in content)
+                var file = new StreamWriter(Path.Combine(PathFolder, TxtFileFinal));
+
+                var listElement = new List<string>();
+
+                if (content.Any())
                 {
-                    if (onlyExtension)
+                    foreach (var sFile in content)
                     {
-                        var extension = Path.GetExtension(sFile).Trim();
-                        if (!listElement.Contains(extension))
-                            listElement.Add(extension);
+                        if (onlyExtension)
+                        {
+                            var extension = Path.GetExtension(sFile).Trim();
+                            if (!listElement.Contains(extension))
+                                listElement.Add(extension);
+                        }
+                        else
+                            file.WriteLine(Path.GetFileName(sFile));
                     }
-                    else
-                        file.WriteLine(Path.GetFileName(sFile));
+
+                    if (listElement.Any())
+                    {
+                        foreach (var extension in listElement)
+                        {
+                            file.WriteLine(extension);
+                        }
+                    }
                 }
 
-                if (listElement.Any())
-                {
-                    foreach (var extension in listElement)
-                    {
-                        file.WriteLine(extension);
-                    }
-                }
+                file.Close();
+
+                ScanFolderToFileLogger.Info(nameof(CreateFileTxt),
+                    $"Creato file {TxtFileFinal} in {PathFolder}");
             }
-
-            file.Close();
+            catch (Exception ex)
+            {
+                ScanFolderToFileLogger.Error(ex, nameof(CreateFileTxt), "Errore in creazione del file TXT.");
+            }
         }
 
-        //CARICA STAMPANTE DI DEFAULT
         public static string GetDefaultPrinterName()
         {
             try
@@ -115,14 +135,20 @@ namespace ScanFolderToFile.Utils
                         PrinterName = pkInstalledPrinters
                     };
                     if (settings.IsDefaultPrinter)
+                    {
+                        ScanFolderToFileLogger.Info(nameof(GetDefaultPrinterName),
+                            $"Recuperato stampante di default {pkInstalledPrinters}");
                         return pkInstalledPrinters;
+                    }
+
                 }
-                return string.Empty;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return string.Empty;
+                ScanFolderToFileLogger.Error(ex, nameof(GetDefaultPrinterName),
+                    "Errore in recupero stampante di default.");
             }
+            return string.Empty;
         }
     }
 }
