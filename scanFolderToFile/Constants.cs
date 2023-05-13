@@ -2,12 +2,13 @@
 {
     public class Constants
     {
-        public const string PATH_FOLDER = @"C:\CONTENT SELECTED";
-        public const string ALERT_MESSAGE = "Verra' creata la cartella 'CONTENT SELECTED' in C: con il file 'CONTENUTO.TXT'";
-        public const string ALERT_TITLE = "ATTENZIONE";
-        public const string ELABORATION_CONFIRM = "Elaborazione completata senza errori";
-        public const string ELABORATION_TITLE = "ELABORAZIONE";
-        public const string FILE_FINAL = "CONTENUTO.txt";
-        public const string DESKTOP_INI = "desktop.ini";
+        public const string PathFolder = @"C:\CONTENT SELECTED";
+        public const string AlertMessage = "Verra' creata la cartella 'CONTENT SELECTED' in C: con il file 'CONTENUTO'";
+        public const string AlertTitle = "ATTENZIONE";
+        public const string ElaborationConfirm = "Elaborazione completata senza errori";
+        public const string ElaborationTitle = "ELABORAZIONE";
+        public const string DesktopIni = "desktop.ini";
+        public const string TxtFileFinal = "CONTENUTO.txt";
+        public const string PdfFileFinal = "CONTENUTO.pdf";
     }
 }
