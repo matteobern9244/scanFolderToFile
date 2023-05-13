@@ -31,6 +31,9 @@ namespace ScanFolderToFile.Utils
         {
             try
             {
+                //TODO: gestire onlyExtension
+
+
                 //Create the pdf document
                 var doc = new PdfDocument();
 
@@ -134,12 +137,10 @@ namespace ScanFolderToFile.Utils
                     {
                         PrinterName = pkInstalledPrinters
                     };
-                    if (settings.IsDefaultPrinter)
-                    {
-                        ScanFolderToFileLogger.Info(nameof(GetDefaultPrinterName),
-                            $"Recuperato stampante di default {pkInstalledPrinters}");
-                        return pkInstalledPrinters;
-                    }
+                    if (!settings.IsDefaultPrinter) continue;
+                    ScanFolderToFileLogger.Info(nameof(GetDefaultPrinterName),
+                        $"Recuperato stampante di default {pkInstalledPrinters}");
+                    return pkInstalledPrinters;
 
                 }
             }
