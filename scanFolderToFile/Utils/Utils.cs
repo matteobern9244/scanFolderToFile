@@ -117,8 +117,6 @@ namespace ScanFolderToFile.Utils
                     ScanFolderToFileLogger.Info(nameof(CreateFileTxt),
                         $"Creato file {TxtFileFinal} in {PathFolder}");
                 }
-
-                //file.Close();
             }
             catch (Exception ex)
             {
