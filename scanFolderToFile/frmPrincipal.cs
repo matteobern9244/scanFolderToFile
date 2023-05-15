@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ScanFolderToFile.Utils;
+using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -16,6 +17,34 @@ namespace ScanFolderToFile
 
         //PULSANTE SFOGLIA
         private void btnSfoglia_Click(object sender, EventArgs e)
+        {
+            Sfoglia();
+        }
+
+        //PULSANTE APERTURA FILE
+        private void btnOpenFile_Click(object sender, EventArgs e)
+        {
+            OpenFile();
+        }
+
+        //PULSANTE APERTURA CARTELLA
+        private void btnOpenFolder_Click(object sender, EventArgs e)
+        {
+            OpenFolder();
+        }
+
+        //PULSANTE STAMPA FILE
+        private void btnStampaFile_Click(object sender, EventArgs e)
+        {
+            PrintFile();
+        }
+
+        private void cbOnlyExtensions_CheckedChanged(object sender, EventArgs e)
+        {
+            btnSfoglia.PerformClick();
+        }
+
+        private void Sfoglia()
         {
             try
             {
@@ -41,32 +70,10 @@ namespace ScanFolderToFile
 
                 MessageBox.Show(ElaborationConfirm, ElaborationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                ScanFolderToFileLogger.Error(ex, nameof(Sfoglia), "Errore in sfoglia contenuto.");
             }
-        }
-
-        //PULSANTE APERTURA FILE
-        private void btnOpenFile_Click(object sender, EventArgs e)
-        {
-            OpenFile();
-        }
-
-        //PULSANTE APERTURA CARTELLA
-        private void btnOpenFolder_Click(object sender, EventArgs e)
-        {
-            OpenFolder();
-        }
-
-        //PULSANTE STAMPA FILE
-        private void btnStampaFile_Click(object sender, EventArgs e)
-        {
-            PrintFile();
-        }
-
-        private void cbOnlyExtensions_CheckedChanged(object sender, EventArgs e)
-        {
-            btnSfoglia.PerformClick();
         }
     }
 }
