@@ -33,7 +33,7 @@ namespace ScanFolderToFile.Utils
         {
             try
             {
-                //TODO: gestire onlyExtension
+                //TODO: manage onlyExtension
 
 
                 //Create the pdf document
