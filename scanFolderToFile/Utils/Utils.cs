@@ -88,37 +88,37 @@ namespace ScanFolderToFile.Utils
         {
             try
             {
-                var file = new StreamWriter(Path.Combine(PathFolder, TxtFileFinal));
-
-                var listElement = new List<string>();
-
-                if (content.Any())
+                using (var file = new StreamWriter(Path.Combine(PathFolder, TxtFileFinal)))
                 {
-                    foreach (var sFile in content)
-                    {
-                        if (onlyExtension)
-                        {
-                            var extension = Path.GetExtension(sFile).Trim();
-                            if (!listElement.Contains(extension))
-                                listElement.Add(extension);
-                        }
-                        else
-                            file.WriteLine(Path.GetFileName(sFile));
-                    }
+                    var listElement = new List<string>();
 
-                    if (listElement.Any())
+                    if (content.Any())
                     {
-                        foreach (var extension in listElement)
+                        foreach (var sFile in content)
                         {
-                            file.WriteLine(extension);
+                            if (onlyExtension)
+                            {
+                                var extension = Path.GetExtension(sFile).Trim();
+                                if (!listElement.Contains(extension))
+                                    listElement.Add(extension);
+                            }
+                            else
+                                file.WriteLine(Path.GetFileName(sFile));
+                        }
+
+                        if (listElement.Any())
+                        {
+                            foreach (var extension in listElement)
+                            {
+                                file.WriteLine(extension);
+                            }
                         }
                     }
+                    ScanFolderToFileLogger.Info(nameof(CreateFileTxt),
+                        $"Creato file {TxtFileFinal} in {PathFolder}");
                 }
 
-                file.Close();
-
-                ScanFolderToFileLogger.Info(nameof(CreateFileTxt),
-                    $"Creato file {TxtFileFinal} in {PathFolder}");
+                //file.Close();
             }
             catch (Exception ex)
             {
