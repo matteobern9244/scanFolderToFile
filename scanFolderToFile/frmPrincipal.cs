@@ -18,7 +18,7 @@ namespace ScanFolderToFile
         //PULSANTE SFOGLIA
         private void btnSfoglia_Click(object sender, EventArgs e)
         {
-            Sfoglia();
+            Browse();
         }
 
         //PULSANTE APERTURA FILE
@@ -44,7 +44,7 @@ namespace ScanFolderToFile
             btnSfoglia.PerformClick();
         }
 
-        private void Sfoglia()
+        private void Browse()
         {
             try
             {
@@ -72,7 +72,7 @@ namespace ScanFolderToFile
             }
             catch (Exception ex)
             {
-                ScanFolderToFileLogger.Error(ex, nameof(Sfoglia), "Errore in sfoglia contenuto.");
+                ScanFolderToFileLogger.Error(ex, nameof(Browse), "Errore in sfoglia contenuto.");
             }
         }
     }
