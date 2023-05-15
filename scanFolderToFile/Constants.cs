@@ -16,6 +16,9 @@
         public const string ElaborationTitle = "ELABORAZIONE";
         public const string DesktopIni = "desktop.ini";
         public const string Content = "CONTENUTO";
+        public const string Error = "Error";
+        public const string Fatal = "Fatal";
+        public const string Warn = "Warn";
         #endregion
     }
 }
