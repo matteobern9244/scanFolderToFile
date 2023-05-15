@@ -48,7 +48,7 @@
             // 
             this.txtSelectedPath.Enabled = false;
             this.txtSelectedPath.Location = new System.Drawing.Point(8, 23);
-            this.txtSelectedPath.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtSelectedPath.Margin = new System.Windows.Forms.Padding(4);
             this.txtSelectedPath.Name = "txtSelectedPath";
             this.txtSelectedPath.Size = new System.Drawing.Size(317, 34);
             this.txtSelectedPath.TabIndex = 1;
@@ -57,7 +57,7 @@
             // 
             this.btnSfoglia.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSfoglia.Location = new System.Drawing.Point(335, 23);
-            this.btnSfoglia.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSfoglia.Margin = new System.Windows.Forms.Padding(4);
             this.btnSfoglia.Name = "btnSfoglia";
             this.btnSfoglia.Size = new System.Drawing.Size(100, 28);
             this.btnSfoglia.TabIndex = 2;
@@ -72,9 +72,9 @@
             this.groupBox1.Controls.Add(this.btnSfoglia);
             this.groupBox1.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(16, 15);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(449, 63);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
@@ -85,7 +85,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Blue;
-            this.label3.Location = new System.Drawing.Point(20, 220);
+            this.label3.Location = new System.Drawing.Point(13, 284);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(149, 17);
@@ -99,8 +99,8 @@
             this.btnOpenFolder.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnOpenFolder.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOpenFolder.ForeColor = System.Drawing.Color.Red;
-            this.btnOpenFolder.Location = new System.Drawing.Point(16, 146);
-            this.btnOpenFolder.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnOpenFolder.Location = new System.Drawing.Point(13, 215);
+            this.btnOpenFolder.Margin = new System.Windows.Forms.Padding(4);
             this.btnOpenFolder.Name = "btnOpenFolder";
             this.btnOpenFolder.Size = new System.Drawing.Size(232, 54);
             this.btnOpenFolder.TabIndex = 8;
@@ -118,7 +118,7 @@
             this.btnStampaFile.Font = new System.Drawing.Font("Comic Sans MS", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStampaFile.ForeColor = System.Drawing.Color.Red;
             this.btnStampaFile.Location = new System.Drawing.Point(473, 85);
-            this.btnStampaFile.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnStampaFile.Margin = new System.Windows.Forms.Padding(4);
             this.btnStampaFile.Name = "btnStampaFile";
             this.btnStampaFile.Size = new System.Drawing.Size(281, 73);
             this.btnStampaFile.TabIndex = 7;
@@ -136,7 +136,7 @@
             this.btnOpenFile.Font = new System.Drawing.Font("Comic Sans MS", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOpenFile.ForeColor = System.Drawing.Color.Red;
             this.btnOpenFile.Location = new System.Drawing.Point(473, 6);
-            this.btnOpenFile.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnOpenFile.Margin = new System.Windows.Forms.Padding(4);
             this.btnOpenFile.Name = "btnOpenFile";
             this.btnOpenFile.Size = new System.Drawing.Size(281, 71);
             this.btnOpenFile.TabIndex = 6;
@@ -150,8 +150,8 @@
             // 
             this.cbOnlyExtensions.AutoSize = true;
             this.cbOnlyExtensions.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbOnlyExtensions.Location = new System.Drawing.Point(16, 96);
-            this.cbOnlyExtensions.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbOnlyExtensions.Location = new System.Drawing.Point(13, 147);
+            this.cbOnlyExtensions.Margin = new System.Windows.Forms.Padding(4);
             this.cbOnlyExtensions.Name = "cbOnlyExtensions";
             this.cbOnlyExtensions.Size = new System.Drawing.Size(221, 30);
             this.cbOnlyExtensions.TabIndex = 10;
@@ -163,7 +163,7 @@
             // 
             this.cbPdf.AutoSize = true;
             this.cbPdf.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbPdf.Location = new System.Drawing.Point(244, 96);
+            this.cbPdf.Location = new System.Drawing.Point(13, 109);
             this.cbPdf.Margin = new System.Windows.Forms.Padding(4);
             this.cbPdf.Name = "cbPdf";
             this.cbPdf.Size = new System.Drawing.Size(70, 30);
@@ -175,7 +175,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(763, 250);
+            this.ClientSize = new System.Drawing.Size(765, 314);
             this.Controls.Add(this.cbPdf);
             this.Controls.Add(this.cbOnlyExtensions);
             this.Controls.Add(this.label3);
@@ -185,7 +185,7 @@
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "FrmPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
