@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Drawing.Printing;
+using System.Diagnostics;
+using System.Windows.Forms;
 using static ScanFolderToFile.Constants;
 
 namespace ScanFolderToFile.Utils
@@ -148,6 +150,90 @@ namespace ScanFolderToFile.Utils
                     "Errore in recupero stampante di default.");
             }
             return string.Empty;
+        }
+
+        public static void OpenFile()
+        {
+            try
+            {
+                if (File.Exists(Path.Combine(PathFolder, TxtFileFinal)))
+                {
+                    var psi = new ProcessStartInfo(Path.Combine(PathFolder, TxtFileFinal))
+                    {
+                        UseShellExecute = true
+                    };
+                    Process.Start(psi);
+                }
+                else
+                {
+                    MessageBox.Show(@"File non ancora creato.", @"FILE NON PRESENTE", MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                ScanFolderToFileLogger.Error(ex, nameof(OpenFile), "Errore in apertura file.");
+            }
+        }
+
+        public static void OpenFolder()
+        {
+            try
+            {
+                if (Directory.Exists(PathFolder))
+                {
+                    var psi = new ProcessStartInfo(PathFolder)
+                    {
+                        UseShellExecute = true
+                    };
+                    Process.Start(psi);
+                }
+                else
+                {
+                    MessageBox.Show(@"Cartella non ancora creata.", @"CARTELLA NON CREATA", MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                ScanFolderToFileLogger.Error(ex, nameof(OpenFolder), "Errore in apertura cartella.");
+            }
+        }
+
+        public static void PrintFile()
+        {
+            try
+            {
+                if (File.Exists(Path.Combine(PathFolder, TxtFileFinal)))
+                {
+                    var psi = new ProcessStartInfo(Path.Combine(PathFolder, TxtFileFinal))
+                    {
+                        Verb = "print"
+                    };
+                    try
+                    {
+                        psi.Arguments = GetDefaultPrinterName();
+                        if (psi.Arguments == "") return;
+                        var print = new Process
+                        {
+                            StartInfo = psi
+                        };
+                        print.Start();
+                    }
+                    catch (Exception ex)
+                    {
+                        if (ex.Message != null)
+                            MessageBox.Show($@"Si sono verificati problemi per la stampa : {ex.Message}");
+                    }
+                }
+                else
+                    MessageBox.Show(@"File non ancora creato.", @"FILE NON PRESENTE", MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                ScanFolderToFileLogger.Error(ex, nameof(PrintFile), "Errore in stampa file.");
+            }
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -42,83 +41,27 @@ namespace ScanFolderToFile
 
                 MessageBox.Show(ElaborationConfirm, ElaborationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+            }
         }
 
         //PULSANTE APERTURA FILE
         private void btnOpenFile_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (File.Exists(Path.Combine(PathFolder, TxtFileFinal)))
-                {
-                    var psi = new ProcessStartInfo(Path.Combine(PathFolder, TxtFileFinal))
-                    {
-                        UseShellExecute = true
-                    };
-                    Process.Start(psi);
-                }
-                else
-                {
-                    MessageBox.Show(@"File non ancora creato.", @"FILE NON PRESENTE", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception) { }
+            OpenFile();
         }
 
         //PULSANTE APERTURA CARTELLA
         private void btnOpenFolder_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (Directory.Exists(PathFolder))
-                {
-                    var psi = new ProcessStartInfo(PathFolder)
-                    {
-                        UseShellExecute = true
-                    };
-                    Process.Start(psi);
-                }
-                else
-                {
-                    MessageBox.Show(@"Cartella non ancora creata.", @"CARTELLA NON CREATA", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception) { }
+            OpenFolder();
         }
 
         //PULSANTE STAMPA FILE
         private void btnStampaFile_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (File.Exists(Path.Combine(PathFolder, TxtFileFinal)))
-                {
-                    var psi = new ProcessStartInfo(Path.Combine(PathFolder, TxtFileFinal))
-                    {
-                        Verb = "print"
-                    };
-                    try
-                    {
-                        psi.Arguments = GetDefaultPrinterName();
-                        if (psi.Arguments == "") return;
-                        var print = new Process
-                        {
-                            StartInfo = psi
-                        };
-                        print.Start();
-                    }
-                    catch (Exception ex)
-                    {
-                        if (ex.Message != null)
-                            MessageBox.Show($@"Si sono verificati problemi per la stampa : {ex.Message}");
-                    }
-                }
-                else
-                    MessageBox.Show(@"File non ancora creato.", @"FILE NON PRESENTE", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            }
-            catch (Exception) { }
+            PrintFile();
         }
 
         private void cbOnlyExtensions_CheckedChanged(object sender, EventArgs e)
