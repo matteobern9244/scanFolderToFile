@@ -39,7 +39,7 @@
     <StartupObject>ScanFolderToFile.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Deleket-Sleek-Xp-Basic-Files.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Deleket-Sleek-Xp-Basic-Files.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -127,7 +127,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Deleket-Sleek-Xp-Basic-Files.ico" />
+    <Content Include="Resources\Deleket-Sleek-Xp-Basic-Files.ico" />
     <None Include="Resources\file.png" />
     <None Include="Resources\print.png" />
     <None Include="Resources\open.png" />
