@@ -104,6 +104,7 @@
     <Content Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="changelog.md" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
