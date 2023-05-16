@@ -33,56 +33,64 @@
             this.txtSelectedPath = new System.Windows.Forms.TextBox();
             this.btnSfoglia = new System.Windows.Forms.Button();
             this.fbd = new System.Windows.Forms.FolderBrowserDialog();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.gbSelectFolder = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
             this.btnOpenFolder = new System.Windows.Forms.Button();
             this.btnStampaFile = new System.Windows.Forms.Button();
             this.btnOpenFile = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.cbOnlyExtensions = new System.Windows.Forms.CheckBox();
-            this.groupBox1.SuspendLayout();
+            this.cbPdf = new System.Windows.Forms.CheckBox();
+            this.gbOptions = new System.Windows.Forms.GroupBox();
+            this.gbSelectFolder.SuspendLayout();
+            this.gbOptions.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtSelectedPath
             // 
             this.txtSelectedPath.Enabled = false;
-            this.txtSelectedPath.Location = new System.Drawing.Point(6, 19);
+            this.txtSelectedPath.Location = new System.Drawing.Point(8, 23);
+            this.txtSelectedPath.Margin = new System.Windows.Forms.Padding(4);
             this.txtSelectedPath.Name = "txtSelectedPath";
-            this.txtSelectedPath.Size = new System.Drawing.Size(239, 28);
+            this.txtSelectedPath.Size = new System.Drawing.Size(317, 34);
             this.txtSelectedPath.TabIndex = 1;
             // 
             // btnSfoglia
             // 
             this.btnSfoglia.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSfoglia.Location = new System.Drawing.Point(251, 19);
+            this.btnSfoglia.Location = new System.Drawing.Point(335, 23);
+            this.btnSfoglia.Margin = new System.Windows.Forms.Padding(4);
             this.btnSfoglia.Name = "btnSfoglia";
-            this.btnSfoglia.Size = new System.Drawing.Size(75, 23);
+            this.btnSfoglia.Size = new System.Drawing.Size(100, 28);
             this.btnSfoglia.TabIndex = 2;
             this.btnSfoglia.Text = "SFOGLIA";
             this.toolTip1.SetToolTip(this.btnSfoglia, "seleziona la cartella");
             this.btnSfoglia.UseVisualStyleBackColor = true;
             this.btnSfoglia.Click += new System.EventHandler(this.btnSfoglia_Click);
             // 
-            // groupBox1
+            // gbSelectFolder
             // 
-            this.groupBox1.Controls.Add(this.txtSelectedPath);
-            this.groupBox1.Controls.Add(this.btnSfoglia);
-            this.groupBox1.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(337, 51);
-            this.groupBox1.TabIndex = 4;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Seleziona cartella :";
+            this.gbSelectFolder.Controls.Add(this.txtSelectedPath);
+            this.gbSelectFolder.Controls.Add(this.btnSfoglia);
+            this.gbSelectFolder.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbSelectFolder.Location = new System.Drawing.Point(16, 15);
+            this.gbSelectFolder.Margin = new System.Windows.Forms.Padding(4);
+            this.gbSelectFolder.Name = "gbSelectFolder";
+            this.gbSelectFolder.Padding = new System.Windows.Forms.Padding(4);
+            this.gbSelectFolder.Size = new System.Drawing.Size(449, 63);
+            this.gbSelectFolder.TabIndex = 4;
+            this.gbSelectFolder.TabStop = false;
+            this.gbSelectFolder.Text = "Seleziona cartella :";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Blue;
-            this.label3.Location = new System.Drawing.Point(15, 179);
+            this.label3.Location = new System.Drawing.Point(603, 288);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(113, 13);
+            this.label3.Size = new System.Drawing.Size(149, 17);
             this.label3.TabIndex = 9;
             this.label3.Text = "by Matteo Bernardini©";
             // 
@@ -93,9 +101,10 @@
             this.btnOpenFolder.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnOpenFolder.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOpenFolder.ForeColor = System.Drawing.Color.Red;
-            this.btnOpenFolder.Location = new System.Drawing.Point(12, 119);
+            this.btnOpenFolder.Location = new System.Drawing.Point(13, 215);
+            this.btnOpenFolder.Margin = new System.Windows.Forms.Padding(4);
             this.btnOpenFolder.Name = "btnOpenFolder";
-            this.btnOpenFolder.Size = new System.Drawing.Size(174, 44);
+            this.btnOpenFolder.Size = new System.Drawing.Size(214, 54);
             this.btnOpenFolder.TabIndex = 8;
             this.btnOpenFolder.Text = "APRI CARTELLA";
             this.btnOpenFolder.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -110,9 +119,10 @@
             this.btnStampaFile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnStampaFile.Font = new System.Drawing.Font("Comic Sans MS", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStampaFile.ForeColor = System.Drawing.Color.Red;
-            this.btnStampaFile.Location = new System.Drawing.Point(355, 69);
+            this.btnStampaFile.Location = new System.Drawing.Point(491, 85);
+            this.btnStampaFile.Margin = new System.Windows.Forms.Padding(4);
             this.btnStampaFile.Name = "btnStampaFile";
-            this.btnStampaFile.Size = new System.Drawing.Size(211, 59);
+            this.btnStampaFile.Size = new System.Drawing.Size(263, 73);
             this.btnStampaFile.TabIndex = 7;
             this.btnStampaFile.Text = "STAMPA FILE";
             this.btnStampaFile.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -127,9 +137,10 @@
             this.btnOpenFile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnOpenFile.Font = new System.Drawing.Font("Comic Sans MS", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOpenFile.ForeColor = System.Drawing.Color.Red;
-            this.btnOpenFile.Location = new System.Drawing.Point(355, 5);
+            this.btnOpenFile.Location = new System.Drawing.Point(491, 6);
+            this.btnOpenFile.Margin = new System.Windows.Forms.Padding(4);
             this.btnOpenFile.Name = "btnOpenFile";
-            this.btnOpenFile.Size = new System.Drawing.Size(211, 58);
+            this.btnOpenFile.Size = new System.Drawing.Size(263, 71);
             this.btnOpenFile.TabIndex = 6;
             this.btnOpenFile.Text = "APRI FILE";
             this.btnOpenFile.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -141,33 +152,61 @@
             // 
             this.cbOnlyExtensions.AutoSize = true;
             this.cbOnlyExtensions.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbOnlyExtensions.Location = new System.Drawing.Point(12, 78);
+            this.cbOnlyExtensions.Location = new System.Drawing.Point(7, 68);
+            this.cbOnlyExtensions.Margin = new System.Windows.Forms.Padding(4);
             this.cbOnlyExtensions.Name = "cbOnlyExtensions";
-            this.cbOnlyExtensions.Size = new System.Drawing.Size(174, 24);
+            this.cbOnlyExtensions.Size = new System.Drawing.Size(164, 30);
             this.cbOnlyExtensions.TabIndex = 10;
-            this.cbOnlyExtensions.Text = "SOLO ESTENSIONI";
+            this.cbOnlyExtensions.Text = "Solo Estensioni";
             this.cbOnlyExtensions.UseVisualStyleBackColor = true;
             this.cbOnlyExtensions.CheckedChanged += new System.EventHandler(this.cbOnlyExtensions_CheckedChanged);
             // 
-            // frmPrincipal
+            // cbPdf
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.cbPdf.AutoSize = true;
+            this.cbPdf.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbPdf.Location = new System.Drawing.Point(7, 30);
+            this.cbPdf.Margin = new System.Windows.Forms.Padding(4);
+            this.cbPdf.Name = "cbPdf";
+            this.cbPdf.Size = new System.Drawing.Size(107, 30);
+            this.cbPdf.TabIndex = 11;
+            this.cbPdf.Text = "File PDF";
+            this.cbPdf.UseVisualStyleBackColor = true;
+            // 
+            // gbOptions
+            // 
+            this.gbOptions.Controls.Add(this.cbPdf);
+            this.gbOptions.Controls.Add(this.cbOnlyExtensions);
+            this.gbOptions.Font = new System.Drawing.Font("Comic Sans MS", 10F);
+            this.gbOptions.Location = new System.Drawing.Point(16, 90);
+            this.gbOptions.Name = "gbOptions";
+            this.gbOptions.Size = new System.Drawing.Size(192, 110);
+            this.gbOptions.TabIndex = 12;
+            this.gbOptions.TabStop = false;
+            this.gbOptions.Text = "Opzioni";
+            // 
+            // FrmPrincipal
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(572, 203);
-            this.Controls.Add(this.cbOnlyExtensions);
+            this.ClientSize = new System.Drawing.Size(765, 314);
+            this.Controls.Add(this.gbOptions);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnOpenFolder);
             this.Controls.Add(this.btnStampaFile);
             this.Controls.Add(this.btnOpenFile);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.gbSelectFolder);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "FrmPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Scan Folder To File";
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.gbSelectFolder.ResumeLayout(false);
+            this.gbSelectFolder.PerformLayout();
+            this.gbOptions.ResumeLayout(false);
+            this.gbOptions.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -178,13 +217,15 @@
         private System.Windows.Forms.TextBox txtSelectedPath;
         private System.Windows.Forms.Button btnSfoglia;
         private System.Windows.Forms.FolderBrowserDialog fbd;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox gbSelectFolder;
         private System.Windows.Forms.Button btnOpenFile;
         private System.Windows.Forms.Button btnStampaFile;
         private System.Windows.Forms.Button btnOpenFolder;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.CheckBox cbOnlyExtensions;
+        private System.Windows.Forms.CheckBox cbPdf;
+        private System.Windows.Forms.GroupBox gbOptions;
     }
 }
 
