@@ -29,13 +29,10 @@ namespace ScanFolderToFile.Utils
             }
         }
 
-        public static void CreateFilePdf(bool onlyExtension, List<string> content)
+        public static void CreateFilePdf(List<string> content)
         {
             try
             {
-                //TODO: manage onlyExtension
-
-
                 //Create the pdf document
                 var doc = new PdfDocument();
 
@@ -62,7 +59,7 @@ namespace ScanFolderToFile.Utils
                 y = y + titleFont.MeasureString(title).Height;
                 y = y + 5;
 
-                var list = new PdfSortedList(string.Join(Environment.NewLine, content))
+                var list = new PdfSortedList(string.Join(Environment.NewLine, content.Select(Path.GetFileName).ToList()))
                 {
                     //Set the font, indent, text indent, brush of the list
                     Font = listFont,
@@ -86,36 +83,46 @@ namespace ScanFolderToFile.Utils
             }
         }
 
-        public static void CreateFileTxt(bool onlyExtension, List<string> content)
+        public static List<string> GetContentFromFolderSelected(string pathFolderSelected, bool onlyExtension)
+        {
+            var content = new List<string>();
+            try
+            {
+                content = Directory.GetFiles(pathFolderSelected, "*.*", SearchOption.AllDirectories)
+                    .Where(files => !files.ToLower().Contains(DesktopIni))
+                    .OrderBy(i => i)
+                    .ToList();
+
+                if (onlyExtension)
+                {
+                    var contentOnlyExtension = new List<string>();
+                    foreach (var extension in content
+                                 .Select(sFile => Path.GetExtension(sFile).Trim())
+                                 .Where(extension => !contentOnlyExtension.Contains(extension)))
+                    {
+                        contentOnlyExtension.Add(extension);
+                    }
+
+                    return contentOnlyExtension;
+                }
+            }
+            catch (Exception ex)
+            {
+                ScanFolderToFileLogger.Error(ex, nameof(GetContentFromFolderSelected),
+                    "Errore in estrapolazione contenuto cartella.");
+            }
+
+            return content;
+        }
+
+        public static void CreateFileTxt(List<string> content)
         {
             try
             {
                 using (var file = new StreamWriter(Path.Combine(PathFolder, TxtFileFinal)))
                 {
-                    var listElement = new List<string>();
-
-                    if (content.Any())
-                    {
-                        foreach (var sFile in content)
-                        {
-                            if (onlyExtension)
-                            {
-                                var extension = Path.GetExtension(sFile).Trim();
-                                if (!listElement.Contains(extension))
-                                    listElement.Add(extension);
-                            }
-                            else
-                                file.WriteLine(Path.GetFileName(sFile));
-                        }
-
-                        if (listElement.Any())
-                        {
-                            foreach (var extension in listElement)
-                            {
-                                file.WriteLine(extension);
-                            }
-                        }
-                    }
+                    if (!content.Any()) return;
+                    content.ForEach(x => file.WriteLine(Path.GetFileName(x)));
                     ScanFolderToFileLogger.Info(nameof(CreateFileTxt),
                         $"Creato file {TxtFileFinal} in {PathFolder}");
                 }
@@ -152,13 +159,14 @@ namespace ScanFolderToFile.Utils
             return string.Empty;
         }
 
-        public static void OpenFile()
+        public static void OpenFile(bool pdf)
         {
             try
             {
-                if (File.Exists(Path.Combine(PathFolder, TxtFileFinal)))
+                var file = pdf ? PdfFileFinal : TxtFileFinal;
+                if (File.Exists(Path.Combine(PathFolder, file)))
                 {
-                    var psi = new ProcessStartInfo(Path.Combine(PathFolder, TxtFileFinal))
+                    var psi = new ProcessStartInfo(Path.Combine(PathFolder, file))
                     {
                         UseShellExecute = true
                     };
@@ -200,13 +208,14 @@ namespace ScanFolderToFile.Utils
             }
         }
 
-        public static void PrintFile()
+        public static void PrintFile(bool pdf)
         {
             try
             {
-                if (File.Exists(Path.Combine(PathFolder, TxtFileFinal)))
+                var file = pdf ? PdfFileFinal : TxtFileFinal;
+                if (File.Exists(Path.Combine(PathFolder, file)))
                 {
-                    var psi = new ProcessStartInfo(Path.Combine(PathFolder, TxtFileFinal))
+                    var psi = new ProcessStartInfo(Path.Combine(PathFolder, file))
                     {
                         Verb = "print"
                     };

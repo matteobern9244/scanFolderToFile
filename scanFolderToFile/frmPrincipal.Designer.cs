@@ -122,7 +122,7 @@
             this.btnStampaFile.Location = new System.Drawing.Point(491, 85);
             this.btnStampaFile.Margin = new System.Windows.Forms.Padding(4);
             this.btnStampaFile.Name = "btnStampaFile";
-            this.btnStampaFile.Size = new System.Drawing.Size(263, 73);
+            this.btnStampaFile.Size = new System.Drawing.Size(287, 73);
             this.btnStampaFile.TabIndex = 7;
             this.btnStampaFile.Text = "STAMPA FILE";
             this.btnStampaFile.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -140,7 +140,7 @@
             this.btnOpenFile.Location = new System.Drawing.Point(491, 6);
             this.btnOpenFile.Margin = new System.Windows.Forms.Padding(4);
             this.btnOpenFile.Name = "btnOpenFile";
-            this.btnOpenFile.Size = new System.Drawing.Size(263, 71);
+            this.btnOpenFile.Size = new System.Drawing.Size(287, 71);
             this.btnOpenFile.TabIndex = 6;
             this.btnOpenFile.Text = "APRI FILE";
             this.btnOpenFile.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -189,7 +189,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(765, 314);
+            this.ClientSize = new System.Drawing.Size(791, 314);
             this.Controls.Add(this.gbOptions);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnOpenFolder);

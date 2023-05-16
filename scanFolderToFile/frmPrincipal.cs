@@ -1,7 +1,5 @@
 ﻿using ScanFolderToFile.Utils;
 using System;
-using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 using static ScanFolderToFile.Constants;
 using static ScanFolderToFile.Utils.Utils;
@@ -24,7 +22,7 @@ namespace ScanFolderToFile
         //PULSANTE APERTURA FILE
         private void btnOpenFile_Click(object sender, EventArgs e)
         {
-            OpenFile();
+            OpenFile(cbPdf.Checked);
         }
 
         //PULSANTE APERTURA CARTELLA
@@ -36,7 +34,7 @@ namespace ScanFolderToFile
         //PULSANTE STAMPA FILE
         private void btnStampaFile_Click(object sender, EventArgs e)
         {
-            PrintFile();
+            PrintFile(cbPdf.Checked);
         }
 
         private void cbOnlyExtensions_CheckedChanged(object sender, EventArgs e)
@@ -56,17 +54,12 @@ namespace ScanFolderToFile
 
                 txtSelectedPath.Text = fbd.SelectedPath;
 
-                var onlyExtension = cbOnlyExtensions.Checked;
-
-                var content = Directory.GetFiles(fbd.SelectedPath, "*.*", SearchOption.AllDirectories)
-                    .Where(files => !files.ToLower().Contains(DesktopIni))
-                    .OrderBy(i => i)
-                    .ToList();
+                var content = GetContentFromFolderSelected(fbd.SelectedPath, cbOnlyExtensions.Checked);
 
                 if (cbPdf.Checked)
-                    CreateFilePdf(onlyExtension, content);
+                    CreateFilePdf(content);
                 else
-                    CreateFileTxt(onlyExtension, content);
+                    CreateFileTxt(content);
 
                 MessageBox.Show(ElaborationConfirm, ElaborationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
