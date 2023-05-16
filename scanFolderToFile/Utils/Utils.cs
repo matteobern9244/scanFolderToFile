@@ -86,6 +86,14 @@ namespace ScanFolderToFile.Utils
             }
         }
 
+        public static List<string> GetContentFromFolderSelected(string path)
+        {
+            return Directory.GetFiles(path, "*.*", SearchOption.AllDirectories)
+                .Where(files => !files.ToLower().Contains(DesktopIni))
+                .OrderBy(i => i)
+                .ToList();
+        }
+
         public static void CreateFileTxt(bool onlyExtension, List<string> content)
         {
             try

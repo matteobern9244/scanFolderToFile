@@ -58,10 +58,7 @@ namespace ScanFolderToFile
 
                 var onlyExtension = cbOnlyExtensions.Checked;
 
-                var content = Directory.GetFiles(fbd.SelectedPath, "*.*", SearchOption.AllDirectories)
-                    .Where(files => !files.ToLower().Contains(DesktopIni))
-                    .OrderBy(i => i)
-                    .ToList();
+                var content = GetContentFromFolderSelected(fbd.SelectedPath);
 
                 if (cbPdf.Checked)
                     CreateFilePdf(onlyExtension, content);
