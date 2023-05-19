@@ -9,6 +9,8 @@ using System.Drawing.Printing;
 using System.Diagnostics;
 using System.Windows.Forms;
 using static ScanFolderToFile.Constants;
+using Spire.Pdf.Exporting.XPS.Schema;
+using Path = System.IO.Path;
 
 namespace ScanFolderToFile.Utils
 {
@@ -54,10 +56,10 @@ namespace ScanFolderToFile.Utils
                 float y = 0;
 
                 //Draw title
-                var title = "CONTENT";
+                const string title = "CONTENT";
                 page.Canvas.DrawString(title, titleFont, brush, x, y);
-                y = y + titleFont.MeasureString(title).Height;
-                y = y + 5;
+                y += titleFont.MeasureString(title).Height;
+                y += 5;
 
                 var list = new PdfSortedList(string.Join(Environment.NewLine, content.Select(Path.GetFileName).ToList()))
                 {
@@ -74,8 +76,7 @@ namespace ScanFolderToFile.Utils
                 //Save to file
                 doc.SaveToFile(Path.Combine(PathFolder, PdfFileFinal));
 
-                ScanFolderToFileLogger.Info(nameof(CreateFilePdf),
-                    $"Creato file {PdfFileFinal} in {PathFolder}");
+                ScanFolderToFileLogger.Info(nameof(CreateFilePdf), $"Creato file {PdfFileFinal} in {PathFolder}");
             }
             catch (Exception ex)
             {
@@ -92,18 +93,13 @@ namespace ScanFolderToFile.Utils
                     .Where(files => !files.ToLower().Contains(DesktopIni))
                     .OrderBy(i => i)
                     .ToList();
-
-                if (onlyExtension)
+                if (content.Any())
                 {
-                    var contentOnlyExtension = new List<string>();
-                    foreach (var extension in content
-                                 .Select(sFile => Path.GetExtension(sFile).Trim())
-                                 .Where(extension => !contentOnlyExtension.Contains(extension)))
-                    {
-                        contentOnlyExtension.Add(extension);
-                    }
-
-                    return contentOnlyExtension;
+                    if (onlyExtension)
+                        return content
+                            .Select(sFile => Path.GetExtension(sFile).Trim())
+                            .Distinct()
+                            .ToList();
                 }
             }
             catch (Exception ex)
@@ -180,7 +176,7 @@ namespace ScanFolderToFile.Utils
             }
             catch (Exception ex)
             {
-                ScanFolderToFileLogger.Error(ex, nameof(OpenFile), "Errore in apertura file.");
+                ScanFolderToFileLogger.Error(ex, nameof(OpenFile), $"Errore in apertusra file.");
             }
         }
 
