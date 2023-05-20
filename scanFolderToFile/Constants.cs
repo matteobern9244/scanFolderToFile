@@ -22,6 +22,8 @@
         public const string Error = "Error";
         public const string Fatal = "Fatal";
         public const string Warn = "Warn";
+        public const string Copy = "Copia";
+        public const string Move = "Sposta";
         #endregion
     }
 }
