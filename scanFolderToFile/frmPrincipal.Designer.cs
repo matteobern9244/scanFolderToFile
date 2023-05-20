@@ -39,9 +39,11 @@
             this.btnStampaFile = new System.Windows.Forms.Button();
             this.btnOpenFile = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.btnOpenFolderZip = new System.Windows.Forms.Button();
             this.cbOnlyExtensions = new System.Windows.Forms.CheckBox();
             this.cbPdf = new System.Windows.Forms.CheckBox();
             this.gbOptions = new System.Windows.Forms.GroupBox();
+            this.cbZipFolder = new System.Windows.Forms.CheckBox();
             this.gbSelectFolder.SuspendLayout();
             this.gbOptions.SuspendLayout();
             this.SuspendLayout();
@@ -87,7 +89,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Blue;
-            this.label3.Location = new System.Drawing.Point(603, 288);
+            this.label3.Location = new System.Drawing.Point(635, 288);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(149, 17);
@@ -101,10 +103,10 @@
             this.btnOpenFolder.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnOpenFolder.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOpenFolder.ForeColor = System.Drawing.Color.Red;
-            this.btnOpenFolder.Location = new System.Drawing.Point(13, 215);
+            this.btnOpenFolder.Location = new System.Drawing.Point(13, 247);
             this.btnOpenFolder.Margin = new System.Windows.Forms.Padding(4);
             this.btnOpenFolder.Name = "btnOpenFolder";
-            this.btnOpenFolder.Size = new System.Drawing.Size(214, 54);
+            this.btnOpenFolder.Size = new System.Drawing.Size(245, 54);
             this.btnOpenFolder.TabIndex = 8;
             this.btnOpenFolder.Text = "APRI CARTELLA";
             this.btnOpenFolder.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -148,6 +150,24 @@
             this.btnOpenFile.UseVisualStyleBackColor = false;
             this.btnOpenFile.Click += new System.EventHandler(this.btnOpenFile_Click);
             // 
+            // btnOpenFolderZip
+            // 
+            this.btnOpenFolderZip.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnOpenFolderZip.BackgroundImage = global::ScanFolderToFile.Properties.Resources.open;
+            this.btnOpenFolderZip.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnOpenFolderZip.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOpenFolderZip.ForeColor = System.Drawing.Color.Red;
+            this.btnOpenFolderZip.Location = new System.Drawing.Point(281, 247);
+            this.btnOpenFolderZip.Margin = new System.Windows.Forms.Padding(4);
+            this.btnOpenFolderZip.Name = "btnOpenFolderZip";
+            this.btnOpenFolderZip.Size = new System.Drawing.Size(295, 54);
+            this.btnOpenFolderZip.TabIndex = 13;
+            this.btnOpenFolderZip.Text = "APRI CARTELLA ZIP";
+            this.btnOpenFolderZip.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolTip1.SetToolTip(this.btnOpenFolderZip, "Apri cartella");
+            this.btnOpenFolderZip.UseVisualStyleBackColor = false;
+            this.btnOpenFolderZip.Click += new System.EventHandler(this.btnOpenFolderZip_Click);
+            // 
             // cbOnlyExtensions
             // 
             this.cbOnlyExtensions.AutoSize = true;
@@ -175,21 +195,35 @@
             // 
             // gbOptions
             // 
+            this.gbOptions.Controls.Add(this.cbZipFolder);
             this.gbOptions.Controls.Add(this.cbPdf);
             this.gbOptions.Controls.Add(this.cbOnlyExtensions);
             this.gbOptions.Font = new System.Drawing.Font("Comic Sans MS", 10F);
             this.gbOptions.Location = new System.Drawing.Point(16, 90);
             this.gbOptions.Name = "gbOptions";
-            this.gbOptions.Size = new System.Drawing.Size(192, 110);
+            this.gbOptions.Size = new System.Drawing.Size(192, 150);
             this.gbOptions.TabIndex = 12;
             this.gbOptions.TabStop = false;
             this.gbOptions.Text = "Opzioni";
+            // 
+            // cbZipFolder
+            // 
+            this.cbZipFolder.AutoSize = true;
+            this.cbZipFolder.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbZipFolder.Location = new System.Drawing.Point(7, 106);
+            this.cbZipFolder.Margin = new System.Windows.Forms.Padding(4);
+            this.cbZipFolder.Name = "cbZipFolder";
+            this.cbZipFolder.Size = new System.Drawing.Size(135, 30);
+            this.cbZipFolder.TabIndex = 12;
+            this.cbZipFolder.Text = "Zip Cartella";
+            this.cbZipFolder.UseVisualStyleBackColor = true;
             // 
             // FrmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(791, 314);
+            this.Controls.Add(this.btnOpenFolderZip);
             this.Controls.Add(this.gbOptions);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnOpenFolder);
@@ -226,6 +260,8 @@
         private System.Windows.Forms.CheckBox cbOnlyExtensions;
         private System.Windows.Forms.CheckBox cbPdf;
         private System.Windows.Forms.GroupBox gbOptions;
+        private System.Windows.Forms.CheckBox cbZipFolder;
+        private System.Windows.Forms.Button btnOpenFolderZip;
     }
 }
 
