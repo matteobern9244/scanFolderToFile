@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
+using static ScanFolderToFile.Utils.Utils;
 
 namespace ScanFolderToFile.Forms.OptionsForms
 {
@@ -50,14 +51,16 @@ namespace ScanFolderToFile.Forms.OptionsForms
 
         private void CopyContentFolders()
         {
-            //TODO
-            throw new System.NotImplementedException();
+            if (!string.IsNullOrEmpty(txtSource.Text) && !string.IsNullOrEmpty(txtSource.Text))
+                CopyFilesRecursively(txtSource.Text, txtDestination.Text);
         }
 
         private void MoveContentFolders()
         {
-            //TODO
-            throw new System.NotImplementedException();
+            if (!string.IsNullOrEmpty(txtSource.Text) && !string.IsNullOrEmpty(txtSource.Text))
+
+                //TODO
+                throw new System.NotImplementedException();
         }
 
         private void btnSfogliaSrc_Click(object sender, System.EventArgs e)
@@ -70,6 +73,12 @@ namespace ScanFolderToFile.Forms.OptionsForms
         {
             if (folderBrowserDialogDestination.ShowDialog() != DialogResult.OK) return;
             txtDestination.Text = folderBrowserDialogDestination.SelectedPath;
+        }
+
+        private void btnOpenFolderDestionation_Click(object sender, System.EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtDestination.Text))
+                OpenFolder(txtDestination.Text);
         }
     }
 }

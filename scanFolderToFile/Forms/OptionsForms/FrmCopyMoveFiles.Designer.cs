@@ -38,6 +38,7 @@
             this.folderBrowserDialogDestination = new System.Windows.Forms.FolderBrowserDialog();
             this.btnSfogliaSrc = new System.Windows.Forms.Button();
             this.btnSfogliaDest = new System.Windows.Forms.Button();
+            this.btnOpenFolderDestionation = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -118,11 +119,29 @@
             this.btnSfogliaDest.UseVisualStyleBackColor = true;
             this.btnSfogliaDest.Click += new System.EventHandler(this.btnSfogliaDest_Click);
             // 
+            // btnOpenFolderDestionation
+            // 
+            this.btnOpenFolderDestionation.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnOpenFolderDestionation.BackgroundImage = global::ScanFolderToFile.Properties.Resources.open;
+            this.btnOpenFolderDestionation.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnOpenFolderDestionation.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOpenFolderDestionation.ForeColor = System.Drawing.Color.Red;
+            this.btnOpenFolderDestionation.Location = new System.Drawing.Point(656, 95);
+            this.btnOpenFolderDestionation.Margin = new System.Windows.Forms.Padding(4);
+            this.btnOpenFolderDestionation.Name = "btnOpenFolderDestionation";
+            this.btnOpenFolderDestionation.Size = new System.Drawing.Size(245, 95);
+            this.btnOpenFolderDestionation.TabIndex = 9;
+            this.btnOpenFolderDestionation.Text = "APRI CARTELLA DI DESTINAZIONE";
+            this.btnOpenFolderDestionation.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnOpenFolderDestionation.UseVisualStyleBackColor = false;
+            this.btnOpenFolderDestionation.Click += new System.EventHandler(this.btnOpenFolderDestionation_Click);
+            // 
             // FrmCopyMoveFiles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 26F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(919, 203);
+            this.Controls.Add(this.btnOpenFolderDestionation);
             this.Controls.Add(this.btnSfogliaDest);
             this.Controls.Add(this.btnSfogliaSrc);
             this.Controls.Add(this.btnExec);
@@ -157,5 +176,6 @@
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogDestination;
         private System.Windows.Forms.Button btnSfogliaSrc;
         private System.Windows.Forms.Button btnSfogliaDest;
+        private System.Windows.Forms.Button btnOpenFolderDestionation;
     }
 }
