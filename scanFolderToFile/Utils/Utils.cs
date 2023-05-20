@@ -1,33 +1,33 @@
-﻿using Spire.Pdf.Graphics;
+﻿using Spire.Pdf;
+using Spire.Pdf.Graphics;
 using Spire.Pdf.Lists;
-using Spire.Pdf;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Drawing.Printing;
 using System.Diagnostics;
+using System.Drawing.Printing;
+using System.IO;
+using System.IO.Compression;
+using System.Linq;
 using System.Windows.Forms;
 using static ScanFolderToFile.Constants;
-using Spire.Pdf.Exporting.XPS.Schema;
 using Path = System.IO.Path;
 
 namespace ScanFolderToFile.Utils
 {
     public static class Utils
     {
-        public static void CheckFolder()
+        public static void CheckFolder(string pathFolder)
         {
             try
             {
-                if (Directory.Exists(PathFolder)) return;
-                Directory.CreateDirectory(PathFolder);
+                if (Directory.Exists(pathFolder)) return;
+                Directory.CreateDirectory(pathFolder);
                 ScanFolderToFileLogger.Info(nameof(CheckFolder),
-                    $"Non esiste la cartella di destinazione, creata cartella {PathFolder}");
+                    $"Non esiste la cartella di destinazione, creata cartella {pathFolder}");
             }
             catch (Exception ex)
             {
-                ScanFolderToFileLogger.Error(ex, nameof(CheckFolder), $"Errore in creazione cartella {PathFolder}");
+                ScanFolderToFileLogger.Error(ex, nameof(CheckFolder), $"Errore in creazione cartella {pathFolder}");
             }
         }
 
@@ -76,11 +76,32 @@ namespace ScanFolderToFile.Utils
                 //Save to file
                 doc.SaveToFile(Path.Combine(PathFolder, PdfFileFinal));
 
-                ScanFolderToFileLogger.Info(nameof(CreateFilePdf), $"Creato file {PdfFileFinal} in {PathFolder}");
+                ScanFolderToFileLogger.Info(nameof(CreateFilePdf), $"Creato file {PdfFileFinal} in {PathFolder}", true, "FILE PDF CREATO");
             }
             catch (Exception ex)
             {
                 ScanFolderToFileLogger.Error(ex, nameof(CreateFilePdf), "Errore in creazione del file PDF.");
+            }
+        }
+
+        public static void CreateZipFolder(string pathFolderSelected)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+            try
+            {
+                CheckFolder(PathFolderZip);
+                var zipPath = Path.Combine(PathFolderZip, ZipFileFinal);
+                ZipFile.CreateFromDirectory(pathFolderSelected, zipPath, CompressionLevel.Optimal,
+                    false);
+                ScanFolderToFileLogger.Info(nameof(CreateZipFolder), $"Creato file {ZipFileFinal} in {PathFolderZip}", true, "FILE ZIP CREATO");
+            }
+            catch (Exception ex)
+            {
+                ScanFolderToFileLogger.Error(ex, nameof(CreateZipFolder), "Errore in creazione file zip.");
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
             }
         }
 
@@ -119,8 +140,7 @@ namespace ScanFolderToFile.Utils
                 {
                     if (!content.Any()) return;
                     content.ForEach(x => file.WriteLine(Path.GetFileName(x)));
-                    ScanFolderToFileLogger.Info(nameof(CreateFileTxt),
-                        $"Creato file {TxtFileFinal} in {PathFolder}");
+                    ScanFolderToFileLogger.Info(nameof(CreateFileTxt), $"Creato file {TxtFileFinal} in {PathFolder}", true, "FILE TXT CREATO");
                 }
             }
             catch (Exception ex)
@@ -180,13 +200,13 @@ namespace ScanFolderToFile.Utils
             }
         }
 
-        public static void OpenFolder()
+        public static void OpenFolder(string pathFolder)
         {
             try
             {
-                if (Directory.Exists(PathFolder))
+                if (Directory.Exists(pathFolder))
                 {
-                    var psi = new ProcessStartInfo(PathFolder)
+                    var psi = new ProcessStartInfo(pathFolder)
                     {
                         UseShellExecute = true
                     };

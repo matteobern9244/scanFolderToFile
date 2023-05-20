@@ -16,7 +16,7 @@ namespace ScanFolderToFile
         //PULSANTE SFOGLIA
         private void btnSfoglia_Click(object sender, EventArgs e)
         {
-            Browse();
+            Browse(cbZipFolder.Checked);
         }
 
         //PULSANTE APERTURA FILE
@@ -28,7 +28,7 @@ namespace ScanFolderToFile
         //PULSANTE APERTURA CARTELLA
         private void btnOpenFolder_Click(object sender, EventArgs e)
         {
-            OpenFolder();
+            OpenFolder(PathFolder);
         }
 
         //PULSANTE STAMPA FILE
@@ -42,31 +42,39 @@ namespace ScanFolderToFile
             btnSfoglia.PerformClick();
         }
 
-        private void Browse()
+        private void Browse(bool zipFolder)
         {
             try
             {
-                MessageBox.Show(AlertMessage, AlertTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                 if (fbd.ShowDialog() != DialogResult.OK) return;
 
-                CheckFolder();
-
                 txtSelectedPath.Text = fbd.SelectedPath;
-
-                var content = GetContentFromFolderSelected(fbd.SelectedPath, cbOnlyExtensions.Checked);
-
-                if (cbPdf.Checked)
-                    CreateFilePdf(content);
+                if (zipFolder)
+                    CreateZipFolder(fbd.SelectedPath);
                 else
-                    CreateFileTxt(content);
+                {
+                    CheckFolder(PathFolder);
+                    MessageBox.Show(AlertMessage, AlertTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    var content = GetContentFromFolderSelected(fbd.SelectedPath, cbOnlyExtensions.Checked);
 
-                MessageBox.Show(ElaborationConfirm, ElaborationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (cbPdf.Checked)
+                        CreateFilePdf(content);
+                    else
+                        CreateFileTxt(content);
+
+                    MessageBox.Show(ElaborationConfirm, ElaborationTitle, MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                }
             }
             catch (Exception ex)
             {
                 ScanFolderToFileLogger.Error(ex, nameof(Browse), "Errore in sfoglia contenuto.");
             }
+        }
+
+        private void btnOpenFolderZip_Click(object sender, EventArgs e)
+        {
+            OpenFolder(PathFolderZip);
         }
     }
 }
