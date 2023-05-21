@@ -285,5 +285,31 @@ namespace ScanFolderToFile.Utils
                 Cursor.Current = Cursors.Default;
             }
         }
+
+        public static void MoveAllContentFolders(string src, string dest)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+            try
+            {
+                var dirInfoDest = new DirectoryInfo(dest);
+                var content = Directory.GetFiles(src, "*.*", SearchOption.AllDirectories).ToList();
+                if (!content.Any()) return;
+                foreach (var mFile in content
+                             .Select(file => new FileInfo(file))
+                             .Where(mFile => new FileInfo(dirInfoDest + "\\" + mFile.Name).Exists == false))
+                {
+                    mFile.MoveTo(dirInfoDest + "\\" + mFile.Name);
+                }
+                ScanFolderToFileLogger.Info(nameof(MoveAllContentFolders), $"File spostati correttamente.", true, "FILE COPIATI CORRETTAMENTE");
+            }
+            catch (Exception ex)
+            {
+                ScanFolderToFileLogger.Error(ex, nameof(CopyFilesRecursively), "Errore in spostamento dei file.");
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
+            }
+        }
     }
 }

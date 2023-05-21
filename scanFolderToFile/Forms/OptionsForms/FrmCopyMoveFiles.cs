@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
 using static ScanFolderToFile.Utils.Utils;
 
@@ -57,10 +58,8 @@ namespace ScanFolderToFile.Forms.OptionsForms
 
         private void MoveContentFolders()
         {
-            if (!string.IsNullOrEmpty(txtSource.Text) && !string.IsNullOrEmpty(txtSource.Text))
-
-                //TODO
-                throw new System.NotImplementedException();
+            if (!string.IsNullOrEmpty(txtSource.Text) && !string.IsNullOrEmpty(txtDestination.Text))
+                MoveAllContentFolders(txtSource.Text, txtDestination.Text);
         }
 
         private void btnSfogliaSrc_Click(object sender, System.EventArgs e)
