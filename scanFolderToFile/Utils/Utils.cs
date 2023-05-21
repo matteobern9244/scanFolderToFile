@@ -304,7 +304,7 @@ namespace ScanFolderToFile.Utils
             }
             catch (Exception ex)
             {
-                ScanFolderToFileLogger.Error(ex, nameof(CopyFilesRecursively), "Errore in spostamento dei file.");
+                ScanFolderToFileLogger.Error(ex, nameof(MoveAllContentFolders), "Errore in spostamento dei file.");
             }
             finally
             {
