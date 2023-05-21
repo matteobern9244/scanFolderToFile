@@ -1,10 +1,11 @@
-﻿using ScanFolderToFile.Utils;
-using System;
+﻿using System;
 using System.Windows.Forms;
+using ScanFolderToFile.Forms.OptionsForms;
+using ScanFolderToFile.Utils;
 using static ScanFolderToFile.Constants;
 using static ScanFolderToFile.Utils.Utils;
 
-namespace ScanFolderToFile
+namespace ScanFolderToFile.Forms
 {
     public partial class FrmPrincipal : Form
     {
@@ -75,6 +76,12 @@ namespace ScanFolderToFile
         private void btnOpenFolderZip_Click(object sender, EventArgs e)
         {
             OpenFolder(PathFolderZip);
+        }
+
+        private void btnCopyMoveFiles_Click(object sender, EventArgs e)
+        {
+            var frmCopyMoveFiles = new FrmCopyMoveFiles();
+            frmCopyMoveFiles.ShowDialog();
         }
     }
 }
