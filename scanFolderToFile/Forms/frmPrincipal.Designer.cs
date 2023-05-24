@@ -36,8 +36,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.cbOnlyExtensions = new System.Windows.Forms.CheckBox();
             this.gbOptions = new System.Windows.Forms.GroupBox();
-            this.btnCopyMoveFiles = new System.Windows.Forms.Button();
             this.cbZipFolder = new System.Windows.Forms.CheckBox();
+            this.btnCopyMoveFiles = new System.Windows.Forms.Button();
             this.btnOpenFolderZip = new System.Windows.Forms.Button();
             this.btnOpenFolder = new System.Windows.Forms.Button();
             this.btnStampaFile = new System.Windows.Forms.Button();
@@ -113,26 +113,13 @@
             this.gbOptions.Controls.Add(this.cbOnlyExtensions);
             this.gbOptions.Font = new System.Drawing.Font("Comic Sans MS", 10F);
             this.gbOptions.Location = new System.Drawing.Point(20, 214);
-            this.gbOptions.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbOptions.Margin = new System.Windows.Forms.Padding(4);
             this.gbOptions.Name = "gbOptions";
-            this.gbOptions.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbOptions.Padding = new System.Windows.Forms.Padding(4);
             this.gbOptions.Size = new System.Drawing.Size(289, 117);
             this.gbOptions.TabIndex = 12;
             this.gbOptions.TabStop = false;
             this.gbOptions.Text = "Opzioni";
-            // 
-            // btnCopyMoveFiles
-            // 
-            this.btnCopyMoveFiles.BackColor = System.Drawing.Color.White;
-            this.btnCopyMoveFiles.ForeColor = System.Drawing.Color.Red;
-            this.btnCopyMoveFiles.Location = new System.Drawing.Point(709, 215);
-            this.btnCopyMoveFiles.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.btnCopyMoveFiles.Name = "btnCopyMoveFiles";
-            this.btnCopyMoveFiles.Size = new System.Drawing.Size(259, 63);
-            this.btnCopyMoveFiles.TabIndex = 13;
-            this.btnCopyMoveFiles.Text = "Copia / Sposta Files";
-            this.btnCopyMoveFiles.UseVisualStyleBackColor = false;
-            this.btnCopyMoveFiles.Click += new System.EventHandler(this.btnCopyMoveFiles_Click);
             // 
             // cbZipFolder
             // 
@@ -145,6 +132,19 @@
             this.cbZipFolder.TabIndex = 12;
             this.cbZipFolder.Text = "Creare Zip Cartella Scelta";
             this.cbZipFolder.UseVisualStyleBackColor = true;
+            // 
+            // btnCopyMoveFiles
+            // 
+            this.btnCopyMoveFiles.BackColor = System.Drawing.Color.White;
+            this.btnCopyMoveFiles.ForeColor = System.Drawing.Color.Red;
+            this.btnCopyMoveFiles.Location = new System.Drawing.Point(709, 215);
+            this.btnCopyMoveFiles.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCopyMoveFiles.Name = "btnCopyMoveFiles";
+            this.btnCopyMoveFiles.Size = new System.Drawing.Size(259, 63);
+            this.btnCopyMoveFiles.TabIndex = 13;
+            this.btnCopyMoveFiles.Text = "Copia / Sposta Files";
+            this.btnCopyMoveFiles.UseVisualStyleBackColor = false;
+            this.btnCopyMoveFiles.Click += new System.EventHandler(this.btnCopyMoveFiles_Click);
             // 
             // btnOpenFolderZip
             // 
@@ -220,7 +220,7 @@
             this.checkedListBoxFormatFile.FormattingEnabled = true;
             this.checkedListBoxFormatFile.Location = new System.Drawing.Point(20, 125);
             this.checkedListBoxFormatFile.Name = "checkedListBoxFormatFile";
-            this.checkedListBoxFormatFile.Size = new System.Drawing.Size(125, 56);
+            this.checkedListBoxFormatFile.Size = new System.Drawing.Size(405, 82);
             this.checkedListBoxFormatFile.TabIndex = 14;
             this.checkedListBoxFormatFile.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxFormatFile_ItemCheck);
             // 
