@@ -51,28 +51,32 @@ namespace ScanFolderToFile.Forms
                 if (fbd.ShowDialog() != DialogResult.OK) return;
 
                 txtSelectedPath.Text = fbd.SelectedPath;
-                if (zipFolder)
-                    CreateZipFolder(fbd.SelectedPath);
-                else
-                {
-                    CheckFolder(PathFolder);
-                    MessageBox.Show(AlertMessage, AlertTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    var content = GetContentFromFolderSelected(fbd.SelectedPath, cbOnlyExtensions.Checked);
-
-                    if (PdfChecked())
-                        CreateFilePdf(content);
-                    if (MarkdownChecked())
-                        CreateFileMarkdown(content);
-                    else
-                        CreateFileTxt(content);
-
-                    MessageBox.Show(ElaborationConfirm, ElaborationTitle, MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
-                }
             }
             catch (Exception ex)
             {
                 ScanFolderToFileLogger.Error(ex, nameof(Browse), "Errore in sfoglia contenuto.");
+            }
+        }
+
+        private void GenerateFile(bool zipFolder)
+        {
+            if (zipFolder)
+                CreateZipFolder(txtSelectedPath.Text);
+            else
+            {
+                CheckFolder(PathFolder);
+                MessageBox.Show(AlertMessage, AlertTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                var content = GetContentFromFolderSelected(txtSelectedPath.Text, cbOnlyExtensions.Checked);
+
+                if (PdfChecked())
+                    CreateFilePdf(content);
+                if (MarkdownChecked())
+                    CreateFileMarkdown(content);
+                else
+                    CreateFileTxt(content);
+
+                MessageBox.Show(ElaborationConfirm, ElaborationTitle, MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
             }
         }
 
@@ -117,6 +121,24 @@ namespace ScanFolderToFile.Forms
         private bool MarkdownChecked()
         {
             return GetChoiceCheckedListBox(checkedListBoxFormatFile).Equals(FileMarkdown);
+        }
+
+        private void btnCreateFile_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtSelectedPath.Text.Trim()))
+                GenerateFile(cbZipFolder.Checked);
+        }
+
+        private void buttonReorderFilesInFolderByType_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtSelectedPath.Text.Trim()))
+                ReorderFilesInFolderByType(txtSelectedPath.Text.Trim());
+        }
+
+        private void btnOpenFolderSelected_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtSelectedPath.Text.Trim()))
+                OpenFolder(txtSelectedPath.Text.Trim());
         }
     }
 }
