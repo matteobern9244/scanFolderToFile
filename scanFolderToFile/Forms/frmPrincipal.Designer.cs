@@ -33,6 +33,8 @@
             this.btnSfoglia = new System.Windows.Forms.Button();
             this.fbd = new System.Windows.Forms.FolderBrowserDialog();
             this.gbSelectFolder = new System.Windows.Forms.GroupBox();
+            this.btnOpenFolderSelected = new System.Windows.Forms.Button();
+            this.btnCreateFile = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.cbOnlyExtensions = new System.Windows.Forms.CheckBox();
             this.gbOptions = new System.Windows.Forms.GroupBox();
@@ -43,6 +45,7 @@
             this.btnStampaFile = new System.Windows.Forms.Button();
             this.btnOpenFile = new System.Windows.Forms.Button();
             this.checkedListBoxFormatFile = new System.Windows.Forms.CheckedListBox();
+            this.buttonReorderFilesInFolderByType = new System.Windows.Forms.Button();
             this.gbSelectFolder.SuspendLayout();
             this.gbOptions.SuspendLayout();
             this.SuspendLayout();
@@ -50,7 +53,7 @@
             // txtSelectedPath
             // 
             this.txtSelectedPath.Enabled = false;
-            this.txtSelectedPath.Location = new System.Drawing.Point(10, 34);
+            this.txtSelectedPath.Location = new System.Drawing.Point(10, 28);
             this.txtSelectedPath.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.txtSelectedPath.Name = "txtSelectedPath";
             this.txtSelectedPath.Size = new System.Drawing.Size(395, 34);
@@ -59,10 +62,10 @@
             // btnSfoglia
             // 
             this.btnSfoglia.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSfoglia.Location = new System.Drawing.Point(419, 34);
+            this.btnSfoglia.Location = new System.Drawing.Point(415, 30);
             this.btnSfoglia.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.btnSfoglia.Name = "btnSfoglia";
-            this.btnSfoglia.Size = new System.Drawing.Size(125, 42);
+            this.btnSfoglia.Size = new System.Drawing.Size(89, 29);
             this.btnSfoglia.TabIndex = 2;
             this.btnSfoglia.Text = "SFOGLIA";
             this.btnSfoglia.UseVisualStyleBackColor = true;
@@ -70,6 +73,8 @@
             // 
             // gbSelectFolder
             // 
+            this.gbSelectFolder.Controls.Add(this.btnOpenFolderSelected);
+            this.gbSelectFolder.Controls.Add(this.btnCreateFile);
             this.gbSelectFolder.Controls.Add(this.txtSelectedPath);
             this.gbSelectFolder.Controls.Add(this.btnSfoglia);
             this.gbSelectFolder.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -81,6 +86,29 @@
             this.gbSelectFolder.TabIndex = 4;
             this.gbSelectFolder.TabStop = false;
             this.gbSelectFolder.Text = "Seleziona cartella :";
+            // 
+            // btnOpenFolderSelected
+            // 
+            this.btnOpenFolderSelected.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Italic);
+            this.btnOpenFolderSelected.Location = new System.Drawing.Point(10, 64);
+            this.btnOpenFolderSelected.Name = "btnOpenFolderSelected";
+            this.btnOpenFolderSelected.Size = new System.Drawing.Size(178, 30);
+            this.btnOpenFolderSelected.TabIndex = 4;
+            this.btnOpenFolderSelected.Text = "Apri cartella...";
+            this.btnOpenFolderSelected.UseVisualStyleBackColor = true;
+            this.btnOpenFolderSelected.Click += new System.EventHandler(this.btnOpenFolderSelected_Click);
+            // 
+            // btnCreateFile
+            // 
+            this.btnCreateFile.Font = new System.Drawing.Font("Comic Sans MS", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCreateFile.ForeColor = System.Drawing.Color.Blue;
+            this.btnCreateFile.Location = new System.Drawing.Point(522, 27);
+            this.btnCreateFile.Name = "btnCreateFile";
+            this.btnCreateFile.Size = new System.Drawing.Size(149, 46);
+            this.btnCreateFile.TabIndex = 3;
+            this.btnCreateFile.Text = "GENERA FILE";
+            this.btnCreateFile.UseVisualStyleBackColor = true;
+            this.btnCreateFile.Click += new System.EventHandler(this.btnCreateFile_Click);
             // 
             // label3
             // 
@@ -137,10 +165,10 @@
             // 
             this.btnCopyMoveFiles.BackColor = System.Drawing.Color.White;
             this.btnCopyMoveFiles.ForeColor = System.Drawing.Color.Red;
-            this.btnCopyMoveFiles.Location = new System.Drawing.Point(709, 215);
+            this.btnCopyMoveFiles.Location = new System.Drawing.Point(709, 214);
             this.btnCopyMoveFiles.Margin = new System.Windows.Forms.Padding(4);
             this.btnCopyMoveFiles.Name = "btnCopyMoveFiles";
-            this.btnCopyMoveFiles.Size = new System.Drawing.Size(259, 63);
+            this.btnCopyMoveFiles.Size = new System.Drawing.Size(259, 36);
             this.btnCopyMoveFiles.TabIndex = 13;
             this.btnCopyMoveFiles.Text = "Copia / Sposta Files";
             this.btnCopyMoveFiles.UseVisualStyleBackColor = false;
@@ -224,11 +252,25 @@
             this.checkedListBoxFormatFile.TabIndex = 14;
             this.checkedListBoxFormatFile.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxFormatFile_ItemCheck);
             // 
+            // buttonReorderFilesInFolderByType
+            // 
+            this.buttonReorderFilesInFolderByType.BackColor = System.Drawing.Color.White;
+            this.buttonReorderFilesInFolderByType.ForeColor = System.Drawing.Color.Red;
+            this.buttonReorderFilesInFolderByType.Location = new System.Drawing.Point(709, 258);
+            this.buttonReorderFilesInFolderByType.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonReorderFilesInFolderByType.Name = "buttonReorderFilesInFolderByType";
+            this.buttonReorderFilesInFolderByType.Size = new System.Drawing.Size(259, 62);
+            this.buttonReorderFilesInFolderByType.TabIndex = 15;
+            this.buttonReorderFilesInFolderByType.Text = "Riordinamento files in cartelle per tipo";
+            this.buttonReorderFilesInFolderByType.UseVisualStyleBackColor = false;
+            this.buttonReorderFilesInFolderByType.Click += new System.EventHandler(this.buttonReorderFilesInFolderByType_Click);
+            // 
             // FrmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(989, 471);
+            this.Controls.Add(this.buttonReorderFilesInFolderByType);
             this.Controls.Add(this.checkedListBoxFormatFile);
             this.Controls.Add(this.btnCopyMoveFiles);
             this.Controls.Add(this.btnOpenFolderZip);
@@ -272,6 +314,9 @@
         private System.Windows.Forms.Button btnOpenFolderZip;
         private System.Windows.Forms.Button btnCopyMoveFiles;
         private System.Windows.Forms.CheckedListBox checkedListBoxFormatFile;
+        private System.Windows.Forms.Button buttonReorderFilesInFolderByType;
+        private System.Windows.Forms.Button btnCreateFile;
+        private System.Windows.Forms.Button btnOpenFolderSelected;
     }
 }
 

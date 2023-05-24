@@ -10,8 +10,8 @@ using System.IO.Compression;
 using System.Linq;
 using System.Windows.Forms;
 using ScanFolderToFile.MarkdownOut;
-using static ScanFolderToFile.Constants;
 using Path = System.IO.Path;
+using static ScanFolderToFile.Constants;
 
 namespace ScanFolderToFile.Utils
 {
@@ -78,7 +78,8 @@ namespace ScanFolderToFile.Utils
                 y += titleFont.MeasureString(title).Height;
                 y += 5;
 
-                var list = new PdfSortedList(string.Join(Environment.NewLine, content.Select(Path.GetFileName).ToList()))
+                var list = new PdfSortedList(
+                    string.Join(Environment.NewLine, content.Select(Path.GetFileName).ToList()))
                 {
                     //Set the font, indent, text indent, brush of the list
                     Font = listFont,
@@ -93,7 +94,8 @@ namespace ScanFolderToFile.Utils
                 //Save to file
                 doc.SaveToFile(Path.Combine(PathFolder, PdfFileFinal));
 
-                ScanFolderToFileLogger.Info(nameof(CreateFilePdf), $"Creato file {PdfFileFinal} in {PathFolder}", true, "FILE PDF CREATO");
+                ScanFolderToFileLogger.Info(nameof(CreateFilePdf), $"Creato file {PdfFileFinal} in {PathFolder}", true,
+                    "FILE PDF CREATO");
             }
             catch (Exception ex)
             {
@@ -110,7 +112,8 @@ namespace ScanFolderToFile.Utils
                 var zipPath = Path.Combine(PathFolderZip, ZipFileFinal);
                 ZipFile.CreateFromDirectory(pathFolderSelected, zipPath, CompressionLevel.Optimal,
                     false);
-                ScanFolderToFileLogger.Info(nameof(CreateZipFolder), $"Creato file {ZipFileFinal} in {PathFolderZip}", true, "FILE ZIP CREATO");
+                ScanFolderToFileLogger.Info(nameof(CreateZipFolder), $"Creato file {ZipFileFinal} in {PathFolderZip}",
+                    true, "FILE ZIP CREATO");
             }
             catch (Exception ex)
             {
@@ -122,7 +125,7 @@ namespace ScanFolderToFile.Utils
             }
         }
 
-        public static List<string> GetContentFromFolderSelected(string pathFolderSelected, bool onlyExtension)
+        public static List<string> GetContentFromFolderSelected(string pathFolderSelected, bool onlyExtension = false)
         {
             var content = new List<string>();
             try
@@ -134,10 +137,7 @@ namespace ScanFolderToFile.Utils
                 if (content.Any())
                 {
                     if (onlyExtension)
-                        return content
-                            .Select(sFile => Path.GetExtension(sFile).Trim())
-                            .Distinct()
-                            .ToList();
+                        return GetExtensionFromContentFromFolderSelected(content);
                 }
             }
             catch (Exception ex)
@@ -149,6 +149,14 @@ namespace ScanFolderToFile.Utils
             return content;
         }
 
+        public static List<string> GetExtensionFromContentFromFolderSelected(List<string> content)
+        {
+            return content
+                .Select(sFile => Path.GetExtension(sFile).Trim())
+                .Distinct()
+                .ToList();
+        }
+
         public static void CreateFileTxt(List<string> content)
         {
             try
@@ -157,7 +165,8 @@ namespace ScanFolderToFile.Utils
                 {
                     if (!content.Any()) return;
                     content.ForEach(x => file.WriteLine(Path.GetFileName(x)));
-                    ScanFolderToFileLogger.Info(nameof(CreateFileTxt), $"Creato file {TxtFileFinal} in {PathFolder}", true, "FILE TXT CREATO");
+                    ScanFolderToFileLogger.Info(nameof(CreateFileTxt), $"Creato file {TxtFileFinal} in {PathFolder}",
+                        true, "FILE TXT CREATO");
                 }
             }
             catch (Exception ex)
@@ -189,6 +198,7 @@ namespace ScanFolderToFile.Utils
                 ScanFolderToFileLogger.Error(ex, nameof(GetDefaultPrinterName),
                     "Errore in recupero stampante di default.");
             }
+
             return string.Empty;
         }
 
@@ -300,7 +310,8 @@ namespace ScanFolderToFile.Utils
                 foreach (var newPath in Directory.GetFiles(sourcePath, "*.*", SearchOption.AllDirectories))
                     File.Copy(newPath, newPath.Replace(sourcePath, targetPath), true);
 
-                ScanFolderToFileLogger.Info(nameof(CopyFilesRecursively), $"File copiati correttamente.", true, "FILE COPIATI CORRETTAMENTE");
+                ScanFolderToFileLogger.Info(nameof(CopyFilesRecursively), $"File copiati correttamente.", true,
+                    "FILE COPIATI CORRETTAMENTE");
             }
             catch (Exception ex)
             {
@@ -312,7 +323,7 @@ namespace ScanFolderToFile.Utils
             }
         }
 
-        public static void MoveAllContentFolders(string src, string dest)
+        public static void MoveAllContentFolders(string src, string dest, bool showConfirm = true)
         {
             Cursor.Current = Cursors.WaitCursor;
             try
@@ -326,7 +337,10 @@ namespace ScanFolderToFile.Utils
                 {
                     mFile.MoveTo(dirInfoDest + "\\" + mFile.Name);
                 }
-                ScanFolderToFileLogger.Info(nameof(MoveAllContentFolders), $"File spostati correttamente.", true, "FILE COPIATI CORRETTAMENTE");
+
+                if (showConfirm)
+                    ScanFolderToFileLogger.Info(nameof(MoveAllContentFolders), $"File spostati correttamente.", true,
+                    "FILE SPOSTATI CORRETTAMENTE");
             }
             catch (Exception ex)
             {
@@ -348,6 +362,38 @@ namespace ScanFolderToFile.Utils
         public static string GetChoiceCheckedListBox(CheckedListBox clb)
         {
             return clb.SelectedItem?.ToString();
+        }
+
+        //Reorganizing files into folders by extension
+        public static void ReorderFilesInFolderByType(string pathFolderSelected)
+        {
+            try
+            {
+                var content = GetContentFromFolderSelected(pathFolderSelected);
+
+                if (!content.Any()) return;
+
+                //Si creano tutte le cartelle delle estensioni scansionate
+                foreach (var pathFolderToCreate in GetExtensionFromContentFromFolderSelected(content)
+                             .Select(extension => Path.Combine(pathFolderSelected, extension.Replace(".", ""))))
+                    Directory.CreateDirectory(pathFolderToCreate);
+
+                foreach (var file in content)
+                {
+                    var ext = Path.GetExtension(file).Replace(".", "");
+                    var fileName = Path.GetFileName(file);
+                    var pathToMoveFile = Path.Combine(pathFolderSelected, Path.Combine(ext, fileName));
+                    File.Move(file, pathToMoveFile);
+                }
+
+                ScanFolderToFileLogger.Info(nameof(ReorderFilesInFolderByType), $"File spostati correttamente.", true,
+                    "FILE SPOSTATI CORRETTAMENTE");
+
+            }
+            catch (Exception ex)
+            {
+                ScanFolderToFileLogger.Error(ex, nameof(ReorderFilesInFolderByType), "Errore in riordinamento dei file.");
+            }
         }
     }
 }
