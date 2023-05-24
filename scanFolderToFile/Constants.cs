@@ -24,6 +24,8 @@
         public const string Warn = "Warn";
         public const string Copy = "Copia";
         public const string Move = "Sposta";
+        public const string FileTxt = "File TXT";
+        public const string FilePdf = "File PDF";
         #endregion
     }
 }
