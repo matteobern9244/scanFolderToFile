@@ -9,6 +9,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Windows.Forms;
+using ScanFolderToFile.MarkdownOut;
 using static ScanFolderToFile.Constants;
 using Path = System.IO.Path;
 
@@ -28,6 +29,22 @@ namespace ScanFolderToFile.Utils
             catch (Exception ex)
             {
                 ScanFolderToFileLogger.Error(ex, nameof(CheckFolder), $"Errore in creazione cartella {pathFolder}");
+            }
+        }
+
+        public static void CreateFileMarkdown(List<string> content)
+        {
+            try
+            {
+                using (var mdWriter = new MdWriter(Path.Combine(PathFolder, MarkdownFileFinal)))
+                {
+                    mdWriter.WriteLineSingle(Content, MdStyle.Bold, MdFormat.Heading1);
+                    mdWriter.WriteLine(string.Join(Environment.NewLine, content.Select(Path.GetFileName).ToList()));
+                }
+            }
+            catch (Exception ex)
+            {
+                ScanFolderToFileLogger.Error(ex, nameof(CreateFileMarkdown), "Errore in creazione del file Markdown.");
             }
         }
 
@@ -175,11 +192,16 @@ namespace ScanFolderToFile.Utils
             return string.Empty;
         }
 
-        public static void OpenFile(bool pdf)
+        public static void OpenFile(bool pdf, bool markdown)
         {
             try
             {
-                var file = pdf ? PdfFileFinal : TxtFileFinal;
+                var file = TxtFileFinal;
+                if (pdf)
+                    file = PdfFileFinal;
+                if (markdown)
+                    file = MarkdownFileFinal;
+
                 if (File.Exists(Path.Combine(PathFolder, file)))
                 {
                     var psi = new ProcessStartInfo(Path.Combine(PathFolder, file))
@@ -224,11 +246,15 @@ namespace ScanFolderToFile.Utils
             }
         }
 
-        public static void PrintFile(bool pdf)
+        public static void PrintFile(bool pdf, bool markdown)
         {
             try
             {
-                var file = pdf ? PdfFileFinal : TxtFileFinal;
+                var file = TxtFileFinal;
+                if (pdf)
+                    file = PdfFileFinal;
+                if (markdown)
+                    file = MarkdownFileFinal;
                 if (File.Exists(Path.Combine(PathFolder, file)))
                 {
                     var psi = new ProcessStartInfo(Path.Combine(PathFolder, file))

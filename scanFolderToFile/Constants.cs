@@ -8,6 +8,7 @@
         public static readonly string AlertMessage = $"Verrà creata la cartella '{Folder}' in C: con il file '{Content}'";
         public static readonly string TxtFileFinal = $"{Content}.txt";
         public static readonly string PdfFileFinal = $"{Content}.pdf";
+        public static readonly string MarkdownFileFinal = $"{Content}.md";
         public static readonly string ZipFileFinal = $"{Content}.zip";
         #endregion
 
@@ -26,6 +27,7 @@
         public const string Move = "Sposta";
         public const string FileTxt = "File TXT";
         public const string FilePdf = "File PDF";
+        public const string FileMarkdown = "File Markdown";
         #endregion
     }
 }

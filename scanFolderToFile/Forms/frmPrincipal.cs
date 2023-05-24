@@ -24,7 +24,7 @@ namespace ScanFolderToFile.Forms
         //PULSANTE APERTURA FILE
         private void btnOpenFile_Click(object sender, EventArgs e)
         {
-            OpenFile(PdfChecked());
+            OpenFile(PdfChecked(), MarkdownChecked());
         }
 
         //PULSANTE APERTURA CARTELLA
@@ -36,7 +36,7 @@ namespace ScanFolderToFile.Forms
         //PULSANTE STAMPA FILE
         private void btnStampaFile_Click(object sender, EventArgs e)
         {
-            PrintFile(PdfChecked());
+            PrintFile(PdfChecked(), MarkdownChecked());
         }
 
         private void cbOnlyExtensions_CheckedChanged(object sender, EventArgs e)
@@ -61,6 +61,8 @@ namespace ScanFolderToFile.Forms
 
                     if (PdfChecked())
                         CreateFilePdf(content);
+                    if (MarkdownChecked())
+                        CreateFileMarkdown(content);
                     else
                         CreateFileTxt(content);
 
@@ -78,8 +80,9 @@ namespace ScanFolderToFile.Forms
         {
             checkedListBoxFormatFile.DataSource = new List<string>
             {
-                Constants.FileTxt,
-                Constants.FilePdf
+                FileTxt,
+                FilePdf,
+                FileMarkdown
             };
 
             //Set default create file TXT
@@ -110,6 +113,10 @@ namespace ScanFolderToFile.Forms
         private bool PdfChecked()
         {
             return GetChoiceCheckedListBox(checkedListBoxFormatFile).Equals(FilePdf);
+        }
+        private bool MarkdownChecked()
+        {
+            return GetChoiceCheckedListBox(checkedListBoxFormatFile).Equals(FileMarkdown);
         }
     }
 }
