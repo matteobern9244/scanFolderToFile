@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using ScanFolderToFile.Forms.OptionsForms;
+using System.Collections.Generic;
 using ScanFolderToFile.Utils;
 using static ScanFolderToFile.Constants;
 using static ScanFolderToFile.Utils.Utils;
@@ -23,7 +24,7 @@ namespace ScanFolderToFile.Forms
         //PULSANTE APERTURA FILE
         private void btnOpenFile_Click(object sender, EventArgs e)
         {
-            OpenFile(cbPdf.Checked);
+            OpenFile(PdfChecked());
         }
 
         //PULSANTE APERTURA CARTELLA
@@ -35,7 +36,7 @@ namespace ScanFolderToFile.Forms
         //PULSANTE STAMPA FILE
         private void btnStampaFile_Click(object sender, EventArgs e)
         {
-            PrintFile(cbPdf.Checked);
+            PrintFile(PdfChecked());
         }
 
         private void cbOnlyExtensions_CheckedChanged(object sender, EventArgs e)
@@ -58,7 +59,7 @@ namespace ScanFolderToFile.Forms
                     MessageBox.Show(AlertMessage, AlertTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     var content = GetContentFromFolderSelected(fbd.SelectedPath, cbOnlyExtensions.Checked);
 
-                    if (cbPdf.Checked)
+                    if (PdfChecked())
                         CreateFilePdf(content);
                     else
                         CreateFileTxt(content);
@@ -73,6 +74,18 @@ namespace ScanFolderToFile.Forms
             }
         }
 
+        private void FillAndCheckFirstElementCbLb()
+        {
+            checkedListBoxFormatFile.DataSource = new List<string>
+            {
+                Constants.FileTxt,
+                Constants.FilePdf
+            };
+
+            //Set default create file TXT
+            checkedListBoxFormatFile.SetItemChecked(0, true);
+        }
+
         private void btnOpenFolderZip_Click(object sender, EventArgs e)
         {
             OpenFolder(PathFolderZip);
@@ -82,6 +95,21 @@ namespace ScanFolderToFile.Forms
         {
             var frmCopyMoveFiles = new FrmCopyMoveFiles();
             frmCopyMoveFiles.ShowDialog();
+        }
+
+        private void checkedListBoxFormatFile_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            CheckOnlyOneElements(checkedListBoxFormatFile, e);
+        }
+
+        private void FrmPrincipal_Load(object sender, EventArgs e)
+        {
+            FillAndCheckFirstElementCbLb();
+        }
+
+        private bool PdfChecked()
+        {
+            return GetChoiceCheckedListBox(checkedListBoxFormatFile).Equals(FilePdf);
         }
     }
 }

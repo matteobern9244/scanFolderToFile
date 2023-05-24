@@ -311,5 +311,17 @@ namespace ScanFolderToFile.Utils
                 Cursor.Current = Cursors.Default;
             }
         }
+
+        public static void CheckOnlyOneElements(CheckedListBox clb, ItemCheckEventArgs e)
+        {
+            for (var ix = 0; ix < clb.Items.Count; ++ix)
+                if (ix != e.Index)
+                    clb.SetItemChecked(ix, false);
+        }
+
+        public static string GetChoiceCheckedListBox(CheckedListBox clb)
+        {
+            return clb.SelectedItem?.ToString();
+        }
     }
 }
