@@ -9,6 +9,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Windows.Forms;
+using ScanFolderToFile.Forms.OptionsForms;
 using ScanFolderToFile.MarkdownOut;
 using Path = System.IO.Path;
 using static ScanFolderToFile.Constants;
@@ -155,6 +156,34 @@ namespace ScanFolderToFile.Utils
                 .Select(sFile => Path.GetExtension(sFile).Trim())
                 .Distinct()
                 .ToList();
+        }
+
+        public static void CheckNameFilesDuplicate(List<string> content)
+        {
+            try
+            {
+                var listKeyValuePairs =
+                    (from pathFile in content
+                     let onlyNameFile = Path.GetFileNameWithoutExtension(pathFile)
+                     let ext = Path.GetExtension(pathFile)
+                     select new KeyValuePair<string, string>(onlyNameFile, ext))
+                    .ToList();
+
+                var duplicates = listKeyValuePairs
+                    .GroupBy(i => i.Key)
+                    .Where(g => g.Count() > 1)
+                    .Select(i => i)
+                    .ToList();
+
+                if (!duplicates.Any()) return;
+
+                var frmCheckNameFilesDuplicate = new FrmCheckNameFilesDuplicate(duplicates);
+                frmCheckNameFilesDuplicate.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                ScanFolderToFileLogger.Error(ex, nameof(CheckNameFilesDuplicate), "Errore in check dei nomi dei files duplicati.");
+            }
         }
 
         public static void CreateFileTxt(List<string> content)

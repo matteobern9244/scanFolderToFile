@@ -90,6 +90,12 @@
     <Compile Include="Forms\FrmPrincipal.Designer.cs">
       <DependentUpon>FrmPrincipal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\OptionsForms\FrmCheckNameFilesDuplicate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\OptionsForms\FrmCheckNameFilesDuplicate.Designer.cs">
+      <DependentUpon>FrmCheckNameFilesDuplicate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\OptionsForms\FrmCopyMoveFiles.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -107,6 +113,9 @@
     <Compile Include="Utils\Utils.cs" />
     <EmbeddedResource Include="Forms\FrmPrincipal.resx">
       <DependentUpon>FrmPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\OptionsForms\FrmCheckNameFilesDuplicate.resx">
+      <DependentUpon>FrmCheckNameFilesDuplicate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\OptionsForms\FrmCopyMoveFiles.resx">
       <DependentUpon>FrmCopyMoveFiles.cs</DependentUpon>

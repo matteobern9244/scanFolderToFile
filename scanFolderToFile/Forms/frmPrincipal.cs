@@ -58,7 +58,7 @@ namespace ScanFolderToFile.Forms
             }
         }
 
-        private void GenerateFile(bool zipFolder)
+        private void GenerateFile(bool zipFolder, bool checkNameFilesDuplicate)
         {
             if (zipFolder)
                 CreateZipFolder(txtSelectedPath.Text);
@@ -74,6 +74,9 @@ namespace ScanFolderToFile.Forms
                     CreateFileMarkdown(content);
                 else
                     CreateFileTxt(content);
+
+                if (checkNameFilesDuplicate)
+                    CheckNameFilesDuplicate(content);
 
                 MessageBox.Show(ElaborationConfirm, ElaborationTitle, MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
@@ -126,7 +129,9 @@ namespace ScanFolderToFile.Forms
         private void btnCreateFile_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(txtSelectedPath.Text.Trim()))
-                GenerateFile(cbZipFolder.Checked);
+                GenerateFile(cbZipFolder.Checked, cbNameFilesDuplicate.Checked);
+            else
+                MessageBox.Show(AlertMissingScanFolder, AlertTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void buttonReorderFilesInFolderByType_Click(object sender, EventArgs e)

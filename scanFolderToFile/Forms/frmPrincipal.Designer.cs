@@ -46,6 +46,7 @@
             this.btnOpenFile = new System.Windows.Forms.Button();
             this.checkedListBoxFormatFile = new System.Windows.Forms.CheckedListBox();
             this.buttonReorderFilesInFolderByType = new System.Windows.Forms.Button();
+            this.cbNameFilesDuplicate = new System.Windows.Forms.CheckBox();
             this.gbSelectFolder.SuspendLayout();
             this.gbOptions.SuspendLayout();
             this.SuspendLayout();
@@ -137,6 +138,7 @@
             // 
             // gbOptions
             // 
+            this.gbOptions.Controls.Add(this.cbNameFilesDuplicate);
             this.gbOptions.Controls.Add(this.cbZipFolder);
             this.gbOptions.Controls.Add(this.cbOnlyExtensions);
             this.gbOptions.Font = new System.Drawing.Font("Comic Sans MS", 10F);
@@ -144,7 +146,7 @@
             this.gbOptions.Margin = new System.Windows.Forms.Padding(4);
             this.gbOptions.Name = "gbOptions";
             this.gbOptions.Padding = new System.Windows.Forms.Padding(4);
-            this.gbOptions.Size = new System.Drawing.Size(289, 117);
+            this.gbOptions.Size = new System.Drawing.Size(405, 146);
             this.gbOptions.TabIndex = 12;
             this.gbOptions.TabStop = false;
             this.gbOptions.Text = "Opzioni";
@@ -265,6 +267,18 @@
             this.buttonReorderFilesInFolderByType.UseVisualStyleBackColor = false;
             this.buttonReorderFilesInFolderByType.Click += new System.EventHandler(this.buttonReorderFilesInFolderByType_Click);
             // 
+            // cbNameFilesDuplicate
+            // 
+            this.cbNameFilesDuplicate.AutoSize = true;
+            this.cbNameFilesDuplicate.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbNameFilesDuplicate.Location = new System.Drawing.Point(9, 114);
+            this.cbNameFilesDuplicate.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            this.cbNameFilesDuplicate.Name = "cbNameFilesDuplicate";
+            this.cbNameFilesDuplicate.Size = new System.Drawing.Size(252, 30);
+            this.cbNameFilesDuplicate.TabIndex = 13;
+            this.cbNameFilesDuplicate.Text = "Check nomi files duplicati";
+            this.cbNameFilesDuplicate.UseVisualStyleBackColor = true;
+            // 
             // FrmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 24F);
@@ -317,6 +331,7 @@
         private System.Windows.Forms.Button buttonReorderFilesInFolderByType;
         private System.Windows.Forms.Button btnCreateFile;
         private System.Windows.Forms.Button btnOpenFolderSelected;
+        private System.Windows.Forms.CheckBox cbNameFilesDuplicate;
     }
 }
 
