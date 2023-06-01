@@ -145,5 +145,11 @@ namespace ScanFolderToFile.Forms
             if (!string.IsNullOrEmpty(txtSelectedPath.Text.Trim()))
                 OpenFolder(txtSelectedPath.Text.Trim());
         }
+
+        private void btnEditFileTxt_Click(object sender, EventArgs e)
+        {
+            var frmEditFileTxt = new FrmEditFileTxt();
+            frmEditFileTxt.ShowDialog();
+        }
     }
 }

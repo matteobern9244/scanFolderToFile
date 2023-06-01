@@ -38,6 +38,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.cbOnlyExtensions = new System.Windows.Forms.CheckBox();
             this.gbOptions = new System.Windows.Forms.GroupBox();
+            this.cbNameFilesDuplicate = new System.Windows.Forms.CheckBox();
             this.cbZipFolder = new System.Windows.Forms.CheckBox();
             this.btnCopyMoveFiles = new System.Windows.Forms.Button();
             this.btnOpenFolderZip = new System.Windows.Forms.Button();
@@ -46,7 +47,7 @@
             this.btnOpenFile = new System.Windows.Forms.Button();
             this.checkedListBoxFormatFile = new System.Windows.Forms.CheckedListBox();
             this.buttonReorderFilesInFolderByType = new System.Windows.Forms.Button();
-            this.cbNameFilesDuplicate = new System.Windows.Forms.CheckBox();
+            this.btnEditFileTxt = new System.Windows.Forms.Button();
             this.gbSelectFolder.SuspendLayout();
             this.gbOptions.SuspendLayout();
             this.SuspendLayout();
@@ -150,6 +151,18 @@
             this.gbOptions.TabIndex = 12;
             this.gbOptions.TabStop = false;
             this.gbOptions.Text = "Opzioni";
+            // 
+            // cbNameFilesDuplicate
+            // 
+            this.cbNameFilesDuplicate.AutoSize = true;
+            this.cbNameFilesDuplicate.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbNameFilesDuplicate.Location = new System.Drawing.Point(9, 114);
+            this.cbNameFilesDuplicate.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            this.cbNameFilesDuplicate.Name = "cbNameFilesDuplicate";
+            this.cbNameFilesDuplicate.Size = new System.Drawing.Size(252, 30);
+            this.cbNameFilesDuplicate.TabIndex = 13;
+            this.cbNameFilesDuplicate.Text = "Check nomi files duplicati";
+            this.cbNameFilesDuplicate.UseVisualStyleBackColor = true;
             // 
             // cbZipFolder
             // 
@@ -267,23 +280,25 @@
             this.buttonReorderFilesInFolderByType.UseVisualStyleBackColor = false;
             this.buttonReorderFilesInFolderByType.Click += new System.EventHandler(this.buttonReorderFilesInFolderByType_Click);
             // 
-            // cbNameFilesDuplicate
+            // btnEditFileTxt
             // 
-            this.cbNameFilesDuplicate.AutoSize = true;
-            this.cbNameFilesDuplicate.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbNameFilesDuplicate.Location = new System.Drawing.Point(9, 114);
-            this.cbNameFilesDuplicate.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this.cbNameFilesDuplicate.Name = "cbNameFilesDuplicate";
-            this.cbNameFilesDuplicate.Size = new System.Drawing.Size(252, 30);
-            this.cbNameFilesDuplicate.TabIndex = 13;
-            this.cbNameFilesDuplicate.Text = "Check nomi files duplicati";
-            this.cbNameFilesDuplicate.UseVisualStyleBackColor = true;
+            this.btnEditFileTxt.BackColor = System.Drawing.Color.White;
+            this.btnEditFileTxt.ForeColor = System.Drawing.Color.Red;
+            this.btnEditFileTxt.Location = new System.Drawing.Point(709, 328);
+            this.btnEditFileTxt.Margin = new System.Windows.Forms.Padding(4);
+            this.btnEditFileTxt.Name = "btnEditFileTxt";
+            this.btnEditFileTxt.Size = new System.Drawing.Size(259, 32);
+            this.btnEditFileTxt.TabIndex = 16;
+            this.btnEditFileTxt.Text = "Edita files txt";
+            this.btnEditFileTxt.UseVisualStyleBackColor = false;
+            this.btnEditFileTxt.Click += new System.EventHandler(this.btnEditFileTxt_Click);
             // 
             // FrmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(989, 471);
+            this.Controls.Add(this.btnEditFileTxt);
             this.Controls.Add(this.buttonReorderFilesInFolderByType);
             this.Controls.Add(this.checkedListBoxFormatFile);
             this.Controls.Add(this.btnCopyMoveFiles);
@@ -332,6 +347,7 @@
         private System.Windows.Forms.Button btnCreateFile;
         private System.Windows.Forms.Button btnOpenFolderSelected;
         private System.Windows.Forms.CheckBox cbNameFilesDuplicate;
+        private System.Windows.Forms.Button btnEditFileTxt;
     }
 }
 

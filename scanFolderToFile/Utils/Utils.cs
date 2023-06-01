@@ -424,5 +424,10 @@ namespace ScanFolderToFile.Utils
                 ScanFolderToFileLogger.Error(ex, nameof(ReorderFilesInFolderByType), "Errore in riordinamento dei file.");
             }
         }
+
+        public static string GetPathFileTxt()
+        {
+            return File.Exists(Path.Combine(PathFolder, TxtFileFinal)) ? Path.Combine(PathFolder, TxtFileFinal) : string.Empty;
+        }
     }
 }

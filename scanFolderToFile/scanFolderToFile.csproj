@@ -102,6 +102,12 @@
     <Compile Include="Forms\OptionsForms\FrmCopyMoveFiles.Designer.cs">
       <DependentUpon>FrmCopyMoveFiles.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\OptionsForms\FrmEditFileTxt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\OptionsForms\FrmEditFileTxt.Designer.cs">
+      <DependentUpon>FrmEditFileTxt.cs</DependentUpon>
+    </Compile>
     <Compile Include="MarkdownOut\MdExtensions.cs" />
     <Compile Include="MarkdownOut\MdFormat.cs" />
     <Compile Include="MarkdownOut\MdStyle.cs" />
@@ -120,6 +126,9 @@
     <EmbeddedResource Include="Forms\OptionsForms\FrmCopyMoveFiles.resx">
       <DependentUpon>FrmCopyMoveFiles.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\OptionsForms\FrmEditFileTxt.resx">
+      <DependentUpon>FrmEditFileTxt.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
@@ -128,7 +137,6 @@
     <Content Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="changelog.md" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
