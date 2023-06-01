@@ -19,6 +19,8 @@ namespace ScanFolderToFile.Forms
         private void btnSfoglia_Click(object sender, EventArgs e)
         {
             Browse(cbZipFolder.Checked);
+            if (!string.IsNullOrEmpty(txtSelectedPath.Text.Trim()))
+                OpenFolder(txtSelectedPath.Text.Trim());
         }
 
         //PULSANTE APERTURA FILE

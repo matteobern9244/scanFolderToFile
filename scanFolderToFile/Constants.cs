@@ -4,7 +4,7 @@
     {
         #region static readonly
         public static readonly string PathFolder = $@"C:\{Folder}";
-        public static readonly string PathFolderZip = $@"C:\{FolderZip}";
+        public static readonly string PathFolderZip = $@"{PathFolder}\ZipFiles";
         public static readonly string AlertMessage = $"Verrà creata la cartella '{Folder}' in C: con il file '{Content}'";
         public static readonly string AlertMissingScanFolder = @"Selezionare la cartella da scansionare";
         public static readonly string TxtFileFinal = $"{Content}.txt";
