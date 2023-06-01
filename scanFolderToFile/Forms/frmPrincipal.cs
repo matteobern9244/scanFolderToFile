@@ -148,7 +148,7 @@ namespace ScanFolderToFile.Forms
 
         private void btnEditFileTxt_Click(object sender, EventArgs e)
         {
-            var frmEditFileTxt = new FrmEditFileTxt();
+            var frmEditFileTxt = new FrmEditorFileTxt();
             frmEditFileTxt.ShowDialog();
         }
     }
