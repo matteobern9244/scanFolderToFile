@@ -298,28 +298,25 @@ namespace ScanFolderToFile.Forms.OptionsForms
         {
             try
             {
-                saveFileDialog1.ShowDialog();    // show the dialog
                 if (saveFileDialog1.ShowDialog() != DialogResult.OK) return;
-                string filename = saveFileDialog1.FileName;
+                var filename = saveFileDialog1.FileName;
                 // save the contents of the rich text box
                 richTextBox1.SaveFile(filename, RichTextBoxStreamType.PlainText);
                 var file = Path.GetFileName(filename);
-                MessageBox.Show(@"File " + file + @" was saved successfully.", @"Save Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(@"File " + file + @" è stato salvato con successo.", @"File salvato", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, @"Error Information", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(ex.Message, @"Errore", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
         private void openFileStripButton_Click(object sender, EventArgs e)
         {
-            openFileDialog1.ShowDialog();     // show the dialog
             if (openFileDialog1.ShowDialog() != DialogResult.OK) return;
             _filename = openFileDialog1.FileName;
             // load the file into the richTextBox
             richTextBox1.LoadFile(_filename, RichTextBoxStreamType.PlainText);    // loads it in regular text format
-            // richTextBox1.LoadFile(filename, RichTextBoxStreamType.RichText);    // loads it in RTB format
         }
 
         private void colorStripDropDownButton_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -421,7 +418,7 @@ namespace ScanFolderToFile.Forms.OptionsForms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, @"Error Information", MessageBoxButtons.OK, MessageBoxIcon.Warning); // show error message
+                MessageBox.Show(ex.Message, @"Errore", MessageBoxButtons.OK, MessageBoxIcon.Warning); // show error message
             }
         }
 
@@ -441,7 +438,7 @@ namespace ScanFolderToFile.Forms.OptionsForms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, @"Error Information", MessageBoxButtons.OK, MessageBoxIcon.Warning); // show error message
+                MessageBox.Show(ex.Message, @"Errore", MessageBoxButtons.OK, MessageBoxIcon.Warning); // show error message
             }
         }
 
@@ -530,7 +527,6 @@ namespace ScanFolderToFile.Forms.OptionsForms
 
         private void OpenMenuItem_Click(object sender, EventArgs e)
         {
-            openFileDialog1.ShowDialog();
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 richTextBox1.LoadFile(openFileDialog1.FileName, RichTextBoxStreamType.PlainText);
@@ -543,21 +539,20 @@ namespace ScanFolderToFile.Forms.OptionsForms
             if (richTextBox1.Text != string.Empty)    // RTB has contents - prompt user to save changes
             {
                 // save changes message
-                var result = MessageBox.Show(@"Would you like to save your changes? Editor is not empty.", @"Save Changes?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                var result = MessageBox.Show(@"Vuoi salvare le tue modifiche? L'editor non è vuoto.", @"Salva le modifiche?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                 switch (result)
                 {
                     case DialogResult.Yes:
                         {
                             // save the RTB contents if user selected yes
-                            saveFileDialog1.ShowDialog();    // show the dialog
                             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                             {
                                 var filename = saveFileDialog1.FileName;
                                 // save the contents of the rich text box
                                 richTextBox1.SaveFile(filename, RichTextBoxStreamType.PlainText);
                                 var file = Path.GetFileName(filename);
-                                MessageBox.Show(@"File " + file + @" was saved successfully.", @"Save Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MessageBox.Show(@"File " + file + @" è stato salvato con successo.", @"File salvato", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
 
                             // finally - clear the contents of the RTB 
@@ -582,8 +577,6 @@ namespace ScanFolderToFile.Forms.OptionsForms
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            saveFileDialog1.ShowDialog();    // show the dialog
-
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 var filename = saveFileDialog1.FileName;
@@ -591,7 +584,7 @@ namespace ScanFolderToFile.Forms.OptionsForms
                 richTextBox1.SaveFile(filename, RichTextBoxStreamType.PlainText);
             }
             var file = Path.GetFileName(_filename); // get name of file
-            MessageBox.Show(@"File " + file + @" was saved successfully.", @"Save Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(@"File " + file + @" è stato salvato con successo.", @"File salvato", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void zoomDropDownButton_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -658,7 +651,6 @@ namespace ScanFolderToFile.Forms.OptionsForms
         {
             try
             {
-                fontDialog1.ShowDialog();    // show the Font Dialog
                 var oldFont = this.Font;    // gets current font
 
                 if (fontDialog1.ShowDialog() == DialogResult.OK)
@@ -680,14 +672,14 @@ namespace ScanFolderToFile.Forms.OptionsForms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, @"Error Information", MessageBoxButtons.OK, MessageBoxIcon.Warning); // error
+                MessageBox.Show(ex.Message, @"Errore", MessageBoxButtons.OK, MessageBoxIcon.Warning); // error
             }
         }
 
         private void fontDialog1_HelpRequest(object sender, EventArgs e)
         {
             // display HelpRequest message
-            MessageBox.Show(@"Please choose a font and any other attributes; then hit Apply and OK.", @"Font Dialog Help Request", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(@"Scegliere un font e qualsiasi altro attributo, quindi premere Applica e OK.", @"Richiesta di aiuto della finestra di dialogo dei font", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void fontDialog1_Apply(object sender, EventArgs e)
@@ -767,13 +759,11 @@ namespace ScanFolderToFile.Forms.OptionsForms
         private void colorDialog1_HelpRequest(object sender, EventArgs e)
         {
             // display HelpRequest message
-            MessageBox.Show("Please select a color by clicking it. This will change the text color.", "Color Dialog Help Request", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(@"Selezionare un colore facendo clic su di esso. Questo cambierà il colore del testo.", @"Richiesta di aiuto per la finestra di dialogo dei colori", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void colorOptionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            colorDialog1.ShowDialog();
-
             if (colorDialog1.ShowDialog() == DialogResult.OK)
             {
                 // set the selected color to the RTB's forecolor

@@ -35,7 +35,6 @@
             this.gbSelectFolder = new System.Windows.Forms.GroupBox();
             this.btnOpenFolderSelected = new System.Windows.Forms.Button();
             this.btnCreateFile = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
             this.cbOnlyExtensions = new System.Windows.Forms.CheckBox();
             this.gbOptions = new System.Windows.Forms.GroupBox();
             this.cbNameFilesDuplicate = new System.Windows.Forms.CheckBox();
@@ -102,7 +101,7 @@
             // 
             // btnCreateFile
             // 
-            this.btnCreateFile.Font = new System.Drawing.Font("Comic Sans MS", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCreateFile.Font = new System.Drawing.Font("Comic Sans MS", 10.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCreateFile.ForeColor = System.Drawing.Color.Blue;
             this.btnCreateFile.Location = new System.Drawing.Point(522, 27);
             this.btnCreateFile.Name = "btnCreateFile";
@@ -111,18 +110,6 @@
             this.btnCreateFile.Text = "GENERA FILE";
             this.btnCreateFile.UseVisualStyleBackColor = true;
             this.btnCreateFile.Click += new System.EventHandler(this.btnCreateFile_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.Blue;
-            this.label3.Location = new System.Drawing.Point(827, 434);
-            this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(149, 17);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "by Matteo Bernardini©";
             // 
             // cbOnlyExtensions
             // 
@@ -179,8 +166,8 @@
             // btnCopyMoveFiles
             // 
             this.btnCopyMoveFiles.BackColor = System.Drawing.Color.White;
-            this.btnCopyMoveFiles.ForeColor = System.Drawing.Color.Red;
-            this.btnCopyMoveFiles.Location = new System.Drawing.Point(709, 214);
+            this.btnCopyMoveFiles.ForeColor = System.Drawing.Color.Black;
+            this.btnCopyMoveFiles.Location = new System.Drawing.Point(709, 190);
             this.btnCopyMoveFiles.Margin = new System.Windows.Forms.Padding(4);
             this.btnCopyMoveFiles.Name = "btnCopyMoveFiles";
             this.btnCopyMoveFiles.Size = new System.Drawing.Size(259, 36);
@@ -270,8 +257,8 @@
             // buttonReorderFilesInFolderByType
             // 
             this.buttonReorderFilesInFolderByType.BackColor = System.Drawing.Color.White;
-            this.buttonReorderFilesInFolderByType.ForeColor = System.Drawing.Color.Red;
-            this.buttonReorderFilesInFolderByType.Location = new System.Drawing.Point(709, 258);
+            this.buttonReorderFilesInFolderByType.ForeColor = System.Drawing.Color.Black;
+            this.buttonReorderFilesInFolderByType.Location = new System.Drawing.Point(709, 234);
             this.buttonReorderFilesInFolderByType.Margin = new System.Windows.Forms.Padding(4);
             this.buttonReorderFilesInFolderByType.Name = "buttonReorderFilesInFolderByType";
             this.buttonReorderFilesInFolderByType.Size = new System.Drawing.Size(259, 62);
@@ -283,8 +270,8 @@
             // btnEditFileTxt
             // 
             this.btnEditFileTxt.BackColor = System.Drawing.Color.White;
-            this.btnEditFileTxt.ForeColor = System.Drawing.Color.Red;
-            this.btnEditFileTxt.Location = new System.Drawing.Point(709, 328);
+            this.btnEditFileTxt.ForeColor = System.Drawing.Color.Black;
+            this.btnEditFileTxt.Location = new System.Drawing.Point(709, 304);
             this.btnEditFileTxt.Margin = new System.Windows.Forms.Padding(4);
             this.btnEditFileTxt.Name = "btnEditFileTxt";
             this.btnEditFileTxt.Size = new System.Drawing.Size(259, 32);
@@ -304,7 +291,6 @@
             this.Controls.Add(this.btnCopyMoveFiles);
             this.Controls.Add(this.btnOpenFolderZip);
             this.Controls.Add(this.gbOptions);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.btnOpenFolder);
             this.Controls.Add(this.btnStampaFile);
             this.Controls.Add(this.btnOpenFile);
@@ -323,7 +309,6 @@
             this.gbOptions.ResumeLayout(false);
             this.gbOptions.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -336,7 +321,6 @@
         private System.Windows.Forms.Button btnOpenFile;
         private System.Windows.Forms.Button btnStampaFile;
         private System.Windows.Forms.Button btnOpenFolder;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox cbOnlyExtensions;
         private System.Windows.Forms.GroupBox gbOptions;
         private System.Windows.Forms.CheckBox cbZipFolder;

@@ -257,7 +257,7 @@ namespace ScanFolderToFile.Utils
             }
             catch (Exception ex)
             {
-                ScanFolderToFileLogger.Error(ex, nameof(OpenFile), $"Errore in apertusra file.");
+                ScanFolderToFileLogger.Error(ex, nameof(OpenFile), @"Errore in apertura file.");
             }
         }
 
@@ -339,8 +339,8 @@ namespace ScanFolderToFile.Utils
                 foreach (var newPath in Directory.GetFiles(sourcePath, "*.*", SearchOption.AllDirectories))
                     File.Copy(newPath, newPath.Replace(sourcePath, targetPath), true);
 
-                ScanFolderToFileLogger.Info(nameof(CopyFilesRecursively), $"File copiati correttamente.", true,
-                    "FILE COPIATI CORRETTAMENTE");
+                ScanFolderToFileLogger.Info(nameof(CopyFilesRecursively), @"File copiati correttamente.", true,
+                    @"FILE COPIATI CORRETTAMENTE");
             }
             catch (Exception ex)
             {
@@ -368,12 +368,12 @@ namespace ScanFolderToFile.Utils
                 }
 
                 if (showConfirm)
-                    ScanFolderToFileLogger.Info(nameof(MoveAllContentFolders), $"File spostati correttamente.", true,
-                    "FILE SPOSTATI CORRETTAMENTE");
+                    ScanFolderToFileLogger.Info(nameof(MoveAllContentFolders), @"File spostati correttamente.", true,
+                    @"FILE SPOSTATI CORRETTAMENTE");
             }
             catch (Exception ex)
             {
-                ScanFolderToFileLogger.Error(ex, nameof(MoveAllContentFolders), "Errore in spostamento dei file.");
+                ScanFolderToFileLogger.Error(ex, nameof(MoveAllContentFolders), @"Errore in spostamento dei file.");
             }
             finally
             {
@@ -415,13 +415,13 @@ namespace ScanFolderToFile.Utils
                     File.Move(file, pathToMoveFile);
                 }
 
-                ScanFolderToFileLogger.Info(nameof(ReorderFilesInFolderByType), $"File spostati correttamente.", true,
-                    "FILE SPOSTATI CORRETTAMENTE");
+                ScanFolderToFileLogger.Info(nameof(ReorderFilesInFolderByType), @"File spostati correttamente.", true,
+                    @"FILE SPOSTATI CORRETTAMENTE");
 
             }
             catch (Exception ex)
             {
-                ScanFolderToFileLogger.Error(ex, nameof(ReorderFilesInFolderByType), "Errore in riordinamento dei file.");
+                ScanFolderToFileLogger.Error(ex, nameof(ReorderFilesInFolderByType), @"Errore in riordinamento dei file.");
             }
         }
 
