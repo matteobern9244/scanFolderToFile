@@ -96,7 +96,7 @@ namespace ScanFolderToFile.Forms.OptionsForms
                 // Middle sum of RGB values is 382 -> (765/2)
                 // Color is considered darker if its <= 382
                 // Color is considered lighter if its > 382
-                _sumRgb = ConvertToRGB(col);    // get the color objects sum of the RGB value
+                _sumRgb = ConvertToRgb(col);    // get the color objects sum of the RGB value
                 if (_sumRgb <= Middle)    // Darker Background
                 {
                     colorStripDropDownButton.DropDownItems[i].ForeColor = Color.White;    // set to White text
@@ -108,17 +108,17 @@ namespace ScanFolderToFile.Forms.OptionsForms
             }
 
             // fill fonts in font combo box
-            InstalledFontCollection fonts = new InstalledFontCollection();
-            foreach (FontFamily family in fonts.Families)
+            var fonts = new InstalledFontCollection();
+            foreach (var family in fonts.Families)
             {
                 fontStripComboBox.Items.Add(family.Name);
             }
 
             // determines the line and column numbers of mouse position on the richTextBox
-            int pos = richTextBox1.SelectionStart;
-            int line = richTextBox1.GetLineFromCharIndex(pos);
-            int column = richTextBox1.SelectionStart - richTextBox1.GetFirstCharIndexFromLine(line);
-            lineColumnStatusLabel.Text = "Line " + (line + 1) + ", Column " + (column + 1);
+            var pos = richTextBox1.SelectionStart;
+            var line = richTextBox1.GetLineFromCharIndex(pos);
+            var column = richTextBox1.SelectionStart - richTextBox1.GetFirstCharIndexFromLine(line);
+            lineColumnStatusLabel.Text = @"Line " + (line + 1) + @", Column " + (column + 1);
 
             try
             {
@@ -137,18 +137,19 @@ namespace ScanFolderToFile.Forms.OptionsForms
         //******************************************************************************************************************************
         // ConvertToRGB - Accepts a Color object as its parameter. Gets the RGB values of the object passed to it, calculates the sum. *
         //******************************************************************************************************************************
-        private int ConvertToRGB(System.Drawing.Color c)
+        private static int ConvertToRgb(Color c)
         {
             int r = c.R, // RED component value
                 g = c.G, // GREEN component value
                 b = c.B; // BLUE component value
-            int sum = 0;
 
-            // calculate sum of RGB
-            sum = r + g + b;
+            var sum =
+                // calculate sum of RGB
+                r + g + b;
 
             return sum;
         }
+
         private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
             richTextBox1.SelectAll();     // select all text
@@ -177,14 +178,14 @@ namespace ScanFolderToFile.Forms.OptionsForms
 
         private void boldStripButton3_Click(object sender, EventArgs e)
         {
-
-            if (boldStripButton3.Checked == false)
+            switch (boldStripButton3.Checked)
             {
-                boldStripButton3.Checked = true; // BOLD is true
-            }
-            else if (boldStripButton3.Checked == true)
-            {
-                boldStripButton3.Checked = false;    // BOLD is false
+                case false:
+                    boldStripButton3.Checked = true; // BOLD is true
+                    break;
+                case true:
+                    boldStripButton3.Checked = false;    // BOLD is false
+                    break;
             }
 
             if (richTextBox1.SelectionFont == null)
@@ -193,7 +194,7 @@ namespace ScanFolderToFile.Forms.OptionsForms
             }
 
             // create fontStyle object
-            FontStyle style = richTextBox1.SelectionFont.Style;
+            var style = richTextBox1.SelectionFont.Style;
 
             // determines the font style
             if (richTextBox1.SelectionFont.Bold)
@@ -210,13 +211,14 @@ namespace ScanFolderToFile.Forms.OptionsForms
 
         private void underlineStripButton_Click(object sender, EventArgs e)
         {
-            if (underlineStripButton.Checked == false)
+            switch (underlineStripButton.Checked)
             {
-                underlineStripButton.Checked = true;     // UNDERLINE is active
-            }
-            else if (underlineStripButton.Checked == true)
-            {
-                underlineStripButton.Checked = false;    // UNDERLINE is not active
+                case false:
+                    underlineStripButton.Checked = true;     // UNDERLINE is active
+                    break;
+                case true:
+                    underlineStripButton.Checked = false;    // UNDERLINE is not active
+                    break;
             }
 
             if (richTextBox1.SelectionFont == null)
@@ -225,7 +227,7 @@ namespace ScanFolderToFile.Forms.OptionsForms
             }
 
             // create fontStyle object
-            FontStyle style = richTextBox1.SelectionFont.Style;
+            var style = richTextBox1.SelectionFont.Style;
 
             // determines the font style
             if (richTextBox1.SelectionFont.Underline)
@@ -241,21 +243,23 @@ namespace ScanFolderToFile.Forms.OptionsForms
 
         private void italicStripButton_Click(object sender, EventArgs e)
         {
-            if (italicStripButton.Checked == false)
+            switch (italicStripButton.Checked)
             {
-                italicStripButton.Checked = true;    // ITALICS is active
-            }
-            else if (italicStripButton.Checked == true)
-            {
-                italicStripButton.Checked = false;    // ITALICS is not active
+                case false:
+                    italicStripButton.Checked = true;    // ITALICS is active
+                    break;
+                case true:
+                    italicStripButton.Checked = false;    // ITALICS is not active
+                    break;
             }
 
             if (richTextBox1.SelectionFont == null)
             {
                 return;
             }
+
             // create fontStyle object
-            FontStyle style = richTextBox1.SelectionFont.Style;
+            var style = richTextBox1.SelectionFont.Style;
 
             // determines font style
             if (richTextBox1.SelectionFont.Italic)
@@ -295,52 +299,43 @@ namespace ScanFolderToFile.Forms.OptionsForms
             try
             {
                 saveFileDialog1.ShowDialog();    // show the dialog
-                string file;
-                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-                {
-                    string filename = saveFileDialog1.FileName;
-                    // save the contents of the rich text box
-                    richTextBox1.SaveFile(filename, RichTextBoxStreamType.PlainText);
-                    file = Path.GetFileName(filename);    // get name of file
-                    MessageBox.Show("File " + file + " was saved successfully.", "Save Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-
+                if (saveFileDialog1.ShowDialog() != DialogResult.OK) return;
+                string filename = saveFileDialog1.FileName;
+                // save the contents of the rich text box
+                richTextBox1.SaveFile(filename, RichTextBoxStreamType.PlainText);
+                var file = Path.GetFileName(filename);
+                MessageBox.Show(@"File " + file + @" was saved successfully.", @"Save Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error Information", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(ex.Message, @"Error Information", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
         private void openFileStripButton_Click(object sender, EventArgs e)
         {
             openFileDialog1.ShowDialog();     // show the dialog
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                _filename = openFileDialog1.FileName;
-                // load the file into the richTextBox
-                richTextBox1.LoadFile(_filename, RichTextBoxStreamType.PlainText);    // loads it in regular text format
-                // richTextBox1.LoadFile(filename, RichTextBoxStreamType.RichText);    // loads it in RTB format
-            }
+            if (openFileDialog1.ShowDialog() != DialogResult.OK) return;
+            _filename = openFileDialog1.FileName;
+            // load the file into the richTextBox
+            richTextBox1.LoadFile(_filename, RichTextBoxStreamType.PlainText);    // loads it in regular text format
+            // richTextBox1.LoadFile(filename, RichTextBoxStreamType.RichText);    // loads it in RTB format
         }
 
         private void colorStripDropDownButton_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             // creates a KnownColor object
-            KnownColor selectedColor;
-            selectedColor = (KnownColor)System.Enum.Parse(typeof(KnownColor), e.ClickedItem.Text);    // converts it to a Color Structure
+            var selectedColor = (KnownColor)Enum.Parse(typeof(KnownColor), e.ClickedItem.Text); // converts it to a Color Structure
             richTextBox1.SelectionColor = Color.FromKnownColor(selectedColor);    // sets the selected color
         }
 
         private void richTextBox1_SelectionChanged(object sender, EventArgs e)
         {
             // highlight button border when buttons are true
-            if (richTextBox1.SelectionFont != null)
-            {
-                boldStripButton3.Checked = richTextBox1.SelectionFont.Bold;
-                italicStripButton.Checked = richTextBox1.SelectionFont.Italic;
-                underlineStripButton.Checked = richTextBox1.SelectionFont.Underline;
-            }
+            if (richTextBox1.SelectionFont == null) return;
+            boldStripButton3.Checked = richTextBox1.SelectionFont.Bold;
+            italicStripButton.Checked = richTextBox1.SelectionFont.Italic;
+            underlineStripButton.Checked = richTextBox1.SelectionFont.Underline;
         }
 
         private void leftAlignStripButton_Click(object sender, EventArgs e)
@@ -348,13 +343,14 @@ namespace ScanFolderToFile.Forms.OptionsForms
             // set properties
             centerAlignStripButton.Checked = false;
             rightAlignStripButton.Checked = false;
-            if (leftAlignStripButton.Checked == false)
+            switch (leftAlignStripButton.Checked)
             {
-                leftAlignStripButton.Checked = true;    // LEFT ALIGN is active
-            }
-            else if (leftAlignStripButton.Checked == true)
-            {
-                leftAlignStripButton.Checked = false;    // LEFT ALIGN is not active
+                case false:
+                    leftAlignStripButton.Checked = true;    // LEFT ALIGN is active
+                    break;
+                case true:
+                    leftAlignStripButton.Checked = false;    // LEFT ALIGN is not active
+                    break;
             }
             richTextBox1.SelectionAlignment = HorizontalAlignment.Left;    // selects left alignment
         }
@@ -364,13 +360,14 @@ namespace ScanFolderToFile.Forms.OptionsForms
             // set properties
             leftAlignStripButton.Checked = false;
             rightAlignStripButton.Checked = false;
-            if (centerAlignStripButton.Checked == false)
+            switch (centerAlignStripButton.Checked)
             {
-                centerAlignStripButton.Checked = true;    // CENTER ALIGN is active
-            }
-            else if (centerAlignStripButton.Checked == true)
-            {
-                centerAlignStripButton.Checked = false;    // CENTER ALIGN is not active
+                case false:
+                    centerAlignStripButton.Checked = true;    // CENTER ALIGN is active
+                    break;
+                case true:
+                    centerAlignStripButton.Checked = false;    // CENTER ALIGN is not active
+                    break;
             }
             richTextBox1.SelectionAlignment = HorizontalAlignment.Center;     // selects center alignment
         }
@@ -381,37 +378,39 @@ namespace ScanFolderToFile.Forms.OptionsForms
             leftAlignStripButton.Checked = false;
             centerAlignStripButton.Checked = false;
 
-            if (rightAlignStripButton.Checked == false)
+            switch (rightAlignStripButton.Checked)
             {
-                rightAlignStripButton.Checked = true;    // RIGHT ALIGN is active
-            }
-            else if (rightAlignStripButton.Checked == true)
-            {
-                rightAlignStripButton.Checked = false;    // RIGHT ALIGN is not active
+                case false:
+                    rightAlignStripButton.Checked = true;    // RIGHT ALIGN is active
+                    break;
+                case true:
+                    rightAlignStripButton.Checked = false;    // RIGHT ALIGN is not active
+                    break;
             }
             richTextBox1.SelectionAlignment = HorizontalAlignment.Right;    // selects right alignment
         }
 
         private void bulletListStripButton_Click(object sender, EventArgs e)
         {
-            if (bulletListStripButton.Checked == false)
+            switch (bulletListStripButton.Checked)
             {
-                bulletListStripButton.Checked = true;
-                richTextBox1.SelectionBullet = true;    // BULLET LIST is active
-            }
-            else if (bulletListStripButton.Checked == true)
-            {
-                bulletListStripButton.Checked = false;
-                richTextBox1.SelectionBullet = false;    // BULLET LIST is not active
+                case false:
+                    bulletListStripButton.Checked = true;
+                    richTextBox1.SelectionBullet = true;    // BULLET LIST is active
+                    break;
+                case true:
+                    bulletListStripButton.Checked = false;
+                    richTextBox1.SelectionBullet = false;    // BULLET LIST is not active
+                    break;
             }
         }
 
         private void increaseStripButton_Click(object sender, EventArgs e)
         {
-            string fontSizeNum = fontSizeComboBox.Text;    // variable to hold selected size         
+            var fontSizeNum = fontSizeComboBox.Text;    // variable to hold selected size         
             try
             {
-                int size = Convert.ToInt32(fontSizeNum) + 1;    // convert (fontSizeNum + 1)
+                var size = Convert.ToInt32(fontSizeNum) + 1;    // convert (fontSizeNum + 1)
                 if (richTextBox1.SelectionFont == null)
                 {
                     return;
@@ -422,16 +421,16 @@ namespace ScanFolderToFile.Forms.OptionsForms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error Information", MessageBoxButtons.OK, MessageBoxIcon.Warning); // show error message
+                MessageBox.Show(ex.Message, @"Error Information", MessageBoxButtons.OK, MessageBoxIcon.Warning); // show error message
             }
         }
 
         private void decreaseStripButton_Click(object sender, EventArgs e)
         {
-            string fontSizeNum = fontSizeComboBox.Text;    // variable to hold selected size            
+            var fontSizeNum = fontSizeComboBox.Text;    // variable to hold selected size            
             try
             {
-                int size = Convert.ToInt32(fontSizeNum) - 1;    // convert (fontSizeNum - 1)
+                var size = Convert.ToInt32(fontSizeNum) - 1;    // convert (fontSizeNum - 1)
                 if (richTextBox1.SelectionFont == null)
                 {
                     return;
@@ -442,7 +441,7 @@ namespace ScanFolderToFile.Forms.OptionsForms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error Information", MessageBoxButtons.OK, MessageBoxIcon.Warning); // show error message
+                MessageBox.Show(ex.Message, @"Error Information", MessageBoxButtons.OK, MessageBoxIcon.Warning); // show error message
             }
         }
 
@@ -451,23 +450,17 @@ namespace ScanFolderToFile.Forms.OptionsForms
         //*********************************************************************************************
         private void richTextBox1_DragEnter(object sender, System.Windows.Forms.DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.Text))
-                e.Effect = DragDropEffects.Copy;    // copies data to the RTB
-            else
-                e.Effect = DragDropEffects.None;    // doesn't accept data into RTB
+            e.Effect = e.Data.GetDataPresent(DataFormats.Text) ? DragDropEffects.Copy : // copies data to the RTB
+                DragDropEffects.None; // doesn't accept data into RTB
         }
         //***************************************************************************************************
         // richTextBox1_DragEnter - Custom Event. Drops the copied text being dragged onto the richTextBox  *
         //***************************************************************************************************
         private void richTextBox1_DragDrop(object sender, System.Windows.Forms.DragEventArgs e)
         {
-            // variables
-            int i;
-            String s;
-
             // Get start position to drop the text.
-            i = richTextBox1.SelectionStart;
-            s = richTextBox1.Text.Substring(i);
+            var i = richTextBox1.SelectionStart;
+            var s = richTextBox1.Text.Substring(i);
             richTextBox1.Text = richTextBox1.Text.Substring(0, i);
 
             // Drop the text on to the RichTextBox.
@@ -541,7 +534,6 @@ namespace ScanFolderToFile.Forms.OptionsForms
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 richTextBox1.LoadFile(openFileDialog1.FileName, RichTextBoxStreamType.PlainText);
-                // richTextBox1.LoadFile(openFileDialog1.FileName, RichTextBoxStreamType.RichText);  // loads the file in RTB format
             }
         }
 
@@ -551,31 +543,33 @@ namespace ScanFolderToFile.Forms.OptionsForms
             if (richTextBox1.Text != string.Empty)    // RTB has contents - prompt user to save changes
             {
                 // save changes message
-                DialogResult result = MessageBox.Show("Would you like to save your changes? Editor is not empty.", "Save Changes?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                var result = MessageBox.Show(@"Would you like to save your changes? Editor is not empty.", @"Save Changes?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-                if (result == DialogResult.Yes)
+                switch (result)
                 {
-                    // save the RTB contents if user selected yes
-                    saveFileDialog1.ShowDialog();    // show the dialog
-                    string file;
-                    if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-                    {
-                        string filename = saveFileDialog1.FileName;
-                        // save the contents of the rich text box
-                        richTextBox1.SaveFile(filename, RichTextBoxStreamType.PlainText);
-                        file = Path.GetFileName(filename); // get name of file
-                        MessageBox.Show("File " + file + " was saved successfully.", "Save Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
+                    case DialogResult.Yes:
+                        {
+                            // save the RTB contents if user selected yes
+                            saveFileDialog1.ShowDialog();    // show the dialog
+                            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                            {
+                                var filename = saveFileDialog1.FileName;
+                                // save the contents of the rich text box
+                                richTextBox1.SaveFile(filename, RichTextBoxStreamType.PlainText);
+                                var file = Path.GetFileName(filename);
+                                MessageBox.Show(@"File " + file + @" was saved successfully.", @"Save Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
 
-                    // finally - clear the contents of the RTB 
-                    richTextBox1.ResetText();
-                    richTextBox1.Focus();
-                }
-                else if (result == DialogResult.No)
-                {
-                    // clear the contents of the RTB 
-                    richTextBox1.ResetText();
-                    richTextBox1.Focus();
+                            // finally - clear the contents of the RTB 
+                            richTextBox1.ResetText();
+                            richTextBox1.Focus();
+                            break;
+                        }
+                    case DialogResult.No:
+                        // clear the contents of the RTB 
+                        richTextBox1.ResetText();
+                        richTextBox1.Focus();
+                        break;
                 }
             }
             else // RTB has no contents
@@ -589,34 +583,33 @@ namespace ScanFolderToFile.Forms.OptionsForms
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             saveFileDialog1.ShowDialog();    // show the dialog
-            string file;
 
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                string filename = saveFileDialog1.FileName;
+                var filename = saveFileDialog1.FileName;
                 // save the contents of the rich text box
                 richTextBox1.SaveFile(filename, RichTextBoxStreamType.PlainText);
             }
-            file = Path.GetFileName(_filename);    // get name of file
-            MessageBox.Show("File " + file + " was saved successfully.", "Save Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            var file = Path.GetFileName(_filename); // get name of file
+            MessageBox.Show(@"File " + file + @" was saved successfully.", @"Save Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void zoomDropDownButton_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            float zoomPercent = Convert.ToSingle(e.ClickedItem.Text.Trim('%')); // convert
+            var zoomPercent = Convert.ToSingle(e.ClickedItem.Text.Trim('%')); // convert
             richTextBox1.ZoomFactor = zoomPercent / 100;    // set zoom factor
 
             if (e.ClickedItem.Image == null)
             {
                 // sets all the image properties to null - incase one is already selected beforehand
-                for (int i = 0; i < zoomDropDownButton.DropDownItems.Count; i++)
+                for (var i = 0; i < zoomDropDownButton.DropDownItems.Count; i++)
                 {
                     zoomDropDownButton.DropDownItems[i].Image = null;
                 }
 
                 // draw bmp in image property of selected item, while its active
-                Bitmap bmp = new Bitmap(5, 5);
-                using (Graphics gfx = Graphics.FromImage(bmp))
+                var bmp = new Bitmap(5, 5);
+                using (var gfx = Graphics.FromImage(bmp))
                 {
                     gfx.FillEllipse(Brushes.Black, 1, 1, 3, 3);
                 }
@@ -642,21 +635,22 @@ namespace ScanFolderToFile.Forms.OptionsForms
         private void wordWrapToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // draw bmp in image property of selected item, while its active
-            Bitmap bmp = new Bitmap(5, 5);
-            using (Graphics gfx = Graphics.FromImage(bmp))
+            var bmp = new Bitmap(5, 5);
+            using (var gfx = Graphics.FromImage(bmp))
             {
                 gfx.FillEllipse(Brushes.Black, 1, 1, 3, 3);
             }
 
-            if (richTextBox1.WordWrap == false)
+            switch (richTextBox1.WordWrap)
             {
-                richTextBox1.WordWrap = true;    // WordWrap is active
-                wordWrapToolStripMenuItem.Image = bmp;    // draw ellipse in image property
-            }
-            else if (richTextBox1.WordWrap == true)
-            {
-                richTextBox1.WordWrap = false;    // WordWrap is not active
-                wordWrapToolStripMenuItem.Image = null;    // clear image property
+                case false:
+                    richTextBox1.WordWrap = true;    // WordWrap is active
+                    wordWrapToolStripMenuItem.Image = bmp;    // draw ellipse in image property
+                    break;
+                case true:
+                    richTextBox1.WordWrap = false;    // WordWrap is not active
+                    wordWrapToolStripMenuItem.Image = null;    // clear image property
+                    break;
             }
         }
 
@@ -665,11 +659,11 @@ namespace ScanFolderToFile.Forms.OptionsForms
             try
             {
                 fontDialog1.ShowDialog();    // show the Font Dialog
-                System.Drawing.Font oldFont = this.Font;    // gets current font
+                var oldFont = this.Font;    // gets current font
 
                 if (fontDialog1.ShowDialog() == DialogResult.OK)
                 {
-                    fontDialog1_Apply(richTextBox1, new System.EventArgs());
+                    fontDialog1_Apply(richTextBox1, EventArgs.Empty);
                 }
                 // set back to the recent font
                 else if (fontDialog1.ShowDialog() == DialogResult.Cancel)
@@ -686,14 +680,14 @@ namespace ScanFolderToFile.Forms.OptionsForms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error Information", MessageBoxButtons.OK, MessageBoxIcon.Warning); // error
+                MessageBox.Show(ex.Message, @"Error Information", MessageBoxButtons.OK, MessageBoxIcon.Warning); // error
             }
         }
 
         private void fontDialog1_HelpRequest(object sender, EventArgs e)
         {
             // display HelpRequest message
-            MessageBox.Show("Please choose a font and any other attributes; then hit Apply and OK.", "Font Dialog Help Request", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(@"Please choose a font and any other attributes; then hit Apply and OK.", @"Font Dialog Help Request", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void fontDialog1_Apply(object sender, EventArgs e)
@@ -719,7 +713,7 @@ namespace ScanFolderToFile.Forms.OptionsForms
         {
             fontStripComboBox.Text = "Font Family";
             fontSizeComboBox.Text = "Font Size";
-            string pureText = richTextBox1.Text;    // get the current Plain Text     
+            var pureText = richTextBox1.Text;    // get the current Plain Text     
             richTextBox1.Clear();    // clear RTB
             richTextBox1.ForeColor = Color.Black;    // ensure the text color is back to Black
             richTextBox1.Font = default(Font);    // set default font
@@ -799,25 +793,25 @@ namespace ScanFolderToFile.Forms.OptionsForms
                     _pos = richTextBox1.SelectionStart;    // get starting point
                     _line = richTextBox1.GetLineFromCharIndex(_pos);    // get line number
                     _column = richTextBox1.SelectionStart - richTextBox1.GetFirstCharIndexFromLine(_line);    // get column number
-                    lineColumnStatusLabel.Text = "Line " + (_line + 1) + ", Column " + (_column + 1);
+                    lineColumnStatusLabel.Text = @"Line " + (_line + 1) + @", Column " + (_column + 1);
                     break;
                 case Keys.Right:
                     _pos = richTextBox1.SelectionStart; // get starting point
                     _line = richTextBox1.GetLineFromCharIndex(_pos); // get line number
                     _column = richTextBox1.SelectionStart - richTextBox1.GetFirstCharIndexFromLine(_line);    // get column number
-                    lineColumnStatusLabel.Text = "Line " + (_line + 1) + ", Column " + (_column + 1);
+                    lineColumnStatusLabel.Text = @"Line " + (_line + 1) + @", Column " + (_column + 1);
                     break;
                 case Keys.Up:
                     _pos = richTextBox1.SelectionStart; // get starting point
                     _line = richTextBox1.GetLineFromCharIndex(_pos); // get line number
                     _column = richTextBox1.SelectionStart - richTextBox1.GetFirstCharIndexFromLine(_line);    // get column number
-                    lineColumnStatusLabel.Text = "Line " + (_line + 1) + ", Column " + (_column + 1);
+                    lineColumnStatusLabel.Text = @"Line " + (_line + 1) + @", Column " + (_column + 1);
                     break;
                 case Keys.Left:
                     _pos = richTextBox1.SelectionStart; // get starting point
                     _line = richTextBox1.GetLineFromCharIndex(_pos); // get line number
                     _column = richTextBox1.SelectionStart - richTextBox1.GetFirstCharIndexFromLine(_line);    // get column number
-                    lineColumnStatusLabel.Text = "Line " + (_line + 1) + ", Column " + (_column + 1);
+                    lineColumnStatusLabel.Text = @"Line " + (_line + 1) + @", Column " + (_column + 1);
                     break;
             }
         }
@@ -827,11 +821,10 @@ namespace ScanFolderToFile.Forms.OptionsForms
         //****************************************************************************************************************************
         private void richTextBox1_MouseDown(object sender, MouseEventArgs e)
         {
-            int pos = richTextBox1.SelectionStart;    // get starting point
-            int line = richTextBox1.GetLineFromCharIndex(pos);    // get line number
-            int column = richTextBox1.SelectionStart - richTextBox1.GetFirstCharIndexFromLine(line);    // get column number
-            lineColumnStatusLabel.Text = "Line " + (line + 1) + ", Column " + (column + 1);
+            var pos = richTextBox1.SelectionStart;    // get starting point
+            var line = richTextBox1.GetLineFromCharIndex(pos);    // get line number
+            var column = richTextBox1.SelectionStart - richTextBox1.GetFirstCharIndexFromLine(line);    // get column number
+            lineColumnStatusLabel.Text = @"Line " + (line + 1) + @", Column " + (column + 1);
         }
-
     }
 }
