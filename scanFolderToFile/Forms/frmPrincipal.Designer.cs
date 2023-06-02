@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPrincipal));
             this.txtSelectedPath = new System.Windows.Forms.TextBox();
             this.btnSfoglia = new System.Windows.Forms.Button();
@@ -44,7 +45,9 @@
             this.btnOpenFile = new System.Windows.Forms.Button();
             this.checkedListBoxFormatFile = new System.Windows.Forms.CheckedListBox();
             this.buttonReorderFilesInFolderByType = new System.Windows.Forms.Button();
-            this.btnEditFileTxt = new System.Windows.Forms.Button();
+            this.toolTipOpenFile = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTipPrintFile = new System.Windows.Forms.ToolTip(this.components);
+            this.btnOpenFolderSelected = new System.Windows.Forms.Button();
             this.gbSelectFolder.SuspendLayout();
             this.gbOptions.SuspendLayout();
             this.SuspendLayout();
@@ -72,6 +75,7 @@
             // 
             // gbSelectFolder
             // 
+            this.gbSelectFolder.Controls.Add(this.btnOpenFolderSelected);
             this.gbSelectFolder.Controls.Add(this.btnCreateFile);
             this.gbSelectFolder.Controls.Add(this.txtSelectedPath);
             this.gbSelectFolder.Controls.Add(this.btnSfoglia);
@@ -80,7 +84,7 @@
             this.gbSelectFolder.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.gbSelectFolder.Name = "gbSelectFolder";
             this.gbSelectFolder.Padding = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this.gbSelectFolder.Size = new System.Drawing.Size(666, 84);
+            this.gbSelectFolder.Size = new System.Drawing.Size(666, 101);
             this.gbSelectFolder.TabIndex = 4;
             this.gbSelectFolder.TabStop = false;
             this.gbSelectFolder.Text = "Seleziona cartella :";
@@ -175,7 +179,6 @@
             this.btnOpenFolder.Size = new System.Drawing.Size(220, 53);
             this.btnOpenFolder.TabIndex = 8;
             this.btnOpenFolder.Text = "     APRI CARTELLA";
-            this.btnOpenFolder.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.btnOpenFolder.UseVisualStyleBackColor = false;
             this.btnOpenFolder.Click += new System.EventHandler(this.btnOpenFolder_Click);
             // 
@@ -232,25 +235,43 @@
             this.buttonReorderFilesInFolderByType.UseVisualStyleBackColor = false;
             this.buttonReorderFilesInFolderByType.Click += new System.EventHandler(this.buttonReorderFilesInFolderByType_Click);
             // 
-            // btnEditFileTxt
+            // toolTipOpenFile
             // 
-            this.btnEditFileTxt.BackColor = System.Drawing.Color.White;
-            this.btnEditFileTxt.ForeColor = System.Drawing.Color.Black;
-            this.btnEditFileTxt.Location = new System.Drawing.Point(595, 239);
-            this.btnEditFileTxt.Margin = new System.Windows.Forms.Padding(4);
-            this.btnEditFileTxt.Name = "btnEditFileTxt";
-            this.btnEditFileTxt.Size = new System.Drawing.Size(259, 32);
-            this.btnEditFileTxt.TabIndex = 16;
-            this.btnEditFileTxt.Text = "Edita files txt";
-            this.btnEditFileTxt.UseVisualStyleBackColor = false;
-            this.btnEditFileTxt.Click += new System.EventHandler(this.btnEditFileTxt_Click);
+            this.toolTipOpenFile.AutoPopDelay = 5000;
+            this.toolTipOpenFile.InitialDelay = 100;
+            this.toolTipOpenFile.IsBalloon = true;
+            this.toolTipOpenFile.ReshowDelay = 500;
+            this.toolTipOpenFile.ShowAlways = true;
+            // 
+            // toolTipPrintFile
+            // 
+            this.toolTipPrintFile.AutoPopDelay = 5000;
+            this.toolTipPrintFile.InitialDelay = 100;
+            this.toolTipPrintFile.IsBalloon = true;
+            this.toolTipPrintFile.ReshowDelay = 500;
+            this.toolTipPrintFile.ShowAlways = true;
+            // 
+            // btnOpenFolderSelected
+            // 
+            this.btnOpenFolderSelected.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnOpenFolderSelected.BackgroundImage = global::ScanFolderToFile.Properties.Resources.open;
+            this.btnOpenFolderSelected.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnOpenFolderSelected.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOpenFolderSelected.ForeColor = System.Drawing.Color.Red;
+            this.btnOpenFolderSelected.Location = new System.Drawing.Point(9, 65);
+            this.btnOpenFolderSelected.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            this.btnOpenFolderSelected.Name = "btnOpenFolderSelected";
+            this.btnOpenFolderSelected.Size = new System.Drawing.Size(396, 36);
+            this.btnOpenFolderSelected.TabIndex = 17;
+            this.btnOpenFolderSelected.Text = "     APRI CARTELLA SELEZIONATA";
+            this.btnOpenFolderSelected.UseVisualStyleBackColor = false;
+            this.btnOpenFolderSelected.Click += new System.EventHandler(this.btnOpenFolderSelected_Click);
             // 
             // FrmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(864, 437);
-            this.Controls.Add(this.btnEditFileTxt);
             this.Controls.Add(this.buttonReorderFilesInFolderByType);
             this.Controls.Add(this.checkedListBoxFormatFile);
             this.Controls.Add(this.btnCopyMoveFiles);
@@ -293,7 +314,9 @@
         private System.Windows.Forms.Button buttonReorderFilesInFolderByType;
         private System.Windows.Forms.Button btnCreateFile;
         private System.Windows.Forms.CheckBox cbNameFilesDuplicate;
-        private System.Windows.Forms.Button btnEditFileTxt;
+        private System.Windows.Forms.ToolTip toolTipOpenFile;
+        private System.Windows.Forms.ToolTip toolTipPrintFile;
+        private System.Windows.Forms.Button btnOpenFolderSelected;
     }
 }
 
