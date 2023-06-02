@@ -4,6 +4,7 @@
     {
         #region static readonly
         public static readonly string PathFolder = $@"C:\{Folder}";
+        public static readonly string PathHistoryFileCreated = $@"C:\{HistoryFileCreated}";
         public static readonly string PathFolderZip = $@"{PathFolder}\ZipFiles";
         public static readonly string AlertMessage = $"Verrà creata la cartella '{Folder}' in C: con il file '{Content}'";
         public static readonly string AlertMissingScanFolder = @"Selezionare la cartella da scansionare";
@@ -14,8 +15,9 @@
         #endregion
 
         #region const
+
+        public const string HistoryFileCreated = "HistoryFileCreated.json";
         public const string Folder = "CONTENT";
-        public const string FolderZip = "CONTENT_ZIPPED";
         public const string AlertTitle = "ATTENZIONE";
         public const string ElaborationConfirm = "Elaborazione completata senza errori";
         public const string ElaborationTitle = "ELABORAZIONE";

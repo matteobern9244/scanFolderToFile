@@ -9,8 +9,11 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Windows.Forms;
+using Newtonsoft.Json;
+using NLog.LayoutRenderers;
 using ScanFolderToFile.Forms.OptionsForms;
 using ScanFolderToFile.MarkdownOut;
+using ScanFolderToFile.Model;
 using Path = System.IO.Path;
 using static ScanFolderToFile.Constants;
 
@@ -183,6 +186,56 @@ namespace ScanFolderToFile.Utils
             catch (Exception ex)
             {
                 ScanFolderToFileLogger.Error(ex, nameof(CheckNameFilesDuplicate), "Errore in check dei nomi dei files duplicati.");
+            }
+        }
+
+        //public static void CreateFileHistoryFileCreated(HistoryFilesCreated filesCreated)
+        //{
+        //    try
+        //    {
+        //        var json = JsonConvert.SerializeObject(filesCreated, Formatting.Indented);
+        //        File.WriteAllText(PathHistoryFileCreated, json);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ScanFolderToFileLogger.Error(ex, nameof(CreateFileHistoryFileCreated), "Errore in creazione file json.");
+        //    }
+        //}
+
+        private static List<HistoryFilesCreated> DeserializeHistoryFilesCreated()
+        {
+            try
+            {
+                if (File.Exists(PathHistoryFileCreated))
+                    return JsonConvert.DeserializeObject<List<HistoryFilesCreated>>(File.ReadAllText(PathHistoryFileCreated));
+            }
+            catch (Exception ex)
+            {
+                ScanFolderToFileLogger.Error(ex, nameof(DeserializeHistoryFilesCreated), "Errore in deserializzazione file json.");
+            }
+
+            return null;
+        }
+
+        public static void AddFileInHistory(string fileName, string extensionFile)
+        {
+            var history = DeserializeHistoryFilesCreated();
+            if (history != null)
+            {
+                //esiste il file
+                history.Add(new HistoryFilesCreated()
+                {
+                    NameFile = fileName,
+                    ExtensionFile = extensionFile,
+                    CreatedAt = DateTime.Now
+                });
+                var convertedJson = JsonConvert.SerializeObject(history, Formatting.Indented);
+                File.WriteAllText(PathHistoryFileCreated, convertedJson); //TODO : REFACTOR
+            }
+            else
+            {
+                //non esiste il file
+                //TODO
             }
         }
 
