@@ -34,6 +34,7 @@
             this.btnSfoglia = new System.Windows.Forms.Button();
             this.fbd = new System.Windows.Forms.FolderBrowserDialog();
             this.gbSelectFolder = new System.Windows.Forms.GroupBox();
+            this.btnOpenFolderSelected = new System.Windows.Forms.Button();
             this.btnCreateFile = new System.Windows.Forms.Button();
             this.cbOnlyExtensions = new System.Windows.Forms.CheckBox();
             this.gbOptions = new System.Windows.Forms.GroupBox();
@@ -47,7 +48,7 @@
             this.buttonReorderFilesInFolderByType = new System.Windows.Forms.Button();
             this.toolTipOpenFile = new System.Windows.Forms.ToolTip(this.components);
             this.toolTipPrintFile = new System.Windows.Forms.ToolTip(this.components);
-            this.btnOpenFolderSelected = new System.Windows.Forms.Button();
+            this.btnHistoryFileCreated = new System.Windows.Forms.Button();
             this.gbSelectFolder.SuspendLayout();
             this.gbOptions.SuspendLayout();
             this.SuspendLayout();
@@ -84,10 +85,26 @@
             this.gbSelectFolder.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.gbSelectFolder.Name = "gbSelectFolder";
             this.gbSelectFolder.Padding = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this.gbSelectFolder.Size = new System.Drawing.Size(666, 101);
+            this.gbSelectFolder.Size = new System.Drawing.Size(666, 111);
             this.gbSelectFolder.TabIndex = 4;
             this.gbSelectFolder.TabStop = false;
             this.gbSelectFolder.Text = "Seleziona cartella :";
+            // 
+            // btnOpenFolderSelected
+            // 
+            this.btnOpenFolderSelected.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnOpenFolderSelected.BackgroundImage = global::ScanFolderToFile.Properties.Resources.open;
+            this.btnOpenFolderSelected.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnOpenFolderSelected.Font = new System.Drawing.Font("Comic Sans MS", 10F, System.Drawing.FontStyle.Bold);
+            this.btnOpenFolderSelected.ForeColor = System.Drawing.Color.Red;
+            this.btnOpenFolderSelected.Location = new System.Drawing.Point(9, 65);
+            this.btnOpenFolderSelected.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            this.btnOpenFolderSelected.Name = "btnOpenFolderSelected";
+            this.btnOpenFolderSelected.Size = new System.Drawing.Size(340, 46);
+            this.btnOpenFolderSelected.TabIndex = 17;
+            this.btnOpenFolderSelected.Text = "     APRI CARTELLA SELEZIONATA";
+            this.btnOpenFolderSelected.UseVisualStyleBackColor = false;
+            this.btnOpenFolderSelected.Click += new System.EventHandler(this.btnOpenFolderSelected_Click);
             // 
             // btnCreateFile
             // 
@@ -104,11 +121,11 @@
             // cbOnlyExtensions
             // 
             this.cbOnlyExtensions.AutoSize = true;
-            this.cbOnlyExtensions.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbOnlyExtensions.Location = new System.Drawing.Point(10, 34);
+            this.cbOnlyExtensions.Font = new System.Drawing.Font("Comic Sans MS", 9F);
+            this.cbOnlyExtensions.Location = new System.Drawing.Point(9, 29);
             this.cbOnlyExtensions.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.cbOnlyExtensions.Name = "cbOnlyExtensions";
-            this.cbOnlyExtensions.Size = new System.Drawing.Size(164, 30);
+            this.cbOnlyExtensions.Size = new System.Drawing.Size(135, 24);
             this.cbOnlyExtensions.TabIndex = 10;
             this.cbOnlyExtensions.Text = "Solo Estensioni";
             this.cbOnlyExtensions.UseVisualStyleBackColor = true;
@@ -120,11 +137,11 @@
             this.gbOptions.Controls.Add(this.cbZipFolder);
             this.gbOptions.Controls.Add(this.cbOnlyExtensions);
             this.gbOptions.Font = new System.Drawing.Font("Comic Sans MS", 10F);
-            this.gbOptions.Location = new System.Drawing.Point(20, 214);
+            this.gbOptions.Location = new System.Drawing.Point(20, 231);
             this.gbOptions.Margin = new System.Windows.Forms.Padding(4);
             this.gbOptions.Name = "gbOptions";
             this.gbOptions.Padding = new System.Windows.Forms.Padding(4);
-            this.gbOptions.Size = new System.Drawing.Size(405, 146);
+            this.gbOptions.Size = new System.Drawing.Size(349, 112);
             this.gbOptions.TabIndex = 12;
             this.gbOptions.TabStop = false;
             this.gbOptions.Text = "Opzioni";
@@ -132,11 +149,11 @@
             // cbNameFilesDuplicate
             // 
             this.cbNameFilesDuplicate.AutoSize = true;
-            this.cbNameFilesDuplicate.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbNameFilesDuplicate.Location = new System.Drawing.Point(9, 114);
+            this.cbNameFilesDuplicate.Font = new System.Drawing.Font("Comic Sans MS", 9F);
+            this.cbNameFilesDuplicate.Location = new System.Drawing.Point(9, 79);
             this.cbNameFilesDuplicate.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.cbNameFilesDuplicate.Name = "cbNameFilesDuplicate";
-            this.cbNameFilesDuplicate.Size = new System.Drawing.Size(252, 30);
+            this.cbNameFilesDuplicate.Size = new System.Drawing.Size(207, 24);
             this.cbNameFilesDuplicate.TabIndex = 13;
             this.cbNameFilesDuplicate.Text = "Check nomi files duplicati";
             this.cbNameFilesDuplicate.UseVisualStyleBackColor = true;
@@ -144,11 +161,11 @@
             // cbZipFolder
             // 
             this.cbZipFolder.AutoSize = true;
-            this.cbZipFolder.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbZipFolder.Location = new System.Drawing.Point(9, 76);
+            this.cbZipFolder.Font = new System.Drawing.Font("Comic Sans MS", 9F);
+            this.cbZipFolder.Location = new System.Drawing.Point(9, 54);
             this.cbZipFolder.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.cbZipFolder.Name = "cbZipFolder";
-            this.cbZipFolder.Size = new System.Drawing.Size(262, 30);
+            this.cbZipFolder.Size = new System.Drawing.Size(213, 24);
             this.cbZipFolder.TabIndex = 12;
             this.cbZipFolder.Text = "Creare Zip Cartella Scelta";
             this.cbZipFolder.UseVisualStyleBackColor = true;
@@ -156,11 +173,12 @@
             // btnCopyMoveFiles
             // 
             this.btnCopyMoveFiles.BackColor = System.Drawing.Color.White;
+            this.btnCopyMoveFiles.Font = new System.Drawing.Font("Comic Sans MS", 9F);
             this.btnCopyMoveFiles.ForeColor = System.Drawing.Color.Black;
-            this.btnCopyMoveFiles.Location = new System.Drawing.Point(595, 125);
+            this.btnCopyMoveFiles.Location = new System.Drawing.Point(564, 143);
             this.btnCopyMoveFiles.Margin = new System.Windows.Forms.Padding(4);
             this.btnCopyMoveFiles.Name = "btnCopyMoveFiles";
-            this.btnCopyMoveFiles.Size = new System.Drawing.Size(259, 36);
+            this.btnCopyMoveFiles.Size = new System.Drawing.Size(290, 36);
             this.btnCopyMoveFiles.TabIndex = 13;
             this.btnCopyMoveFiles.Text = "Copia / Sposta Files";
             this.btnCopyMoveFiles.UseVisualStyleBackColor = false;
@@ -173,7 +191,7 @@
             this.btnOpenFolder.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnOpenFolder.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOpenFolder.ForeColor = System.Drawing.Color.Red;
-            this.btnOpenFolder.Location = new System.Drawing.Point(634, 369);
+            this.btnOpenFolder.Location = new System.Drawing.Point(634, 290);
             this.btnOpenFolder.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.btnOpenFolder.Name = "btnOpenFolder";
             this.btnOpenFolder.Size = new System.Drawing.Size(220, 53);
@@ -189,10 +207,10 @@
             this.btnStampaFile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnStampaFile.Font = new System.Drawing.Font("Comic Sans MS", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStampaFile.ForeColor = System.Drawing.Color.Red;
-            this.btnStampaFile.Location = new System.Drawing.Point(777, 15);
+            this.btnStampaFile.Location = new System.Drawing.Point(781, 15);
             this.btnStampaFile.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.btnStampaFile.Name = "btnStampaFile";
-            this.btnStampaFile.Size = new System.Drawing.Size(77, 65);
+            this.btnStampaFile.Size = new System.Drawing.Size(73, 65);
             this.btnStampaFile.TabIndex = 7;
             this.btnStampaFile.UseVisualStyleBackColor = false;
             this.btnStampaFile.Click += new System.EventHandler(this.btnStampaFile_Click);
@@ -204,7 +222,7 @@
             this.btnOpenFile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnOpenFile.Font = new System.Drawing.Font("Comic Sans MS", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOpenFile.ForeColor = System.Drawing.Color.Red;
-            this.btnOpenFile.Location = new System.Drawing.Point(696, 15);
+            this.btnOpenFile.Location = new System.Drawing.Point(700, 15);
             this.btnOpenFile.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.btnOpenFile.Name = "btnOpenFile";
             this.btnOpenFile.Size = new System.Drawing.Size(71, 65);
@@ -216,20 +234,21 @@
             // 
             this.checkedListBoxFormatFile.CheckOnClick = true;
             this.checkedListBoxFormatFile.FormattingEnabled = true;
-            this.checkedListBoxFormatFile.Location = new System.Drawing.Point(20, 125);
+            this.checkedListBoxFormatFile.Location = new System.Drawing.Point(20, 142);
             this.checkedListBoxFormatFile.Name = "checkedListBoxFormatFile";
-            this.checkedListBoxFormatFile.Size = new System.Drawing.Size(405, 82);
+            this.checkedListBoxFormatFile.Size = new System.Drawing.Size(349, 82);
             this.checkedListBoxFormatFile.TabIndex = 14;
             this.checkedListBoxFormatFile.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxFormatFile_ItemCheck);
             // 
             // buttonReorderFilesInFolderByType
             // 
             this.buttonReorderFilesInFolderByType.BackColor = System.Drawing.Color.White;
+            this.buttonReorderFilesInFolderByType.Font = new System.Drawing.Font("Comic Sans MS", 9F);
             this.buttonReorderFilesInFolderByType.ForeColor = System.Drawing.Color.Black;
-            this.buttonReorderFilesInFolderByType.Location = new System.Drawing.Point(595, 169);
+            this.buttonReorderFilesInFolderByType.Location = new System.Drawing.Point(564, 187);
             this.buttonReorderFilesInFolderByType.Margin = new System.Windows.Forms.Padding(4);
             this.buttonReorderFilesInFolderByType.Name = "buttonReorderFilesInFolderByType";
-            this.buttonReorderFilesInFolderByType.Size = new System.Drawing.Size(259, 62);
+            this.buttonReorderFilesInFolderByType.Size = new System.Drawing.Size(290, 35);
             this.buttonReorderFilesInFolderByType.TabIndex = 15;
             this.buttonReorderFilesInFolderByType.Text = "Riordinamento files in cartelle per tipo";
             this.buttonReorderFilesInFolderByType.UseVisualStyleBackColor = false;
@@ -251,27 +270,26 @@
             this.toolTipPrintFile.ReshowDelay = 500;
             this.toolTipPrintFile.ShowAlways = true;
             // 
-            // btnOpenFolderSelected
+            // btnHistoryFileCreated
             // 
-            this.btnOpenFolderSelected.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnOpenFolderSelected.BackgroundImage = global::ScanFolderToFile.Properties.Resources.open;
-            this.btnOpenFolderSelected.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.btnOpenFolderSelected.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOpenFolderSelected.ForeColor = System.Drawing.Color.Red;
-            this.btnOpenFolderSelected.Location = new System.Drawing.Point(9, 65);
-            this.btnOpenFolderSelected.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this.btnOpenFolderSelected.Name = "btnOpenFolderSelected";
-            this.btnOpenFolderSelected.Size = new System.Drawing.Size(396, 36);
-            this.btnOpenFolderSelected.TabIndex = 17;
-            this.btnOpenFolderSelected.Text = "     APRI CARTELLA SELEZIONATA";
-            this.btnOpenFolderSelected.UseVisualStyleBackColor = false;
-            this.btnOpenFolderSelected.Click += new System.EventHandler(this.btnOpenFolderSelected_Click);
+            this.btnHistoryFileCreated.BackColor = System.Drawing.Color.White;
+            this.btnHistoryFileCreated.Font = new System.Drawing.Font("Comic Sans MS", 9F);
+            this.btnHistoryFileCreated.ForeColor = System.Drawing.Color.Black;
+            this.btnHistoryFileCreated.Location = new System.Drawing.Point(564, 244);
+            this.btnHistoryFileCreated.Margin = new System.Windows.Forms.Padding(4);
+            this.btnHistoryFileCreated.Name = "btnHistoryFileCreated";
+            this.btnHistoryFileCreated.Size = new System.Drawing.Size(290, 36);
+            this.btnHistoryFileCreated.TabIndex = 16;
+            this.btnHistoryFileCreated.Text = "Storico File Creati";
+            this.btnHistoryFileCreated.UseVisualStyleBackColor = false;
+            this.btnHistoryFileCreated.Click += new System.EventHandler(this.btnHistoryFileCreated_Click);
             // 
             // FrmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(864, 437);
+            this.ClientSize = new System.Drawing.Size(864, 355);
+            this.Controls.Add(this.btnHistoryFileCreated);
             this.Controls.Add(this.buttonReorderFilesInFolderByType);
             this.Controls.Add(this.checkedListBoxFormatFile);
             this.Controls.Add(this.btnCopyMoveFiles);
@@ -317,6 +335,7 @@
         private System.Windows.Forms.ToolTip toolTipOpenFile;
         private System.Windows.Forms.ToolTip toolTipPrintFile;
         private System.Windows.Forms.Button btnOpenFolderSelected;
+        private System.Windows.Forms.Button btnHistoryFileCreated;
     }
 }
 

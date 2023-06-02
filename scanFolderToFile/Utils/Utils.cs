@@ -9,8 +9,11 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Windows.Forms;
+using Newtonsoft.Json;
+using NLog.LayoutRenderers;
 using ScanFolderToFile.Forms.OptionsForms;
 using ScanFolderToFile.MarkdownOut;
+using ScanFolderToFile.Model;
 using Path = System.IO.Path;
 using static ScanFolderToFile.Constants;
 
@@ -42,6 +45,8 @@ namespace ScanFolderToFile.Utils
                     mdWriter.WriteLineSingle(Content, MdStyle.Bold, MdFormat.Heading1);
                     mdWriter.WriteLine(string.Join(Environment.NewLine, content.Select(Path.GetFileName).ToList()));
                 }
+
+                AddFileInHistory(MarkdownFileFinal, ExtMd);
             }
             catch (Exception ex)
             {
@@ -97,6 +102,8 @@ namespace ScanFolderToFile.Utils
 
                 ScanFolderToFileLogger.Info(nameof(CreateFilePdf), $"Creato file {PdfFileFinal} in {PathFolder}", true,
                     "FILE PDF CREATO");
+
+                AddFileInHistory(PdfFileFinal, ExtPdf);
             }
             catch (Exception ex)
             {
@@ -115,6 +122,7 @@ namespace ScanFolderToFile.Utils
                     false);
                 ScanFolderToFileLogger.Info(nameof(CreateZipFolder), $"Creato file {ZipFileFinal} in {PathFolderZip}",
                     true, "FILE ZIP CREATO");
+                AddFileInHistory(ZipFileFinal, ExtZip);
             }
             catch (Exception ex)
             {
@@ -186,6 +194,59 @@ namespace ScanFolderToFile.Utils
             }
         }
 
+        private static void AddFileInHistory(string fileName, string extensionFile)
+        {
+            try
+            {
+                var history = DeserializeHistoryFilesCreated() ?? new List<HistoryFilesCreated>();
+                history.Add(new HistoryFilesCreated()
+                {
+                    NameFile = fileName,
+                    ExtensionFile = extensionFile,
+                    CreatedAt = DateTime.Now
+                });
+                File.WriteAllText(PathHistoryFileCreated, JsonConvert.SerializeObject(history, Formatting.Indented));
+            }
+            catch (Exception ex)
+            {
+                ScanFolderToFileLogger.Error(ex, nameof(AddFileInHistory), "Errore in creazione file json.");
+            }
+        }
+
+        public static void OpenHistoryFileCreated()
+        {
+            try
+            {
+                var frmHistoryFileCreated = new FrmHistoryFileCreated(DeserializeHistoryFilesCreated());
+                frmHistoryFileCreated.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                ScanFolderToFileLogger.Error(ex, nameof(OpenHistoryFileCreated), "Errore in apertura storico file creati.");
+            }
+        }
+
+
+        private static List<HistoryFilesCreated> DeserializeHistoryFilesCreated()
+        {
+            try
+            {
+                if (File.Exists(PathHistoryFileCreated))
+                {
+                    return JsonConvert.DeserializeObject<List<HistoryFilesCreated>>(File.ReadAllText(PathHistoryFileCreated))
+                        .OrderByDescending(x => x.CreatedAt)
+                        .ToList();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ScanFolderToFileLogger.Error(ex, nameof(DeserializeHistoryFilesCreated), "Errore in deserializzazione file json.");
+            }
+
+            return null;
+        }
+
         public static void CreateFileTxt(List<string> content)
         {
             try
@@ -196,6 +257,7 @@ namespace ScanFolderToFile.Utils
                     content.ForEach(x => file.WriteLine(Path.GetFileName(x)));
                     ScanFolderToFileLogger.Info(nameof(CreateFileTxt), $"Creato file {TxtFileFinal} in {PathFolder}",
                         true, "FILE TXT CREATO");
+                    AddFileInHistory(TxtFileFinal, ExtTxt);
                 }
             }
             catch (Exception ex)

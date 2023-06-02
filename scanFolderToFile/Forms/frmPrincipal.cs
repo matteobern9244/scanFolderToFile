@@ -70,9 +70,11 @@ namespace ScanFolderToFile.Forms
 
                 if (PdfChecked())
                     CreateFilePdf(content);
+
                 if (MarkdownChecked())
                     CreateFileMarkdown(content);
-                else
+
+                if (!PdfChecked() && !MarkdownChecked())
                     CreateFileTxt(content);
 
                 if (checkNameFilesDuplicate)
@@ -149,6 +151,11 @@ namespace ScanFolderToFile.Forms
         {
             if (!string.IsNullOrEmpty(txtSelectedPath.Text.Trim()))
                 OpenFolder(txtSelectedPath.Text.Trim());
+        }
+
+        private void btnHistoryFileCreated_Click(object sender, EventArgs e)
+        {
+            OpenHistoryFileCreated();
         }
     }
 }
