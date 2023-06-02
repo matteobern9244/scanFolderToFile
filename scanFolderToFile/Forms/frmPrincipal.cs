@@ -96,11 +96,6 @@ namespace ScanFolderToFile.Forms
             checkedListBoxFormatFile.SetItemChecked(0, true);
         }
 
-        private void btnOpenFolderZip_Click(object sender, EventArgs e)
-        {
-            OpenFolder(PathFolderZip);
-        }
-
         private void btnCopyMoveFiles_Click(object sender, EventArgs e)
         {
             var frmCopyMoveFiles = new FrmCopyMoveFiles();
@@ -115,6 +110,7 @@ namespace ScanFolderToFile.Forms
         private void FrmPrincipal_Load(object sender, EventArgs e)
         {
             FillAndCheckFirstElementCbLb();
+            SetToolTipAtButtons();
         }
 
         private bool PdfChecked()
@@ -129,7 +125,11 @@ namespace ScanFolderToFile.Forms
         private void btnCreateFile_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(txtSelectedPath.Text.Trim()))
+            {
                 GenerateFile(cbZipFolder.Checked, cbNameFilesDuplicate.Checked);
+                var frmEditFileTxt = new FrmEditorFileTxt();
+                frmEditFileTxt.ShowDialog();
+            }
             else
                 MessageBox.Show(AlertMissingScanFolder, AlertTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
@@ -138,6 +138,11 @@ namespace ScanFolderToFile.Forms
         {
             if (!string.IsNullOrEmpty(txtSelectedPath.Text.Trim()))
                 ReorderFilesInFolderByType(txtSelectedPath.Text.Trim());
+        }
+        private void SetToolTipAtButtons()
+        {
+            toolTipOpenFile.SetToolTip(this.btnOpenFile, @"Apri file");
+            toolTipOpenFile.SetToolTip(this.btnStampaFile, @"Stampa file");
         }
 
         private void btnOpenFolderSelected_Click(object sender, EventArgs e)
