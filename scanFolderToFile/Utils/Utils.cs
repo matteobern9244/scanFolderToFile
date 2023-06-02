@@ -45,6 +45,8 @@ namespace ScanFolderToFile.Utils
                     mdWriter.WriteLineSingle(Content, MdStyle.Bold, MdFormat.Heading1);
                     mdWriter.WriteLine(string.Join(Environment.NewLine, content.Select(Path.GetFileName).ToList()));
                 }
+
+                AddFileInHistory(MarkdownFileFinal, ExtMd);
             }
             catch (Exception ex)
             {
@@ -100,6 +102,8 @@ namespace ScanFolderToFile.Utils
 
                 ScanFolderToFileLogger.Info(nameof(CreateFilePdf), $"Creato file {PdfFileFinal} in {PathFolder}", true,
                     "FILE PDF CREATO");
+
+                AddFileInHistory(PdfFileFinal, ExtPdf);
             }
             catch (Exception ex)
             {
@@ -118,6 +122,7 @@ namespace ScanFolderToFile.Utils
                     false);
                 ScanFolderToFileLogger.Info(nameof(CreateZipFolder), $"Creato file {ZipFileFinal} in {PathFolderZip}",
                     true, "FILE ZIP CREATO");
+                AddFileInHistory(ZipFileFinal, ExtZip);
             }
             catch (Exception ex)
             {
@@ -189,25 +194,50 @@ namespace ScanFolderToFile.Utils
             }
         }
 
-        //public static void CreateFileHistoryFileCreated(HistoryFilesCreated filesCreated)
-        //{
-        //    try
-        //    {
-        //        var json = JsonConvert.SerializeObject(filesCreated, Formatting.Indented);
-        //        File.WriteAllText(PathHistoryFileCreated, json);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ScanFolderToFileLogger.Error(ex, nameof(CreateFileHistoryFileCreated), "Errore in creazione file json.");
-        //    }
-        //}
+        private static void AddFileInHistory(string fileName, string extensionFile)
+        {
+            try
+            {
+                var history = DeserializeHistoryFilesCreated() ?? new List<HistoryFilesCreated>();
+                history.Add(new HistoryFilesCreated()
+                {
+                    NameFile = fileName,
+                    ExtensionFile = extensionFile,
+                    CreatedAt = DateTime.Now
+                });
+                File.WriteAllText(PathHistoryFileCreated, JsonConvert.SerializeObject(history, Formatting.Indented));
+            }
+            catch (Exception ex)
+            {
+                ScanFolderToFileLogger.Error(ex, nameof(AddFileInHistory), "Errore in creazione file json.");
+            }
+        }
+
+        public static void OpenHistoryFileCreated()
+        {
+            try
+            {
+                var frmHistoryFileCreated = new FrmHistoryFileCreated(DeserializeHistoryFilesCreated());
+                frmHistoryFileCreated.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                ScanFolderToFileLogger.Error(ex, nameof(OpenHistoryFileCreated), "Errore in apertura storico file creati.");
+            }
+        }
+
 
         private static List<HistoryFilesCreated> DeserializeHistoryFilesCreated()
         {
             try
             {
                 if (File.Exists(PathHistoryFileCreated))
-                    return JsonConvert.DeserializeObject<List<HistoryFilesCreated>>(File.ReadAllText(PathHistoryFileCreated));
+                {
+                    return JsonConvert.DeserializeObject<List<HistoryFilesCreated>>(File.ReadAllText(PathHistoryFileCreated))
+                        .OrderByDescending(x => x.CreatedAt)
+                        .ToList();
+                }
+
             }
             catch (Exception ex)
             {
@@ -215,28 +245,6 @@ namespace ScanFolderToFile.Utils
             }
 
             return null;
-        }
-
-        public static void AddFileInHistory(string fileName, string extensionFile)
-        {
-            var history = DeserializeHistoryFilesCreated();
-            if (history != null)
-            {
-                //esiste il file
-                history.Add(new HistoryFilesCreated()
-                {
-                    NameFile = fileName,
-                    ExtensionFile = extensionFile,
-                    CreatedAt = DateTime.Now
-                });
-                var convertedJson = JsonConvert.SerializeObject(history, Formatting.Indented);
-                File.WriteAllText(PathHistoryFileCreated, convertedJson); //TODO : REFACTOR
-            }
-            else
-            {
-                //non esiste il file
-                //TODO
-            }
         }
 
         public static void CreateFileTxt(List<string> content)
@@ -249,6 +257,7 @@ namespace ScanFolderToFile.Utils
                     content.ForEach(x => file.WriteLine(Path.GetFileName(x)));
                     ScanFolderToFileLogger.Info(nameof(CreateFileTxt), $"Creato file {TxtFileFinal} in {PathFolder}",
                         true, "FILE TXT CREATO");
+                    AddFileInHistory(TxtFileFinal, ExtTxt);
                 }
             }
             catch (Exception ex)

@@ -48,6 +48,7 @@
             this.buttonReorderFilesInFolderByType = new System.Windows.Forms.Button();
             this.toolTipOpenFile = new System.Windows.Forms.ToolTip(this.components);
             this.toolTipPrintFile = new System.Windows.Forms.ToolTip(this.components);
+            this.btnHistoryFileCreated = new System.Windows.Forms.Button();
             this.gbSelectFolder.SuspendLayout();
             this.gbOptions.SuspendLayout();
             this.SuspendLayout();
@@ -172,11 +173,12 @@
             // btnCopyMoveFiles
             // 
             this.btnCopyMoveFiles.BackColor = System.Drawing.Color.White;
+            this.btnCopyMoveFiles.Font = new System.Drawing.Font("Comic Sans MS", 9F);
             this.btnCopyMoveFiles.ForeColor = System.Drawing.Color.Black;
-            this.btnCopyMoveFiles.Location = new System.Drawing.Point(595, 143);
+            this.btnCopyMoveFiles.Location = new System.Drawing.Point(564, 143);
             this.btnCopyMoveFiles.Margin = new System.Windows.Forms.Padding(4);
             this.btnCopyMoveFiles.Name = "btnCopyMoveFiles";
-            this.btnCopyMoveFiles.Size = new System.Drawing.Size(259, 36);
+            this.btnCopyMoveFiles.Size = new System.Drawing.Size(290, 36);
             this.btnCopyMoveFiles.TabIndex = 13;
             this.btnCopyMoveFiles.Text = "Copia / Sposta Files";
             this.btnCopyMoveFiles.UseVisualStyleBackColor = false;
@@ -241,11 +243,12 @@
             // buttonReorderFilesInFolderByType
             // 
             this.buttonReorderFilesInFolderByType.BackColor = System.Drawing.Color.White;
+            this.buttonReorderFilesInFolderByType.Font = new System.Drawing.Font("Comic Sans MS", 9F);
             this.buttonReorderFilesInFolderByType.ForeColor = System.Drawing.Color.Black;
-            this.buttonReorderFilesInFolderByType.Location = new System.Drawing.Point(595, 187);
+            this.buttonReorderFilesInFolderByType.Location = new System.Drawing.Point(564, 187);
             this.buttonReorderFilesInFolderByType.Margin = new System.Windows.Forms.Padding(4);
             this.buttonReorderFilesInFolderByType.Name = "buttonReorderFilesInFolderByType";
-            this.buttonReorderFilesInFolderByType.Size = new System.Drawing.Size(259, 62);
+            this.buttonReorderFilesInFolderByType.Size = new System.Drawing.Size(290, 35);
             this.buttonReorderFilesInFolderByType.TabIndex = 15;
             this.buttonReorderFilesInFolderByType.Text = "Riordinamento files in cartelle per tipo";
             this.buttonReorderFilesInFolderByType.UseVisualStyleBackColor = false;
@@ -267,11 +270,26 @@
             this.toolTipPrintFile.ReshowDelay = 500;
             this.toolTipPrintFile.ShowAlways = true;
             // 
+            // btnHistoryFileCreated
+            // 
+            this.btnHistoryFileCreated.BackColor = System.Drawing.Color.White;
+            this.btnHistoryFileCreated.Font = new System.Drawing.Font("Comic Sans MS", 9F);
+            this.btnHistoryFileCreated.ForeColor = System.Drawing.Color.Black;
+            this.btnHistoryFileCreated.Location = new System.Drawing.Point(564, 244);
+            this.btnHistoryFileCreated.Margin = new System.Windows.Forms.Padding(4);
+            this.btnHistoryFileCreated.Name = "btnHistoryFileCreated";
+            this.btnHistoryFileCreated.Size = new System.Drawing.Size(290, 36);
+            this.btnHistoryFileCreated.TabIndex = 16;
+            this.btnHistoryFileCreated.Text = "Storico File Creati";
+            this.btnHistoryFileCreated.UseVisualStyleBackColor = false;
+            this.btnHistoryFileCreated.Click += new System.EventHandler(this.btnHistoryFileCreated_Click);
+            // 
             // FrmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(864, 355);
+            this.Controls.Add(this.btnHistoryFileCreated);
             this.Controls.Add(this.buttonReorderFilesInFolderByType);
             this.Controls.Add(this.checkedListBoxFormatFile);
             this.Controls.Add(this.btnCopyMoveFiles);
@@ -317,6 +335,7 @@
         private System.Windows.Forms.ToolTip toolTipOpenFile;
         private System.Windows.Forms.ToolTip toolTipPrintFile;
         private System.Windows.Forms.Button btnOpenFolderSelected;
+        private System.Windows.Forms.Button btnHistoryFileCreated;
     }
 }
 
