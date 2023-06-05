@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPrincipal));
             this.txtSelectedPath = new System.Windows.Forms.TextBox();
             this.btnSfoglia = new System.Windows.Forms.Button();
@@ -40,23 +39,25 @@
             this.gbOptions = new System.Windows.Forms.GroupBox();
             this.cbNameFilesDuplicate = new System.Windows.Forms.CheckBox();
             this.cbZipFolder = new System.Windows.Forms.CheckBox();
-            this.btnCopyMoveFiles = new System.Windows.Forms.Button();
-            this.btnOpenFolder = new System.Windows.Forms.Button();
-            this.btnStampaFile = new System.Windows.Forms.Button();
-            this.btnOpenFile = new System.Windows.Forms.Button();
             this.checkedListBoxFormatFile = new System.Windows.Forms.CheckedListBox();
-            this.buttonReorderFilesInFolderByType = new System.Windows.Forms.Button();
-            this.toolTipOpenFile = new System.Windows.Forms.ToolTip(this.components);
-            this.toolTipPrintFile = new System.Windows.Forms.ToolTip(this.components);
-            this.btnHistoryFileCreated = new System.Windows.Forms.Button();
+            this.menuStrip = new System.Windows.Forms.MenuStrip();
+            this.altreOperazioniToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copiaSpostaFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.riordinamentoFilesInCartellePerTipoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.storicoFileCreatiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.operazioniSuFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.apriToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stampaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.apriCartellaFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gbSelectFolder.SuspendLayout();
             this.gbOptions.SuspendLayout();
+            this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtSelectedPath
             // 
             this.txtSelectedPath.Enabled = false;
-            this.txtSelectedPath.Location = new System.Drawing.Point(10, 28);
+            this.txtSelectedPath.Location = new System.Drawing.Point(10, 36);
             this.txtSelectedPath.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.txtSelectedPath.Name = "txtSelectedPath";
             this.txtSelectedPath.Size = new System.Drawing.Size(395, 34);
@@ -64,13 +65,13 @@
             // 
             // btnSfoglia
             // 
-            this.btnSfoglia.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSfoglia.Location = new System.Drawing.Point(415, 23);
+            this.btnSfoglia.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Italic);
+            this.btnSfoglia.Location = new System.Drawing.Point(412, 31);
             this.btnSfoglia.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.btnSfoglia.Name = "btnSfoglia";
-            this.btnSfoglia.Size = new System.Drawing.Size(82, 51);
+            this.btnSfoglia.Size = new System.Drawing.Size(125, 46);
             this.btnSfoglia.TabIndex = 2;
-            this.btnSfoglia.Text = "Cerca cartella...";
+            this.btnSfoglia.Text = "Seleziona cartella...";
             this.btnSfoglia.UseVisualStyleBackColor = true;
             this.btnSfoglia.Click += new System.EventHandler(this.btnSfoglia_Click);
             // 
@@ -81,26 +82,26 @@
             this.gbSelectFolder.Controls.Add(this.txtSelectedPath);
             this.gbSelectFolder.Controls.Add(this.btnSfoglia);
             this.gbSelectFolder.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbSelectFolder.Location = new System.Drawing.Point(20, 22);
+            this.gbSelectFolder.Location = new System.Drawing.Point(14, 34);
             this.gbSelectFolder.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.gbSelectFolder.Name = "gbSelectFolder";
             this.gbSelectFolder.Padding = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this.gbSelectFolder.Size = new System.Drawing.Size(666, 111);
+            this.gbSelectFolder.Size = new System.Drawing.Size(705, 111);
             this.gbSelectFolder.TabIndex = 4;
             this.gbSelectFolder.TabStop = false;
-            this.gbSelectFolder.Text = "Seleziona cartella :";
+            this.gbSelectFolder.Text = "Seleziona cartella da scansionare per creare il file :";
             // 
             // btnOpenFolderSelected
             // 
             this.btnOpenFolderSelected.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnOpenFolderSelected.BackgroundImage = global::ScanFolderToFile.Properties.Resources.open;
             this.btnOpenFolderSelected.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.btnOpenFolderSelected.Font = new System.Drawing.Font("Comic Sans MS", 10F, System.Drawing.FontStyle.Bold);
+            this.btnOpenFolderSelected.Font = new System.Drawing.Font("Comic Sans MS", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOpenFolderSelected.ForeColor = System.Drawing.Color.Red;
-            this.btnOpenFolderSelected.Location = new System.Drawing.Point(9, 65);
+            this.btnOpenFolderSelected.Location = new System.Drawing.Point(9, 73);
             this.btnOpenFolderSelected.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.btnOpenFolderSelected.Name = "btnOpenFolderSelected";
-            this.btnOpenFolderSelected.Size = new System.Drawing.Size(340, 46);
+            this.btnOpenFolderSelected.Size = new System.Drawing.Size(340, 35);
             this.btnOpenFolderSelected.TabIndex = 17;
             this.btnOpenFolderSelected.Text = "     APRI CARTELLA SELEZIONATA";
             this.btnOpenFolderSelected.UseVisualStyleBackColor = false;
@@ -110,7 +111,7 @@
             // 
             this.btnCreateFile.Font = new System.Drawing.Font("Comic Sans MS", 10.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCreateFile.ForeColor = System.Drawing.Color.Blue;
-            this.btnCreateFile.Location = new System.Drawing.Point(505, 26);
+            this.btnCreateFile.Location = new System.Drawing.Point(545, 31);
             this.btnCreateFile.Name = "btnCreateFile";
             this.btnCreateFile.Size = new System.Drawing.Size(149, 46);
             this.btnCreateFile.TabIndex = 3;
@@ -129,7 +130,6 @@
             this.cbOnlyExtensions.TabIndex = 10;
             this.cbOnlyExtensions.Text = "Solo Estensioni";
             this.cbOnlyExtensions.UseVisualStyleBackColor = true;
-            this.cbOnlyExtensions.CheckedChanged += new System.EventHandler(this.cbOnlyExtensions_CheckedChanged);
             // 
             // gbOptions
             // 
@@ -137,14 +137,14 @@
             this.gbOptions.Controls.Add(this.cbZipFolder);
             this.gbOptions.Controls.Add(this.cbOnlyExtensions);
             this.gbOptions.Font = new System.Drawing.Font("Comic Sans MS", 10F);
-            this.gbOptions.Location = new System.Drawing.Point(20, 231);
+            this.gbOptions.Location = new System.Drawing.Point(370, 154);
             this.gbOptions.Margin = new System.Windows.Forms.Padding(4);
             this.gbOptions.Name = "gbOptions";
             this.gbOptions.Padding = new System.Windows.Forms.Padding(4);
             this.gbOptions.Size = new System.Drawing.Size(349, 112);
             this.gbOptions.TabIndex = 12;
             this.gbOptions.TabStop = false;
-            this.gbOptions.Text = "Opzioni";
+            this.gbOptions.Text = "Opzioni files :";
             // 
             // cbNameFilesDuplicate
             // 
@@ -170,134 +170,99 @@
             this.cbZipFolder.Text = "Creare Zip Cartella Scelta";
             this.cbZipFolder.UseVisualStyleBackColor = true;
             // 
-            // btnCopyMoveFiles
-            // 
-            this.btnCopyMoveFiles.BackColor = System.Drawing.Color.White;
-            this.btnCopyMoveFiles.Font = new System.Drawing.Font("Comic Sans MS", 9F);
-            this.btnCopyMoveFiles.ForeColor = System.Drawing.Color.Black;
-            this.btnCopyMoveFiles.Location = new System.Drawing.Point(564, 143);
-            this.btnCopyMoveFiles.Margin = new System.Windows.Forms.Padding(4);
-            this.btnCopyMoveFiles.Name = "btnCopyMoveFiles";
-            this.btnCopyMoveFiles.Size = new System.Drawing.Size(290, 36);
-            this.btnCopyMoveFiles.TabIndex = 13;
-            this.btnCopyMoveFiles.Text = "Copia / Sposta Files";
-            this.btnCopyMoveFiles.UseVisualStyleBackColor = false;
-            this.btnCopyMoveFiles.Click += new System.EventHandler(this.btnCopyMoveFiles_Click);
-            // 
-            // btnOpenFolder
-            // 
-            this.btnOpenFolder.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnOpenFolder.BackgroundImage = global::ScanFolderToFile.Properties.Resources.open;
-            this.btnOpenFolder.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.btnOpenFolder.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOpenFolder.ForeColor = System.Drawing.Color.Red;
-            this.btnOpenFolder.Location = new System.Drawing.Point(634, 290);
-            this.btnOpenFolder.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this.btnOpenFolder.Name = "btnOpenFolder";
-            this.btnOpenFolder.Size = new System.Drawing.Size(220, 53);
-            this.btnOpenFolder.TabIndex = 8;
-            this.btnOpenFolder.Text = "     APRI CARTELLA";
-            this.btnOpenFolder.UseVisualStyleBackColor = false;
-            this.btnOpenFolder.Click += new System.EventHandler(this.btnOpenFolder_Click);
-            // 
-            // btnStampaFile
-            // 
-            this.btnStampaFile.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnStampaFile.BackgroundImage = global::ScanFolderToFile.Properties.Resources.print;
-            this.btnStampaFile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.btnStampaFile.Font = new System.Drawing.Font("Comic Sans MS", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStampaFile.ForeColor = System.Drawing.Color.Red;
-            this.btnStampaFile.Location = new System.Drawing.Point(781, 15);
-            this.btnStampaFile.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this.btnStampaFile.Name = "btnStampaFile";
-            this.btnStampaFile.Size = new System.Drawing.Size(73, 65);
-            this.btnStampaFile.TabIndex = 7;
-            this.btnStampaFile.UseVisualStyleBackColor = false;
-            this.btnStampaFile.Click += new System.EventHandler(this.btnStampaFile_Click);
-            // 
-            // btnOpenFile
-            // 
-            this.btnOpenFile.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnOpenFile.BackgroundImage = global::ScanFolderToFile.Properties.Resources.file;
-            this.btnOpenFile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.btnOpenFile.Font = new System.Drawing.Font("Comic Sans MS", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOpenFile.ForeColor = System.Drawing.Color.Red;
-            this.btnOpenFile.Location = new System.Drawing.Point(700, 15);
-            this.btnOpenFile.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this.btnOpenFile.Name = "btnOpenFile";
-            this.btnOpenFile.Size = new System.Drawing.Size(71, 65);
-            this.btnOpenFile.TabIndex = 6;
-            this.btnOpenFile.UseVisualStyleBackColor = false;
-            this.btnOpenFile.Click += new System.EventHandler(this.btnOpenFile_Click);
-            // 
             // checkedListBoxFormatFile
             // 
             this.checkedListBoxFormatFile.CheckOnClick = true;
             this.checkedListBoxFormatFile.FormattingEnabled = true;
-            this.checkedListBoxFormatFile.Location = new System.Drawing.Point(20, 142);
+            this.checkedListBoxFormatFile.Location = new System.Drawing.Point(14, 161);
             this.checkedListBoxFormatFile.Name = "checkedListBoxFormatFile";
-            this.checkedListBoxFormatFile.Size = new System.Drawing.Size(349, 82);
+            this.checkedListBoxFormatFile.Size = new System.Drawing.Size(349, 108);
             this.checkedListBoxFormatFile.TabIndex = 14;
             this.checkedListBoxFormatFile.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxFormatFile_ItemCheck);
             // 
-            // buttonReorderFilesInFolderByType
+            // menuStrip
             // 
-            this.buttonReorderFilesInFolderByType.BackColor = System.Drawing.Color.White;
-            this.buttonReorderFilesInFolderByType.Font = new System.Drawing.Font("Comic Sans MS", 9F);
-            this.buttonReorderFilesInFolderByType.ForeColor = System.Drawing.Color.Black;
-            this.buttonReorderFilesInFolderByType.Location = new System.Drawing.Point(564, 187);
-            this.buttonReorderFilesInFolderByType.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonReorderFilesInFolderByType.Name = "buttonReorderFilesInFolderByType";
-            this.buttonReorderFilesInFolderByType.Size = new System.Drawing.Size(290, 35);
-            this.buttonReorderFilesInFolderByType.TabIndex = 15;
-            this.buttonReorderFilesInFolderByType.Text = "Riordinamento files in cartelle per tipo";
-            this.buttonReorderFilesInFolderByType.UseVisualStyleBackColor = false;
-            this.buttonReorderFilesInFolderByType.Click += new System.EventHandler(this.buttonReorderFilesInFolderByType_Click);
+            this.menuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.operazioniSuFileToolStripMenuItem,
+            this.altreOperazioniToolStripMenuItem,
+            this.storicoFileCreatiToolStripMenuItem});
+            this.menuStrip.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip.Name = "menuStrip";
+            this.menuStrip.Size = new System.Drawing.Size(737, 28);
+            this.menuStrip.TabIndex = 17;
+            this.menuStrip.Text = "menuStrip1";
             // 
-            // toolTipOpenFile
+            // altreOperazioniToolStripMenuItem
             // 
-            this.toolTipOpenFile.AutoPopDelay = 5000;
-            this.toolTipOpenFile.InitialDelay = 100;
-            this.toolTipOpenFile.IsBalloon = true;
-            this.toolTipOpenFile.ReshowDelay = 500;
-            this.toolTipOpenFile.ShowAlways = true;
+            this.altreOperazioniToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copiaSpostaFilesToolStripMenuItem,
+            this.riordinamentoFilesInCartellePerTipoToolStripMenuItem});
+            this.altreOperazioniToolStripMenuItem.Name = "altreOperazioniToolStripMenuItem";
+            this.altreOperazioniToolStripMenuItem.Size = new System.Drawing.Size(56, 24);
+            this.altreOperazioniToolStripMenuItem.Text = "Altro";
             // 
-            // toolTipPrintFile
+            // copiaSpostaFilesToolStripMenuItem
             // 
-            this.toolTipPrintFile.AutoPopDelay = 5000;
-            this.toolTipPrintFile.InitialDelay = 100;
-            this.toolTipPrintFile.IsBalloon = true;
-            this.toolTipPrintFile.ReshowDelay = 500;
-            this.toolTipPrintFile.ShowAlways = true;
+            this.copiaSpostaFilesToolStripMenuItem.Name = "copiaSpostaFilesToolStripMenuItem";
+            this.copiaSpostaFilesToolStripMenuItem.Size = new System.Drawing.Size(348, 26);
+            this.copiaSpostaFilesToolStripMenuItem.Text = "Copia / Sposta Files";
+            this.copiaSpostaFilesToolStripMenuItem.Click += new System.EventHandler(this.copiaSpostaFilesToolStripMenuItem_Click);
             // 
-            // btnHistoryFileCreated
+            // riordinamentoFilesInCartellePerTipoToolStripMenuItem
             // 
-            this.btnHistoryFileCreated.BackColor = System.Drawing.Color.White;
-            this.btnHistoryFileCreated.Font = new System.Drawing.Font("Comic Sans MS", 9F);
-            this.btnHistoryFileCreated.ForeColor = System.Drawing.Color.Black;
-            this.btnHistoryFileCreated.Location = new System.Drawing.Point(564, 244);
-            this.btnHistoryFileCreated.Margin = new System.Windows.Forms.Padding(4);
-            this.btnHistoryFileCreated.Name = "btnHistoryFileCreated";
-            this.btnHistoryFileCreated.Size = new System.Drawing.Size(290, 36);
-            this.btnHistoryFileCreated.TabIndex = 16;
-            this.btnHistoryFileCreated.Text = "Storico File Creati";
-            this.btnHistoryFileCreated.UseVisualStyleBackColor = false;
-            this.btnHistoryFileCreated.Click += new System.EventHandler(this.btnHistoryFileCreated_Click);
+            this.riordinamentoFilesInCartellePerTipoToolStripMenuItem.Name = "riordinamentoFilesInCartellePerTipoToolStripMenuItem";
+            this.riordinamentoFilesInCartellePerTipoToolStripMenuItem.Size = new System.Drawing.Size(348, 26);
+            this.riordinamentoFilesInCartellePerTipoToolStripMenuItem.Text = "Riordinamento files in cartelle per tipo";
+            this.riordinamentoFilesInCartellePerTipoToolStripMenuItem.Click += new System.EventHandler(this.riordinamentoFilesInCartellePerTipoToolStripMenuItem_Click);
+            // 
+            // storicoFileCreatiToolStripMenuItem
+            // 
+            this.storicoFileCreatiToolStripMenuItem.Name = "storicoFileCreatiToolStripMenuItem";
+            this.storicoFileCreatiToolStripMenuItem.Size = new System.Drawing.Size(140, 24);
+            this.storicoFileCreatiToolStripMenuItem.Text = "Storico File Creati";
+            this.storicoFileCreatiToolStripMenuItem.Click += new System.EventHandler(this.storicoFileCreatiToolStripMenuItem_Click);
+            // 
+            // operazioniSuFileToolStripMenuItem
+            // 
+            this.operazioniSuFileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.apriToolStripMenuItem,
+            this.stampaToolStripMenuItem,
+            this.apriCartellaFileToolStripMenuItem});
+            this.operazioniSuFileToolStripMenuItem.Name = "operazioniSuFileToolStripMenuItem";
+            this.operazioniSuFileToolStripMenuItem.Size = new System.Drawing.Size(141, 24);
+            this.operazioniSuFileToolStripMenuItem.Text = "Operazioni su File";
+            // 
+            // apriToolStripMenuItem
+            // 
+            this.apriToolStripMenuItem.Name = "apriToolStripMenuItem";
+            this.apriToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.apriToolStripMenuItem.Text = "Apri";
+            this.apriToolStripMenuItem.Click += new System.EventHandler(this.apriToolStripMenuItem_Click);
+            // 
+            // stampaToolStripMenuItem
+            // 
+            this.stampaToolStripMenuItem.Name = "stampaToolStripMenuItem";
+            this.stampaToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.stampaToolStripMenuItem.Text = "Stampa";
+            this.stampaToolStripMenuItem.Click += new System.EventHandler(this.stampaToolStripMenuItem_Click);
+            // 
+            // apriCartellaFileToolStripMenuItem
+            // 
+            this.apriCartellaFileToolStripMenuItem.Name = "apriCartellaFileToolStripMenuItem";
+            this.apriCartellaFileToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.apriCartellaFileToolStripMenuItem.Text = "Apri cartella files";
+            this.apriCartellaFileToolStripMenuItem.Click += new System.EventHandler(this.apriCartellaFileToolStripMenuItem_Click);
             // 
             // FrmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(864, 355);
-            this.Controls.Add(this.btnHistoryFileCreated);
-            this.Controls.Add(this.buttonReorderFilesInFolderByType);
+            this.ClientSize = new System.Drawing.Size(737, 276);
             this.Controls.Add(this.checkedListBoxFormatFile);
-            this.Controls.Add(this.btnCopyMoveFiles);
             this.Controls.Add(this.gbOptions);
-            this.Controls.Add(this.btnOpenFolder);
-            this.Controls.Add(this.btnStampaFile);
-            this.Controls.Add(this.btnOpenFile);
             this.Controls.Add(this.gbSelectFolder);
+            this.Controls.Add(this.menuStrip);
             this.Font = new System.Drawing.Font("Comic Sans MS", 10F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -311,7 +276,10 @@
             this.gbSelectFolder.PerformLayout();
             this.gbOptions.ResumeLayout(false);
             this.gbOptions.PerformLayout();
+            this.menuStrip.ResumeLayout(false);
+            this.menuStrip.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -321,21 +289,22 @@
         private System.Windows.Forms.Button btnSfoglia;
         private System.Windows.Forms.FolderBrowserDialog fbd;
         private System.Windows.Forms.GroupBox gbSelectFolder;
-        private System.Windows.Forms.Button btnOpenFile;
-        private System.Windows.Forms.Button btnStampaFile;
-        private System.Windows.Forms.Button btnOpenFolder;
         private System.Windows.Forms.CheckBox cbOnlyExtensions;
         private System.Windows.Forms.GroupBox gbOptions;
         private System.Windows.Forms.CheckBox cbZipFolder;
-        private System.Windows.Forms.Button btnCopyMoveFiles;
         private System.Windows.Forms.CheckedListBox checkedListBoxFormatFile;
-        private System.Windows.Forms.Button buttonReorderFilesInFolderByType;
         private System.Windows.Forms.Button btnCreateFile;
         private System.Windows.Forms.CheckBox cbNameFilesDuplicate;
-        private System.Windows.Forms.ToolTip toolTipOpenFile;
-        private System.Windows.Forms.ToolTip toolTipPrintFile;
         private System.Windows.Forms.Button btnOpenFolderSelected;
-        private System.Windows.Forms.Button btnHistoryFileCreated;
+        private System.Windows.Forms.MenuStrip menuStrip;
+        private System.Windows.Forms.ToolStripMenuItem altreOperazioniToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copiaSpostaFilesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem riordinamentoFilesInCartellePerTipoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem storicoFileCreatiToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem operazioniSuFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem apriToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem stampaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem apriCartellaFileToolStripMenuItem;
     }
 }
 

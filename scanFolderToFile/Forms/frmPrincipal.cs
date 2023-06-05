@@ -21,29 +21,6 @@ namespace ScanFolderToFile.Forms
             Browse(cbZipFolder.Checked);
         }
 
-        //PULSANTE APERTURA FILE
-        private void btnOpenFile_Click(object sender, EventArgs e)
-        {
-            OpenFile(PdfChecked(), MarkdownChecked());
-        }
-
-        //PULSANTE APERTURA CARTELLA
-        private void btnOpenFolder_Click(object sender, EventArgs e)
-        {
-            OpenFolder(PathFolder);
-        }
-
-        //PULSANTE STAMPA FILE
-        private void btnStampaFile_Click(object sender, EventArgs e)
-        {
-            PrintFile(PdfChecked(), MarkdownChecked());
-        }
-
-        private void cbOnlyExtensions_CheckedChanged(object sender, EventArgs e)
-        {
-            btnSfoglia.PerformClick();
-        }
-
         private void Browse(bool zipFolder)
         {
             try
@@ -98,12 +75,6 @@ namespace ScanFolderToFile.Forms
             checkedListBoxFormatFile.SetItemChecked(0, true);
         }
 
-        private void btnCopyMoveFiles_Click(object sender, EventArgs e)
-        {
-            var frmCopyMoveFiles = new FrmCopyMoveFiles();
-            frmCopyMoveFiles.ShowDialog();
-        }
-
         private void checkedListBoxFormatFile_ItemCheck(object sender, ItemCheckEventArgs e)
         {
             CheckOnlyOneElements(checkedListBoxFormatFile, e);
@@ -112,7 +83,6 @@ namespace ScanFolderToFile.Forms
         private void FrmPrincipal_Load(object sender, EventArgs e)
         {
             FillAndCheckFirstElementCbLb();
-            SetToolTipAtButtons();
         }
 
         private bool PdfChecked()
@@ -129,22 +99,13 @@ namespace ScanFolderToFile.Forms
             if (!string.IsNullOrEmpty(txtSelectedPath.Text.Trim()))
             {
                 GenerateFile(cbZipFolder.Checked, cbNameFilesDuplicate.Checked);
+
+                if (PdfChecked() || MarkdownChecked()) return;
                 var frmEditFileTxt = new FrmEditorFileTxt();
                 frmEditFileTxt.ShowDialog();
             }
             else
                 MessageBox.Show(AlertMissingScanFolder, AlertTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        }
-
-        private void buttonReorderFilesInFolderByType_Click(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(txtSelectedPath.Text.Trim()))
-                ReorderFilesInFolderByType(txtSelectedPath.Text.Trim());
-        }
-        private void SetToolTipAtButtons()
-        {
-            toolTipOpenFile.SetToolTip(this.btnOpenFile, @"Apri file");
-            toolTipOpenFile.SetToolTip(this.btnStampaFile, @"Stampa file");
         }
 
         private void btnOpenFolderSelected_Click(object sender, EventArgs e)
@@ -153,9 +114,37 @@ namespace ScanFolderToFile.Forms
                 OpenFolder(txtSelectedPath.Text.Trim());
         }
 
-        private void btnHistoryFileCreated_Click(object sender, EventArgs e)
+        //Menù
+        private void copiaSpostaFilesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var frmCopyMoveFiles = new FrmCopyMoveFiles();
+            frmCopyMoveFiles.ShowDialog();
+        }
+
+        private void riordinamentoFilesInCartellePerTipoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtSelectedPath.Text.Trim()))
+                ReorderFilesInFolderByType(txtSelectedPath.Text.Trim());
+        }
+
+        private void storicoFileCreatiToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenHistoryFileCreated();
+        }
+
+        private void apriToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFile(PdfChecked(), MarkdownChecked());
+        }
+
+        private void stampaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PrintFile(PdfChecked(), MarkdownChecked());
+        }
+
+        private void apriCartellaFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFolder(PathFolder);
         }
     }
 }
