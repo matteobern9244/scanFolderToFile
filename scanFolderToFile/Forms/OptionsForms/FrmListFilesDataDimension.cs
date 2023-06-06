@@ -33,6 +33,19 @@ namespace ScanFolderToFile.Forms.OptionsForms
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if (cbDimension.Checked)
+            {
+                //TODO: prendere dimensioni
+            }
+            else
+            {
+                //TODO: prendere DATE
+            }
+
+
+
+
+
             //result = new MyData { v1 = "some string value", v2 = 123 }
             Result = ""; //TODO change in my object
             DialogResult = DialogResult.OK;

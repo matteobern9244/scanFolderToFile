@@ -37,6 +37,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.numericUpDownTo = new System.Windows.Forms.NumericUpDown();
             this.btnSave = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFrom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTo)).BeginInit();
             this.SuspendLayout();
@@ -57,7 +58,7 @@
             this.checkedListBoxOptionsDates.Items.AddRange(new object[] {
             "Più VECCHI di una certa data/e",
             "Più GIOVANI di una certa data/e"});
-            this.checkedListBoxOptionsDates.Location = new System.Drawing.Point(12, 36);
+            this.checkedListBoxOptionsDates.Location = new System.Drawing.Point(12, 41);
             this.checkedListBoxOptionsDates.Name = "checkedListBoxOptionsDates";
             this.checkedListBoxOptionsDates.Size = new System.Drawing.Size(316, 56);
             this.checkedListBoxOptionsDates.TabIndex = 1;
@@ -65,7 +66,7 @@
             // 
             // monthCalendar
             // 
-            this.monthCalendar.Location = new System.Drawing.Point(340, 36);
+            this.monthCalendar.Location = new System.Drawing.Point(339, 41);
             this.monthCalendar.Name = "monthCalendar";
             this.monthCalendar.TabIndex = 3;
             // 
@@ -131,6 +132,8 @@
             // 
             // btnSave
             // 
+            this.btnSave.Font = new System.Drawing.Font("Comic Sans MS", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSave.ForeColor = System.Drawing.Color.Red;
             this.btnSave.Location = new System.Drawing.Point(488, 269);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(121, 39);
@@ -139,11 +142,21 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(258, 280);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(35, 24);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Mb";
+            // 
             // FrmListFilesDataDimension
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(626, 313);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.numericUpDownTo);
             this.Controls.Add(this.label2);
@@ -180,5 +193,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown numericUpDownTo;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Label label3;
     }
 }
