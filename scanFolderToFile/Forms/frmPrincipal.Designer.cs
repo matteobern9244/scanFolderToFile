@@ -41,14 +41,14 @@
             this.cbZipFolder = new System.Windows.Forms.CheckBox();
             this.checkedListBoxFormatFile = new System.Windows.Forms.CheckedListBox();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
-            this.altreOperazioniToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.copiaSpostaFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.riordinamentoFilesInCartellePerTipoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.storicoFileCreatiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.operazioniSuFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.apriToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stampaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.apriCartellaFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.altreOperazioniToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copiaSpostaFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.riordinamentoFilesInCartellePerTipoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.storicoFileCreatiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gbSelectFolder.SuspendLayout();
             this.gbOptions.SuspendLayout();
             this.menuStrip.SuspendLayout();
@@ -86,7 +86,7 @@
             this.gbSelectFolder.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.gbSelectFolder.Name = "gbSelectFolder";
             this.gbSelectFolder.Padding = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this.gbSelectFolder.Size = new System.Drawing.Size(705, 111);
+            this.gbSelectFolder.Size = new System.Drawing.Size(705, 118);
             this.gbSelectFolder.TabIndex = 4;
             this.gbSelectFolder.TabStop = false;
             this.gbSelectFolder.Text = "Seleziona cartella da scansionare per creare il file :";
@@ -98,10 +98,10 @@
             this.btnOpenFolderSelected.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnOpenFolderSelected.Font = new System.Drawing.Font("Comic Sans MS", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOpenFolderSelected.ForeColor = System.Drawing.Color.Red;
-            this.btnOpenFolderSelected.Location = new System.Drawing.Point(9, 73);
+            this.btnOpenFolderSelected.Location = new System.Drawing.Point(9, 79);
             this.btnOpenFolderSelected.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.btnOpenFolderSelected.Name = "btnOpenFolderSelected";
-            this.btnOpenFolderSelected.Size = new System.Drawing.Size(340, 35);
+            this.btnOpenFolderSelected.Size = new System.Drawing.Size(340, 33);
             this.btnOpenFolderSelected.TabIndex = 17;
             this.btnOpenFolderSelected.Text = "     APRI CARTELLA SELEZIONATA";
             this.btnOpenFolderSelected.UseVisualStyleBackColor = false;
@@ -193,6 +193,37 @@
             this.menuStrip.TabIndex = 17;
             this.menuStrip.Text = "menuStrip1";
             // 
+            // operazioniSuFileToolStripMenuItem
+            // 
+            this.operazioniSuFileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.apriToolStripMenuItem,
+            this.stampaToolStripMenuItem,
+            this.apriCartellaFileToolStripMenuItem});
+            this.operazioniSuFileToolStripMenuItem.Name = "operazioniSuFileToolStripMenuItem";
+            this.operazioniSuFileToolStripMenuItem.Size = new System.Drawing.Size(141, 24);
+            this.operazioniSuFileToolStripMenuItem.Text = "Operazioni su File";
+            // 
+            // apriToolStripMenuItem
+            // 
+            this.apriToolStripMenuItem.Name = "apriToolStripMenuItem";
+            this.apriToolStripMenuItem.Size = new System.Drawing.Size(204, 26);
+            this.apriToolStripMenuItem.Text = "Apri";
+            this.apriToolStripMenuItem.Click += new System.EventHandler(this.apriToolStripMenuItem_Click);
+            // 
+            // stampaToolStripMenuItem
+            // 
+            this.stampaToolStripMenuItem.Name = "stampaToolStripMenuItem";
+            this.stampaToolStripMenuItem.Size = new System.Drawing.Size(204, 26);
+            this.stampaToolStripMenuItem.Text = "Stampa";
+            this.stampaToolStripMenuItem.Click += new System.EventHandler(this.stampaToolStripMenuItem_Click);
+            // 
+            // apriCartellaFileToolStripMenuItem
+            // 
+            this.apriCartellaFileToolStripMenuItem.Name = "apriCartellaFileToolStripMenuItem";
+            this.apriCartellaFileToolStripMenuItem.Size = new System.Drawing.Size(204, 26);
+            this.apriCartellaFileToolStripMenuItem.Text = "Apri cartella files";
+            this.apriCartellaFileToolStripMenuItem.Click += new System.EventHandler(this.apriCartellaFileToolStripMenuItem_Click);
+            // 
             // altreOperazioniToolStripMenuItem
             // 
             this.altreOperazioniToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -222,37 +253,6 @@
             this.storicoFileCreatiToolStripMenuItem.Size = new System.Drawing.Size(140, 24);
             this.storicoFileCreatiToolStripMenuItem.Text = "Storico File Creati";
             this.storicoFileCreatiToolStripMenuItem.Click += new System.EventHandler(this.storicoFileCreatiToolStripMenuItem_Click);
-            // 
-            // operazioniSuFileToolStripMenuItem
-            // 
-            this.operazioniSuFileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.apriToolStripMenuItem,
-            this.stampaToolStripMenuItem,
-            this.apriCartellaFileToolStripMenuItem});
-            this.operazioniSuFileToolStripMenuItem.Name = "operazioniSuFileToolStripMenuItem";
-            this.operazioniSuFileToolStripMenuItem.Size = new System.Drawing.Size(141, 24);
-            this.operazioniSuFileToolStripMenuItem.Text = "Operazioni su File";
-            // 
-            // apriToolStripMenuItem
-            // 
-            this.apriToolStripMenuItem.Name = "apriToolStripMenuItem";
-            this.apriToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.apriToolStripMenuItem.Text = "Apri";
-            this.apriToolStripMenuItem.Click += new System.EventHandler(this.apriToolStripMenuItem_Click);
-            // 
-            // stampaToolStripMenuItem
-            // 
-            this.stampaToolStripMenuItem.Name = "stampaToolStripMenuItem";
-            this.stampaToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.stampaToolStripMenuItem.Text = "Stampa";
-            this.stampaToolStripMenuItem.Click += new System.EventHandler(this.stampaToolStripMenuItem_Click);
-            // 
-            // apriCartellaFileToolStripMenuItem
-            // 
-            this.apriCartellaFileToolStripMenuItem.Name = "apriCartellaFileToolStripMenuItem";
-            this.apriCartellaFileToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.apriCartellaFileToolStripMenuItem.Text = "Apri cartella files";
-            this.apriCartellaFileToolStripMenuItem.Click += new System.EventHandler(this.apriCartellaFileToolStripMenuItem_Click);
             // 
             // FrmPrincipal
             // 

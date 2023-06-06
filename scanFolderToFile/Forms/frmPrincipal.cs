@@ -18,10 +18,10 @@ namespace ScanFolderToFile.Forms
         //PULSANTE SFOGLIA
         private void btnSfoglia_Click(object sender, EventArgs e)
         {
-            Browse(cbZipFolder.Checked);
+            Browse();
         }
 
-        private void Browse(bool zipFolder)
+        private void Browse()
         {
             try
             {
@@ -57,8 +57,7 @@ namespace ScanFolderToFile.Forms
                 if (checkNameFilesDuplicate)
                     CheckNameFilesDuplicate(content);
 
-                MessageBox.Show(ElaborationConfirm, ElaborationTitle, MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
+                MessageBox.Show(ElaborationConfirm, ElaborationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
