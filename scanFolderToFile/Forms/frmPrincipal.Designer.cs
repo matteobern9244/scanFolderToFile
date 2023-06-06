@@ -49,6 +49,7 @@
             this.copiaSpostaFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.riordinamentoFilesInCartellePerTipoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.storicoFileCreatiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listaFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gbSelectFolder.SuspendLayout();
             this.gbOptions.SuspendLayout();
             this.menuStrip.SuspendLayout();
@@ -186,6 +187,7 @@
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.operazioniSuFileToolStripMenuItem,
             this.altreOperazioniToolStripMenuItem,
+            this.listaFilesToolStripMenuItem,
             this.storicoFileCreatiToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
@@ -254,6 +256,13 @@
             this.storicoFileCreatiToolStripMenuItem.Text = "Storico File Creati";
             this.storicoFileCreatiToolStripMenuItem.Click += new System.EventHandler(this.storicoFileCreatiToolStripMenuItem_Click);
             // 
+            // listaFilesToolStripMenuItem
+            // 
+            this.listaFilesToolStripMenuItem.Name = "listaFilesToolStripMenuItem";
+            this.listaFilesToolStripMenuItem.Size = new System.Drawing.Size(200, 24);
+            this.listaFilesToolStripMenuItem.Text = "Opzioni Scansione Cartella";
+            this.listaFilesToolStripMenuItem.Click += new System.EventHandler(this.listaFilesToolStripMenuItem_Click);
+            // 
             // FrmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 24F);
@@ -305,6 +314,7 @@
         private System.Windows.Forms.ToolStripMenuItem apriToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem stampaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem apriCartellaFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem listaFilesToolStripMenuItem;
     }
 }
 

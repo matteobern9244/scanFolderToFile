@@ -145,5 +145,19 @@ namespace ScanFolderToFile.Forms
         {
             OpenFolder(PathFolder);
         }
+
+        private void listaFilesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string dlgResult = null; //TODO : change in my object
+            using (var frm = new FrmListFilesDataDimension())
+            {
+                if (frm.ShowDialog() == DialogResult.OK)
+                    dlgResult = frm.Result;
+                if (dlgResult != null)
+                {
+                    //TODO
+                }
+            }
+        }
     }
 }

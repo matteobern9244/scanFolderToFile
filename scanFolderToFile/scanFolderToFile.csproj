@@ -111,6 +111,12 @@
     <Compile Include="Forms\OptionsForms\FrmHistoryFileCreated.Designer.cs">
       <DependentUpon>FrmHistoryFileCreated.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\OptionsForms\FrmListFilesDataDimension.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\OptionsForms\FrmListFilesDataDimension.Designer.cs">
+      <DependentUpon>FrmListFilesDataDimension.cs</DependentUpon>
+    </Compile>
     <Compile Include="MarkdownOut\MdExtensions.cs" />
     <Compile Include="MarkdownOut\MdFormat.cs" />
     <Compile Include="MarkdownOut\MdStyle.cs" />
@@ -138,6 +144,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\OptionsForms\FrmHistoryFileCreated.resx">
       <DependentUpon>FrmHistoryFileCreated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\OptionsForms\FrmListFilesDataDimension.resx">
+      <DependentUpon>FrmListFilesDataDimension.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

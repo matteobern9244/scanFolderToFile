@@ -10,7 +10,6 @@ using System.IO.Compression;
 using System.Linq;
 using System.Windows.Forms;
 using Newtonsoft.Json;
-using NLog.LayoutRenderers;
 using ScanFolderToFile.Forms.OptionsForms;
 using ScanFolderToFile.MarkdownOut;
 using ScanFolderToFile.Model;
@@ -217,8 +216,10 @@ namespace ScanFolderToFile.Utils
         {
             try
             {
-                var frmHistoryFileCreated = new FrmHistoryFileCreated(DeserializeHistoryFilesCreated());
-                frmHistoryFileCreated.ShowDialog();
+                using (var frmHistoryFileCreated = new FrmHistoryFileCreated(DeserializeHistoryFilesCreated()))
+                {
+                    frmHistoryFileCreated.ShowDialog();
+                }
             }
             catch (Exception ex)
             {
