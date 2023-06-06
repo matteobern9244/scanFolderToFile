@@ -18,9 +18,16 @@ namespace ScanFolderToFile.Forms.OptionsForms
 
         private void FrmHistoryFileCreated_Load(object sender, EventArgs e)
         {
-            if (!_historyFilesCreated.Any()) return;
-            var contentTxt = _historyFilesCreated.Select(filesCreated => $"{filesCreated.NameFile} {filesCreated.ExtensionFile} {filesCreated.CreatedAt}").ToList();
-            textBoxContent.Text = string.Join(Environment.NewLine, contentTxt);
+            if (_historyFilesCreated == null || !_historyFilesCreated.Any())
+            {
+                textBoxContent.Text = @"Al momento non sono presenti files...";
+                return;
+            }
+
+            textBoxContent.Text = $@"NOME FILE || ESTENSIONE FILE || CREATO IL... {Environment.NewLine}";
+
+            var contentTxt = _historyFilesCreated.Select(filesCreated => $"{filesCreated.NameFile} || {filesCreated.ExtensionFile} || {filesCreated.CreatedAt}").ToList();
+            textBoxContent.Text += string.Join(Environment.NewLine, contentTxt);
         }
     }
 }
