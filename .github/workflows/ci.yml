@@ -35,4 +35,4 @@ jobs:
       with:
         # Artifact name
         name: scanFolderToFile
-        path: bin/Debug
+        path: scanFolderToFile/bin/Debug
