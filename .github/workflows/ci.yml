@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches:
+        - '**'
+  pull_request:
+        - '**'
+  workflow_dispatch:
+
+jobs:
+  Build:
+    runs-on: [windows-latest]
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Setup MSBuild
+     uses: microsoft/setup-msbuild@v1
+     
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1.0.5
+      
+    - name: Restore NuGet packages
+      run: nuget restore scanFolderToFile.sln
+      
+    - name: Build the Solution
+      run: msbuild scanFolderToFile.sln /p:Configuration=Debug
+      
+    - name: Upload a Build Artifact scanFolderToFile
+      uses: actions/upload-artifact@v2.2.2      
+      with:
+        name: scanFolderToFile
+        path: bin/debug/*.*
