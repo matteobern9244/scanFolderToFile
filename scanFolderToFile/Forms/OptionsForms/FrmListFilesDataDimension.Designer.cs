@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.lblFiles = new System.Windows.Forms.Label();
-            this.checkedListBoxOptionsDates = new System.Windows.Forms.CheckedListBox();
             this.monthCalendar = new System.Windows.Forms.MonthCalendar();
             this.cbDimension = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -47,33 +46,20 @@
             this.lblFiles.AutoSize = true;
             this.lblFiles.Location = new System.Drawing.Point(12, 9);
             this.lblFiles.Name = "lblFiles";
-            this.lblFiles.Size = new System.Drawing.Size(138, 24);
+            this.lblFiles.Size = new System.Drawing.Size(422, 24);
             this.lblFiles.TabIndex = 0;
-            this.lblFiles.Text = "Lista solo i file :";
-            // 
-            // checkedListBoxOptionsDates
-            // 
-            this.checkedListBoxOptionsDates.CheckOnClick = true;
-            this.checkedListBoxOptionsDates.FormattingEnabled = true;
-            this.checkedListBoxOptionsDates.Items.AddRange(new object[] {
-            "Più VECCHI di una certa data/e",
-            "Più GIOVANI di una certa data/e"});
-            this.checkedListBoxOptionsDates.Location = new System.Drawing.Point(12, 41);
-            this.checkedListBoxOptionsDates.Name = "checkedListBoxOptionsDates";
-            this.checkedListBoxOptionsDates.Size = new System.Drawing.Size(316, 56);
-            this.checkedListBoxOptionsDates.TabIndex = 1;
-            this.checkedListBoxOptionsDates.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxOptionsDates_ItemCheck);
+            this.lblFiles.Text = "Lista solo i file compresi tra un intervallo di data/e:";
             // 
             // monthCalendar
             // 
-            this.monthCalendar.Location = new System.Drawing.Point(339, 41);
+            this.monthCalendar.Location = new System.Drawing.Point(102, 38);
             this.monthCalendar.Name = "monthCalendar";
             this.monthCalendar.TabIndex = 3;
             // 
             // cbDimension
             // 
             this.cbDimension.AutoSize = true;
-            this.cbDimension.Location = new System.Drawing.Point(16, 244);
+            this.cbDimension.Location = new System.Drawing.Point(16, 257);
             this.cbDimension.Name = "cbDimension";
             this.cbDimension.Size = new System.Drawing.Size(218, 28);
             this.cbDimension.TabIndex = 4;
@@ -84,7 +70,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 279);
+            this.label1.Location = new System.Drawing.Point(13, 293);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(41, 24);
             this.label1.TabIndex = 5;
@@ -93,7 +79,7 @@
             // numericUpDownFrom
             // 
             this.numericUpDownFrom.Enabled = false;
-            this.numericUpDownFrom.Location = new System.Drawing.Point(60, 277);
+            this.numericUpDownFrom.Location = new System.Drawing.Point(60, 290);
             this.numericUpDownFrom.Maximum = new decimal(new int[] {
             9999,
             0,
@@ -106,7 +92,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(140, 279);
+            this.label2.Location = new System.Drawing.Point(140, 292);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(32, 24);
             this.label2.TabIndex = 7;
@@ -115,7 +101,7 @@
             // numericUpDownTo
             // 
             this.numericUpDownTo.Enabled = false;
-            this.numericUpDownTo.Location = new System.Drawing.Point(178, 277);
+            this.numericUpDownTo.Location = new System.Drawing.Point(178, 290);
             this.numericUpDownTo.Maximum = new decimal(new int[] {
             9999,
             0,
@@ -134,7 +120,7 @@
             // 
             this.btnSave.Font = new System.Drawing.Font("Comic Sans MS", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.ForeColor = System.Drawing.Color.Red;
-            this.btnSave.Location = new System.Drawing.Point(488, 269);
+            this.btnSave.Location = new System.Drawing.Point(327, 286);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(121, 39);
             this.btnSave.TabIndex = 9;
@@ -145,7 +131,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(258, 280);
+            this.label3.Location = new System.Drawing.Point(258, 293);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(35, 24);
             this.label3.TabIndex = 10;
@@ -155,7 +141,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(626, 313);
+            this.ClientSize = new System.Drawing.Size(472, 342);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.numericUpDownTo);
@@ -164,11 +150,10 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cbDimension);
             this.Controls.Add(this.monthCalendar);
-            this.Controls.Add(this.checkedListBoxOptionsDates);
             this.Controls.Add(this.lblFiles);
             this.Font = new System.Drawing.Font("Comic Sans MS", 10F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FrmListFilesDataDimension";
@@ -185,7 +170,6 @@
         #endregion
 
         private System.Windows.Forms.Label lblFiles;
-        private System.Windows.Forms.CheckedListBox checkedListBoxOptionsDates;
         private System.Windows.Forms.MonthCalendar monthCalendar;
         private System.Windows.Forms.CheckBox cbDimension;
         private System.Windows.Forms.Label label1;

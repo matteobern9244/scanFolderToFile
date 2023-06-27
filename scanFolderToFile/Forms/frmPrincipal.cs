@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using ScanFolderToFile.Forms.OptionsForms;
 using System.Collections.Generic;
+using ScanFolderToFile.Model;
 using ScanFolderToFile.Utils;
 using static ScanFolderToFile.Constants;
 using static ScanFolderToFile.Utils.Utils;
@@ -10,6 +11,7 @@ namespace ScanFolderToFile.Forms
 {
     public partial class FrmPrincipal : Form
     {
+        ListFilesFromDimensionOrDates _dimensionOrDates = null;
         public FrmPrincipal()
         {
             InitializeComponent();
@@ -35,7 +37,7 @@ namespace ScanFolderToFile.Forms
             }
         }
 
-        private void GenerateFile(bool zipFolder, bool checkNameFilesDuplicate)
+        private void GenerateFile(bool zipFolder, bool checkNameFilesDuplicate, ListFilesFromDimensionOrDates dimensionOrDates)
         {
             if (zipFolder)
                 CreateZipFolder(txtSelectedPath.Text);
@@ -43,7 +45,7 @@ namespace ScanFolderToFile.Forms
             {
                 CheckFolder(PathFolder);
                 MessageBox.Show(AlertMessage, AlertTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                var content = GetContentFromFolderSelected(txtSelectedPath.Text, cbOnlyExtensions.Checked);
+                var content = GetContentFromFolderSelected(txtSelectedPath.Text, dimensionOrDates, cbOnlyExtensions.Checked);
 
                 if (PdfChecked())
                     CreateFilePdf(content);
@@ -97,7 +99,7 @@ namespace ScanFolderToFile.Forms
         {
             if (!string.IsNullOrEmpty(txtSelectedPath.Text.Trim()))
             {
-                GenerateFile(cbZipFolder.Checked, cbNameFilesDuplicate.Checked);
+                GenerateFile(cbZipFolder.Checked, cbNameFilesDuplicate.Checked, _dimensionOrDates);
 
                 if (PdfChecked() || MarkdownChecked()) return;
                 var frmEditFileTxt = new FrmEditorFileTxt();
@@ -123,7 +125,7 @@ namespace ScanFolderToFile.Forms
         private void riordinamentoFilesInCartellePerTipoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(txtSelectedPath.Text.Trim()))
-                ReorderFilesInFolderByType(txtSelectedPath.Text.Trim());
+                ReorderFilesInFolderByType(txtSelectedPath.Text.Trim(), _dimensionOrDates);
         }
 
         private void storicoFileCreatiToolStripMenuItem_Click(object sender, EventArgs e)
@@ -148,15 +150,10 @@ namespace ScanFolderToFile.Forms
 
         private void listaFilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string dlgResult = null; //TODO : change in my object
             using (var frm = new FrmListFilesDataDimension())
             {
                 if (frm.ShowDialog() == DialogResult.OK)
-                    dlgResult = frm.Result;
-                if (dlgResult != null)
-                {
-                    //TODO
-                }
+                    _dimensionOrDates = frm.Result;
             }
         }
     }

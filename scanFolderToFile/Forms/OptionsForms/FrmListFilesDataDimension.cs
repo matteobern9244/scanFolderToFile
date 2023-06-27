@@ -1,21 +1,16 @@
-﻿using System;
+﻿using ScanFolderToFile.Model;
+using System;
 using System.Windows.Forms;
-using static ScanFolderToFile.Utils.Utils;
 
 namespace ScanFolderToFile.Forms.OptionsForms
 {
     public partial class FrmListFilesDataDimension : Form
     {
-        public string Result { get; private set; }
+        public ListFilesFromDimensionOrDates Result { get; private set; }
 
         public FrmListFilesDataDimension()
         {
             InitializeComponent();
-        }
-
-        private void checkedListBoxOptionsDates_ItemCheck(object sender, ItemCheckEventArgs e)
-        {
-            CheckOnlyOneElements(checkedListBoxOptionsDates, e);
         }
 
         private void FrmListFilesDataDimension_Load(object sender, System.EventArgs e)
@@ -28,26 +23,29 @@ namespace ScanFolderToFile.Forms.OptionsForms
             numericUpDownFrom.Enabled = cbDimension.Checked;
             numericUpDownTo.Enabled = cbDimension.Checked;
             monthCalendar.Enabled = !cbDimension.Checked;
-            checkedListBoxOptionsDates.Enabled = !cbDimension.Checked;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            var dimensionOrDates = new ListFilesFromDimensionOrDates();
             if (cbDimension.Checked)
             {
-                //TODO: prendere dimensioni
+                dimensionOrDates.Dimensions = new Dimensions
+                {
+                    DimensionMin = numericUpDownFrom.Value,
+                    DimensionMax = numericUpDownTo.Value
+                };
             }
             else
             {
-                //TODO: prendere DATE
+                dimensionOrDates.Dates = new Dates()
+                {
+                    StartDate = monthCalendar.SelectionStart.Date,
+                    EndDate = monthCalendar.SelectionEnd.Date
+                };
             }
 
-
-
-
-
-            //result = new MyData { v1 = "some string value", v2 = 123 }
-            Result = ""; //TODO change in my object
+            Result = dimensionOrDates;
             DialogResult = DialogResult.OK;
             Close();
         }

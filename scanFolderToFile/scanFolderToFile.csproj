@@ -123,6 +123,7 @@
     <Compile Include="MarkdownOut\MdText.cs" />
     <Compile Include="MarkdownOut\MdWriter.cs" />
     <Compile Include="Model\HistoryFilesCreated.cs" />
+    <Compile Include="Model\ListFilesFromDimensionOrDates.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Forms\OptionsForms\FrmEditorFileTxt.cs">
