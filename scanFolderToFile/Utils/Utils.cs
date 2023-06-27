@@ -10,7 +10,6 @@ using System.IO.Compression;
 using System.Linq;
 using System.Windows.Forms;
 using Newtonsoft.Json;
-using NLog.LayoutRenderers;
 using ScanFolderToFile.Forms.OptionsForms;
 using ScanFolderToFile.MarkdownOut;
 using ScanFolderToFile.Model;
@@ -134,15 +133,43 @@ namespace ScanFolderToFile.Utils
             }
         }
 
-        public static List<string> GetContentFromFolderSelected(string pathFolderSelected, bool onlyExtension = false)
+        public static List<string> GetContentFromFolderSelected(string pathFolderSelected, ListFilesFromDimensionOrDates dimensionOrDates, bool onlyExtension = false)
         {
             var content = new List<string>();
             try
             {
-                content = Directory.GetFiles(pathFolderSelected, "*.*", SearchOption.AllDirectories)
-                    .Where(files => !files.ToLower().Contains(DesktopIni))
-                    .OrderBy(i => i)
-                    .ToList();
+                if (dimensionOrDates == null)
+                {
+                    content = Directory.GetFiles(pathFolderSelected, "*.*", SearchOption.AllDirectories)
+                        .Where(files => !files.ToLower().Contains(DesktopIni))
+                        .OrderBy(i => i)
+                        .ToList();
+                }
+                else
+                {
+                    if (dimensionOrDates.Dimensions != null)
+                    {
+                        content = new DirectoryInfo(pathFolderSelected)
+                            .GetFiles("*.*", SearchOption.AllDirectories)
+                            .Where(fileInfo =>
+                                fileInfo.Length >= Convert.ToDouble(dimensionOrDates.Dimensions.DimensionMin) * (1024 * 1024.0) &&
+                                fileInfo.Length <= Convert.ToDouble(dimensionOrDates.Dimensions.DimensionMax) * (1024 * 1024.0))
+                            .Select(f => f.FullName)
+                            .ToList();
+                    }
+
+                    if (dimensionOrDates.Dates != null)
+                    {
+                        content = new DirectoryInfo(pathFolderSelected)
+                            .GetFiles("*.*", SearchOption.AllDirectories)
+                            .Where(fileInfo =>
+                                fileInfo.CreationTime.Date >= dimensionOrDates.Dates.StartDate &&
+                                fileInfo.CreationTime.Date <= dimensionOrDates.Dates.EndDate)
+                            .Select(f => f.FullName)
+                            .ToList();
+                    }
+                }
+
                 if (content.Any())
                 {
                     if (onlyExtension)
@@ -217,8 +244,10 @@ namespace ScanFolderToFile.Utils
         {
             try
             {
-                var frmHistoryFileCreated = new FrmHistoryFileCreated(DeserializeHistoryFilesCreated());
-                frmHistoryFileCreated.ShowDialog();
+                using (var frmHistoryFileCreated = new FrmHistoryFileCreated(DeserializeHistoryFilesCreated()))
+                {
+                    frmHistoryFileCreated.ShowDialog();
+                }
             }
             catch (Exception ex)
             {
@@ -456,11 +485,11 @@ namespace ScanFolderToFile.Utils
         }
 
         //Reorganizing files into folders by extension
-        public static void ReorderFilesInFolderByType(string pathFolderSelected)
+        public static void ReorderFilesInFolderByType(string pathFolderSelected, ListFilesFromDimensionOrDates dimensionOrDates)
         {
             try
             {
-                var content = GetContentFromFolderSelected(pathFolderSelected);
+                var content = GetContentFromFolderSelected(pathFolderSelected, dimensionOrDates);
 
                 if (!content.Any()) return;
 

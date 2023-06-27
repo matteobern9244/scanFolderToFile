@@ -48,6 +48,7 @@
             this.altreOperazioniToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copiaSpostaFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.riordinamentoFilesInCartellePerTipoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listaFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.storicoFileCreatiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gbSelectFolder.SuspendLayout();
             this.gbOptions.SuspendLayout();
@@ -186,10 +187,11 @@
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.operazioniSuFileToolStripMenuItem,
             this.altreOperazioniToolStripMenuItem,
+            this.listaFilesToolStripMenuItem,
             this.storicoFileCreatiToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(737, 28);
+            this.menuStrip.Size = new System.Drawing.Size(737, 30);
             this.menuStrip.TabIndex = 17;
             this.menuStrip.Text = "menuStrip1";
             // 
@@ -200,7 +202,7 @@
             this.stampaToolStripMenuItem,
             this.apriCartellaFileToolStripMenuItem});
             this.operazioniSuFileToolStripMenuItem.Name = "operazioniSuFileToolStripMenuItem";
-            this.operazioniSuFileToolStripMenuItem.Size = new System.Drawing.Size(141, 24);
+            this.operazioniSuFileToolStripMenuItem.Size = new System.Drawing.Size(141, 26);
             this.operazioniSuFileToolStripMenuItem.Text = "Operazioni su File";
             // 
             // apriToolStripMenuItem
@@ -230,7 +232,7 @@
             this.copiaSpostaFilesToolStripMenuItem,
             this.riordinamentoFilesInCartellePerTipoToolStripMenuItem});
             this.altreOperazioniToolStripMenuItem.Name = "altreOperazioniToolStripMenuItem";
-            this.altreOperazioniToolStripMenuItem.Size = new System.Drawing.Size(56, 24);
+            this.altreOperazioniToolStripMenuItem.Size = new System.Drawing.Size(56, 26);
             this.altreOperazioniToolStripMenuItem.Text = "Altro";
             // 
             // copiaSpostaFilesToolStripMenuItem
@@ -247,10 +249,17 @@
             this.riordinamentoFilesInCartellePerTipoToolStripMenuItem.Text = "Riordinamento files in cartelle per tipo";
             this.riordinamentoFilesInCartellePerTipoToolStripMenuItem.Click += new System.EventHandler(this.riordinamentoFilesInCartellePerTipoToolStripMenuItem_Click);
             // 
+            // listaFilesToolStripMenuItem
+            // 
+            this.listaFilesToolStripMenuItem.Name = "listaFilesToolStripMenuItem";
+            this.listaFilesToolStripMenuItem.Size = new System.Drawing.Size(177, 26);
+            this.listaFilesToolStripMenuItem.Text = "Filtri Scansione Cartella";
+            this.listaFilesToolStripMenuItem.Click += new System.EventHandler(this.listaFilesToolStripMenuItem_Click);
+            // 
             // storicoFileCreatiToolStripMenuItem
             // 
             this.storicoFileCreatiToolStripMenuItem.Name = "storicoFileCreatiToolStripMenuItem";
-            this.storicoFileCreatiToolStripMenuItem.Size = new System.Drawing.Size(140, 24);
+            this.storicoFileCreatiToolStripMenuItem.Size = new System.Drawing.Size(140, 26);
             this.storicoFileCreatiToolStripMenuItem.Text = "Storico File Creati";
             this.storicoFileCreatiToolStripMenuItem.Click += new System.EventHandler(this.storicoFileCreatiToolStripMenuItem_Click);
             // 
@@ -305,6 +314,7 @@
         private System.Windows.Forms.ToolStripMenuItem apriToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem stampaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem apriCartellaFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem listaFilesToolStripMenuItem;
     }
 }
 
