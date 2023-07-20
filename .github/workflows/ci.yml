@@ -3,16 +3,16 @@ name: NetFramework.CI
 # Controls when the action will run. Triggers the workflow on push or pull request 
 # events but only for the master branch
 on:
-  # push:
-  #   branches: [ main ]
-  # pull_request:
-  #   branches: [ main ]
-  workflow_dispatch:    
+   push:
+     branches: [ main ]
+   pull_request:
+     branches: [ main ]
+   workflow_dispatch:    
 
 jobs:
   # This workflow contains a single job called "Build"
   Build:
-    if: github.actor != 'matteobern9244'
+    if: github.actor == 'mbernardinikiwibit'
 
     runs-on: [windows-latest]
 
