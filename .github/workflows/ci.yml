@@ -12,7 +12,7 @@ on:
 jobs:
   # This workflow contains a single job called "Build"
   Build:
-    if: github.actor == 'mbernardinikiwibit'
+    if: github.actor != 'mbernardinikiwibit'
 
     runs-on: [windows-latest]
 
