@@ -1,7 +1,5 @@
 name: NetFramework.CI
 
-# Controls when the action will run. Triggers the workflow on push or pull request 
-# events but only for the master branch
 on:
    push:
      branches: [ main ]
@@ -9,15 +7,11 @@ on:
      branches: [ main ]
    workflow_dispatch:    
 
-jobs:
-  # This workflow contains a single job called "Build"
+jobs:  
   Build:
-    if: github.actor != 'mbernardinikiwibit'
-
     runs-on: [windows-latest]
 
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
       
     - name: Setup MSBuild
@@ -34,7 +28,6 @@ jobs:
 
     - name: Upload a Build Artifact scanFolderToFile
       uses: actions/upload-artifact@v2.2.2
-      with:
-        # Artifact name
+      with:        
         name: scanFolderToFile
         path: scanFolderToFile/bin/Debug
