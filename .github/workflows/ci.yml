@@ -12,8 +12,8 @@ on:
 jobs:
   # This workflow contains a single job called "Build"
   Build:
-    if: github.actor == 'matteobern9244'
-    
+    if: github.actor != 'matteobern9244'
+
     runs-on: [windows-latest]
 
     steps:
