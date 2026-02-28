@@ -9,6 +9,7 @@ internal static class AppServiceFactory
     {
         var appPaths = new MacAppPaths();
         var historyStore = new JsonHistoryStore();
+        var fileOperationsService = new FileOperationsService();
         var scanService = new ScanService(
             appPaths,
             new FileCollector(),
@@ -23,7 +24,7 @@ internal static class AppServiceFactory
             new DuplicateDetector(),
             new SystemClock());
 
-        return new DefaultAppServices(scanService, appPaths, historyStore, new MacExternalLauncher());
+        return new DefaultAppServices(scanService, appPaths, historyStore, new MacExternalLauncher(), fileOperationsService);
     }
 }
 
@@ -31,4 +32,5 @@ internal sealed record DefaultAppServices(
     IScanService ScanService,
     IAppPaths AppPaths,
     IHistoryStore HistoryStore,
-    IExternalLauncher ExternalLauncher);
+    IExternalLauncher ExternalLauncher,
+    IFileOperationsService FileOperationsService);

@@ -5,6 +5,7 @@ using Avalonia.Platform.Storage;
 using ScanFolderToFile.Core.Abstractions;
 using ScanFolderToFile.Core.Constants;
 using ScanFolderToFile.Core.Models;
+using ScanFolderToFile.Core.Services;
 
 namespace ScanFolderToFile.App;
 
@@ -14,6 +15,7 @@ public sealed partial class MainWindow : Window
     private readonly IAppPaths _appPaths;
     private readonly IHistoryStore _historyStore;
     private readonly IExternalLauncher _externalLauncher;
+    private readonly IFileOperationsService _fileOperationsService;
     private readonly MainWindowUiState _uiState;
     private readonly IReadOnlyList<OutputFormatChoice> _formatChoices;
     private readonly TextBox _sourceFolderTextBox;
@@ -33,12 +35,17 @@ public sealed partial class MainWindow : Window
     private readonly Button _openOutputFolderButton;
     private readonly Button _openFiltersButton;
     private readonly Button _openHistoryButton;
+    private readonly Button _openDuplicatesButton;
+    private readonly Button _openUtilitiesButton;
     private readonly NativeMenuItem _menuOpenGeneratedFileItem;
     private readonly NativeMenuItem _menuOpenOutputFolderItem;
     private readonly NativeMenuItem _menuOpenHistoryItem;
+    private readonly NativeMenuItem _menuOpenDuplicatesItem;
     private readonly NativeMenuItem _menuConfigureFiltersItem;
     private readonly NativeMenuItem _menuClearFiltersItem;
     private readonly NativeMenuItem _menuGenerateItem;
+    private readonly NativeMenuItem _menuCopyMoveItem;
+    private readonly NativeMenuItem _menuReorderItem;
     private bool _isBusy;
 
     public MainWindow()
@@ -51,7 +58,17 @@ public sealed partial class MainWindow : Window
         IAppPaths appPaths,
         IHistoryStore historyStore,
         IExternalLauncher externalLauncher)
-        : this(new DefaultAppServices(scanService, appPaths, historyStore, externalLauncher))
+        : this(new DefaultAppServices(scanService, appPaths, historyStore, externalLauncher, new FileOperationsService()))
+    {
+    }
+
+    public MainWindow(
+        IScanService scanService,
+        IAppPaths appPaths,
+        IHistoryStore historyStore,
+        IExternalLauncher externalLauncher,
+        IFileOperationsService fileOperationsService)
+        : this(new DefaultAppServices(scanService, appPaths, historyStore, externalLauncher, fileOperationsService))
     {
     }
 
@@ -61,6 +78,7 @@ public sealed partial class MainWindow : Window
         _appPaths = services.AppPaths;
         _historyStore = services.HistoryStore;
         _externalLauncher = services.ExternalLauncher;
+        _fileOperationsService = services.FileOperationsService;
         _uiState = new MainWindowUiState();
 
         AvaloniaXamlLoader.Load(this);
@@ -82,14 +100,19 @@ public sealed partial class MainWindow : Window
         _openOutputFolderButton = GetRequiredControl<Button>(AppStrings.Ui.OpenOutputFolderButtonName);
         _openFiltersButton = GetRequiredControl<Button>(AppStrings.Ui.OpenFiltersButtonName);
         _openHistoryButton = GetRequiredControl<Button>(AppStrings.Ui.OpenHistoryButtonName);
+        _openDuplicatesButton = GetRequiredControl<Button>(AppStrings.Ui.OpenDuplicatesButtonName);
+        _openUtilitiesButton = GetRequiredControl<Button>(AppStrings.Ui.OpenUtilitiesButtonName);
         _formatChoices = CreateOutputFormatChoices();
 
         _menuOpenGeneratedFileItem = CreateMenuItem(AppStrings.Ui.MenuOpenGeneratedFile, (_, _) => _ = OpenGeneratedFileAsync());
         _menuOpenOutputFolderItem = CreateMenuItem(AppStrings.Ui.MenuOpenOutputFolder, (_, _) => _ = OpenOutputFolderAsync());
         _menuOpenHistoryItem = CreateMenuItem(AppStrings.Ui.MenuOpenHistory, (_, _) => _ = OpenHistoryWindowAsync());
+        _menuOpenDuplicatesItem = CreateMenuItem(AppStrings.Ui.MenuOpenDuplicates, (_, _) => _ = OpenDuplicatesWindowAsync());
         _menuConfigureFiltersItem = CreateMenuItem(AppStrings.Ui.MenuConfigureFilters, (_, _) => _ = OpenFiltersAsync());
         _menuClearFiltersItem = CreateMenuItem(AppStrings.Ui.MenuClearFilters, (_, _) => ClearFilter());
         _menuGenerateItem = CreateMenuItem(AppStrings.Ui.MenuGenerate, (_, _) => _ = GenerateAsync());
+        _menuCopyMoveItem = CreateMenuItem(AppStrings.Ui.MenuCopyMove, (_, _) => _ = OpenUtilitiesWindowAsync(UtilityOperationMode.Copy));
+        _menuReorderItem = CreateMenuItem(AppStrings.Ui.MenuReorder, (_, _) => _ = OpenUtilitiesWindowAsync(UtilityOperationMode.Reorder));
 
         Title = AppStrings.Ui.WindowTitle;
         InitializeText();
@@ -102,6 +125,8 @@ public sealed partial class MainWindow : Window
     internal string CurrentStatus => _statusTextBlock.Text ?? string.Empty;
 
     internal string CurrentFilterSummary => _filterSummaryTextBlock.Text ?? string.Empty;
+
+    internal bool CanOpenDuplicates => _openDuplicatesButton.IsEnabled;
 
     internal void ApplyFilterResult(FilterDialogResult filterResult)
     {
@@ -142,6 +167,8 @@ public sealed partial class MainWindow : Window
         SetButtonContent(AppStrings.Ui.OpenOutputFolderButtonName, AppStrings.Ui.OpenOutputFolderButtonText);
         SetButtonContent(AppStrings.Ui.OpenFiltersButtonName, AppStrings.Ui.OpenFiltersButtonText);
         SetButtonContent(AppStrings.Ui.OpenHistoryButtonName, AppStrings.Ui.OpenHistoryButtonText);
+        SetButtonContent(AppStrings.Ui.OpenDuplicatesButtonName, AppStrings.Ui.OpenDuplicatesButtonText);
+        SetButtonContent(AppStrings.Ui.OpenUtilitiesButtonName, AppStrings.Ui.OpenUtilitiesButtonText);
         SetCheckBoxContent(AppStrings.Ui.OnlyExtensionsCheckBoxName, AppStrings.Ui.OnlyExtensionsCheckBoxText);
         SetCheckBoxContent(AppStrings.Ui.CreateZipCheckBoxName, AppStrings.Ui.CreateZipCheckBoxText);
         SetCheckBoxContent(AppStrings.Ui.CollectDuplicatesCheckBoxName, AppStrings.Ui.CollectDuplicatesCheckBoxText);
@@ -170,6 +197,7 @@ public sealed partial class MainWindow : Window
                     _menuOpenGeneratedFileItem,
                     _menuOpenOutputFolderItem,
                     _menuOpenHistoryItem,
+                    _menuOpenDuplicatesItem,
                 },
             },
             new NativeMenuItem
@@ -187,8 +215,8 @@ public sealed partial class MainWindow : Window
                 Header = AppStrings.Ui.MenuOtherHeader,
                 Menu = new NativeMenu
                 {
-                    CreateDisabledMenuItem(AppStrings.Ui.MenuCopyMove),
-                    CreateDisabledMenuItem(AppStrings.Ui.MenuReorder),
+                    _menuCopyMoveItem,
+                    _menuReorderItem,
                     CreateDisabledMenuItem(AppStrings.Ui.MenuEditor),
                     CreateDisabledMenuItem(AppStrings.Ui.MenuPrint),
                 },
@@ -207,6 +235,8 @@ public sealed partial class MainWindow : Window
         _openOutputFolderButton.Click += HandleOpenOutputFolderClick;
         _openFiltersButton.Click += HandleOpenFiltersClick;
         _openHistoryButton.Click += HandleOpenHistoryClick;
+        _openDuplicatesButton.Click += HandleOpenDuplicatesClick;
+        _openUtilitiesButton.Click += HandleOpenUtilitiesClick;
         _sourceFolderTextBox.TextChanged += HandleTextChanged;
         _outputFolderTextBox.TextChanged += HandleTextChanged;
         _outputFormatComboBox.SelectionChanged += HandleSelectionChanged;
@@ -245,6 +275,16 @@ public sealed partial class MainWindow : Window
     private async void HandleOpenHistoryClick(object? sender, RoutedEventArgs e)
     {
         await OpenHistoryWindowAsync().ConfigureAwait(true);
+    }
+
+    private async void HandleOpenDuplicatesClick(object? sender, RoutedEventArgs e)
+    {
+        await OpenDuplicatesWindowAsync().ConfigureAwait(true);
+    }
+
+    private async void HandleOpenUtilitiesClick(object? sender, RoutedEventArgs e)
+    {
+        await OpenUtilitiesWindowAsync(UtilityOperationMode.Copy).ConfigureAwait(true);
     }
 
     private void HandleTextChanged(object? sender, TextChangedEventArgs e)
@@ -357,6 +397,45 @@ public sealed partial class MainWindow : Window
         }
     }
 
+    private async Task OpenDuplicatesWindowAsync()
+    {
+        try
+        {
+            var duplicateGroups = _uiState.LastResult?.DuplicateGroups ?? Array.Empty<DuplicateFileGroup>();
+            if (duplicateGroups.Count == 0)
+            {
+                _statusTextBlock.Text = AppStrings.Ui.NoDuplicatesStatus;
+                RefreshActionState();
+                return;
+            }
+
+            var duplicatesWindow = new DuplicatesWindow(duplicateGroups, _externalLauncher);
+            await duplicatesWindow.ShowDialog(this).ConfigureAwait(true);
+        }
+        catch (Exception exception)
+        {
+            _statusTextBlock.Text = string.Concat(AppStrings.Ui.ErrorPrefix, exception.Message);
+        }
+    }
+
+    private async Task OpenUtilitiesWindowAsync(UtilityOperationMode initialMode)
+    {
+        try
+        {
+            var utilitiesWindow = new UtilitiesWindow(
+                _sourceFolderTextBox.Text?.Trim() ?? string.Empty,
+                GetOutputFolderOrDefault(),
+                initialMode,
+                _fileOperationsService);
+
+            await utilitiesWindow.ShowDialog(this).ConfigureAwait(true);
+        }
+        catch (Exception exception)
+        {
+            _statusTextBlock.Text = string.Concat(AppStrings.Ui.ErrorPrefix, exception.Message);
+        }
+    }
+
     private async Task SelectFolderAsync(TextBox targetTextBox, string title)
     {
         var topLevel = TopLevel.GetTopLevel(this);
@@ -416,6 +495,8 @@ public sealed partial class MainWindow : Window
         _generateButton.IsEnabled = !isBusy;
         _openFiltersButton.IsEnabled = !isBusy;
         _openHistoryButton.IsEnabled = !isBusy;
+        _openDuplicatesButton.IsEnabled = !isBusy;
+        _openUtilitiesButton.IsEnabled = !isBusy;
         RefreshActionState();
     }
 
@@ -426,19 +507,25 @@ public sealed partial class MainWindow : Window
         var hasGeneratedFile = !string.IsNullOrWhiteSpace(generatedFilePath) && File.Exists(generatedFilePath);
         var hasOutputFolder = !string.IsNullOrWhiteSpace(outputFolder) && Directory.Exists(outputFolder);
         var hasFilter = _uiState.ActiveFilter.Mode != FilterMode.None;
+        var hasDuplicateGroups = _uiState.LastResult?.DuplicateGroups.Count > 0;
 
         _generateButton.IsEnabled = !_isBusy;
         _openGeneratedFileButton.IsEnabled = !_isBusy && hasGeneratedFile;
         _openOutputFolderButton.IsEnabled = !_isBusy && hasOutputFolder;
         _openFiltersButton.IsEnabled = !_isBusy;
         _openHistoryButton.IsEnabled = !_isBusy;
+        _openDuplicatesButton.IsEnabled = !_isBusy && hasDuplicateGroups;
+        _openUtilitiesButton.IsEnabled = !_isBusy;
 
         _menuOpenGeneratedFileItem.IsEnabled = !_isBusy && hasGeneratedFile;
         _menuOpenOutputFolderItem.IsEnabled = !_isBusy && hasOutputFolder;
         _menuOpenHistoryItem.IsEnabled = !_isBusy;
+        _menuOpenDuplicatesItem.IsEnabled = !_isBusy && hasDuplicateGroups;
         _menuConfigureFiltersItem.IsEnabled = !_isBusy;
         _menuClearFiltersItem.IsEnabled = !_isBusy && hasFilter;
         _menuGenerateItem.IsEnabled = !_isBusy;
+        _menuCopyMoveItem.IsEnabled = !_isBusy;
+        _menuReorderItem.IsEnabled = !_isBusy;
     }
 
     private OutputFormat GetSelectedOutputFormat()

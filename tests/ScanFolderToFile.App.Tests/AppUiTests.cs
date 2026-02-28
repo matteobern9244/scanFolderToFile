@@ -166,6 +166,27 @@ public sealed class AppUiTests : IDisposable
     }
 
     [AvaloniaFact]
+    public void MainWindow_ApplyScanResult_WithDuplicates_EnablesDuplicateAction()
+    {
+        var window = CreateMainWindow(new FakeAppPaths(_tempRoot));
+        var result = new ScanResult
+        {
+            DuplicateGroups = new[]
+            {
+                new DuplicateFileGroup
+                {
+                    BaseName = "uno",
+                    FilePaths = new[] { "/tmp/uno.txt", "/tmp/uno.md" },
+                },
+            },
+        };
+
+        window.ApplyScanResult(result);
+
+        window.CanOpenDuplicates.Should().BeTrue();
+    }
+
+    [AvaloniaFact]
     public void HistoryWindow_WithMissingFile_DisablesOpenButton()
     {
         var window = new HistoryWindow(
@@ -188,6 +209,37 @@ public sealed class AppUiTests : IDisposable
 
         window.FindControl<TextBox>(AppStrings.Ui.FilterMinSizeTextBoxName)!.Text.Should().Be("3");
         window.FindControl<TextBox>(AppStrings.Ui.FilterMaxSizeTextBoxName)!.Text.Should().Be("9");
+    }
+
+    [AvaloniaFact]
+    public void UtilitiesWindow_WhenCreatedWithReorderMode_DisablesDestination()
+    {
+        var window = new UtilitiesWindow(
+            _tempRoot,
+            Path.Combine(_tempRoot, "dest"),
+            UtilityOperationMode.Reorder,
+            new FakeFileOperationsService());
+
+        window.DestinationEnabled.Should().BeFalse();
+    }
+
+    [AvaloniaFact]
+    public void DuplicatesWindow_WithMissingFile_DisablesOpenFileButton()
+    {
+        var window = new DuplicatesWindow(
+            new[]
+            {
+                new DuplicateFileGroup
+                {
+                    BaseName = "alpha",
+                    FilePaths = new[] { Path.Combine(_tempRoot, "missing.txt") },
+                },
+            },
+            new FakeExternalLauncher());
+
+        window.SelectedItem.Should().NotBeNull();
+        window.FindControl<Button>(AppStrings.Ui.DuplicatesOpenFileButtonName)!.IsEnabled.Should().BeFalse();
+        window.FindControl<Button>(AppStrings.Ui.DuplicatesOpenFolderButtonName)!.IsEnabled.Should().BeTrue();
     }
 
     public void Dispose()
@@ -256,6 +308,24 @@ public sealed class AppUiTests : IDisposable
         public Task AppendAsync(string historyFilePath, HistoryEntry entry, CancellationToken cancellationToken = default)
         {
             return Task.CompletedTask;
+        }
+    }
+
+    private sealed class FakeFileOperationsService : IFileOperationsService
+    {
+        public Task<FileOperationResult> CopyAsync(string sourceFolder, string destinationFolder, CancellationToken cancellationToken = default)
+        {
+            return Task.FromResult(new FileOperationResult());
+        }
+
+        public Task<FileOperationResult> MoveAsync(string sourceFolder, string destinationFolder, CancellationToken cancellationToken = default)
+        {
+            return Task.FromResult(new FileOperationResult());
+        }
+
+        public Task<FileOperationResult> ReorderByExtensionAsync(string sourceFolder, CancellationToken cancellationToken = default)
+        {
+            return Task.FromResult(new FileOperationResult());
         }
     }
 

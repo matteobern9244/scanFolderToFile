@@ -5,7 +5,7 @@ ScanFolderToFile e' un repository in transizione:
 - contiene l'applicazione storica WinForms per Windows basata su .NET Framework 4.8
 - contiene la nuova base moderna per il porting macOS, basata su .NET 10 e Avalonia
 
-L'obiettivo finale e' mantenere la parita' funzionale tra Windows e macOS, ma il repository oggi e' organizzato per lavorare per step. I primi due step sono gia' implementati: il nuovo core cross-platform, la UI macOS del flusso principale, test rigorosi, quality gates e CI/CD separata dalla pipeline legacy.
+L'obiettivo finale e' mantenere la parita' funzionale tra Windows e macOS, ma il repository oggi e' organizzato per lavorare per step. I primi tre step sono gia' implementati: il nuovo core cross-platform, la UI macOS del flusso principale, le utility operative principali, test rigorosi, quality gates e CI/CD separata dalla pipeline legacy.
 
 ## Stato Del Repository
 
@@ -34,6 +34,10 @@ La nuova base moderna include:
 
 - modelli di dominio per richieste, filtri, risultati e storico
 - servizi per scansione file, filtri, duplicati, ZIP e persistenza dello storico
+- servizio per utility operative:
+  - copia file
+  - spostamento file
+  - riordino per estensione
 - exporter per:
   - TXT
   - Markdown
@@ -58,6 +62,11 @@ La nuova base moderna include:
   - apertura file e cartella
 - finestra dedicata filtri
 - finestra dedicata storico file creati
+- finestra dedicata duplicati
+- finestra utility file per:
+  - copia
+  - sposta
+  - riordino per estensione
 - menu desktop macOS con azioni principali e roadmap visibile
 - launcher macOS intelligente:
   - `start_scanfolder.command`
@@ -162,11 +171,14 @@ La policy e' formalizzata anche in:
 La suite moderna contiene:
 
 - unit test su validazione, path, storico, filtri, duplicati, exporter e orchestrazione
+- unit test sulle utility operative (`copy/move/riordino`)
 - integration test mirati su filesystem temporaneo reale
 - test UI headless su:
   - finestra principale
   - filtri
   - storico
+  - duplicati
+  - utility file
 - controlli di policy per:
   - costanti centralizzate
   - asset dichiarati
@@ -242,19 +254,17 @@ La UI moderna copre gia' il flusso principale del porting:
 - finestra principale operativa
 - filtri dedicati
 - storico dedicato
+- duplicati dedicati
+- utility operative integrate
 - preview interna dei risultati
 - menu macOS con azioni principali
 
-Le utility avanzate, l'editor interno, la stampa e il packaging finale restano nei piani successivi.
+L'editor interno, la stampa e il packaging finale restano nei piani successivi.
 
 ## Roadmap Di Alto Livello
 
 I prossimi step del porting completeranno:
 
-- utility operative:
-  - `copy/move`
-  - riordino per tipo
-  - duplicati avanzati
 - editor interno
 - stampa e anteprima in-app
 - packaging desktop piu' avanzato
@@ -268,4 +278,4 @@ I prossimi step del porting completeranno:
 
 ## Licenza E Note Operative
 
-Questo README descrive lo stato corrente del repository dopo i Piani 1 e 2. La codebase legacy resta presente per confronto, verifica funzionale e continuita' operativa mentre il porting verso macOS procede.
+Questo README descrive lo stato corrente del repository dopo i Piani 1, 2 e 3. La codebase legacy resta presente per confronto, verifica funzionale e continuita' operativa mentre il porting verso macOS procede.

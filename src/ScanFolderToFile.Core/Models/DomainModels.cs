@@ -69,3 +69,10 @@ public sealed class DuplicateFileGroup
 
     public IReadOnlyList<string> FilePaths { get; init; } = Array.Empty<string>();
 }
+
+public sealed class FileOperationResult
+{
+    public IReadOnlyList<string> AffectedPaths { get; init; } = Array.Empty<string>();
+
+    public IReadOnlyList<string> SkippedPaths { get; init; } = Array.Empty<string>();
+}

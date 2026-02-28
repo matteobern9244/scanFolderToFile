@@ -40,6 +40,15 @@ public interface IArchiveService
     Task<string> CreateZipAsync(string sourceFolder, string zipFolder, CancellationToken cancellationToken = default);
 }
 
+public interface IFileOperationsService
+{
+    Task<FileOperationResult> CopyAsync(string sourceFolder, string destinationFolder, CancellationToken cancellationToken = default);
+
+    Task<FileOperationResult> MoveAsync(string sourceFolder, string destinationFolder, CancellationToken cancellationToken = default);
+
+    Task<FileOperationResult> ReorderByExtensionAsync(string sourceFolder, CancellationToken cancellationToken = default);
+}
+
 public interface IDuplicateDetector
 {
     IReadOnlyList<DuplicateFileGroup> FindDuplicates(IReadOnlyList<string> filePaths);

@@ -10,6 +10,13 @@ internal enum FilterMode
     DateRange = 2,
 }
 
+internal enum UtilityOperationMode
+{
+    Copy = 0,
+    Move = 1,
+    Reorder = 2,
+}
+
 internal sealed record FilterDialogResult(FilterMode Mode, ScanFilter? Filter, string Summary)
 {
     public static FilterDialogResult CreateNone()
@@ -84,6 +91,28 @@ internal sealed record HistoryListItem(
     public string DisplayText =>
         string.Concat(
             CreatedAtDisplay,
+            AppStrings.System.NameValueSeparator,
+            FileName,
+            AppStrings.System.OpenParenthesisWithLeadingSpace,
+            ExistsLabel,
+            AppStrings.System.CloseParenthesis);
+}
+
+internal sealed record DuplicateFileListItem(
+    string BaseName,
+    string FilePath)
+{
+    public string FileName => Path.GetFileName(FilePath);
+
+    public string FolderPath => Path.GetDirectoryName(FilePath) ?? string.Empty;
+
+    public bool Exists => File.Exists(FilePath);
+
+    public string ExistsLabel => Exists ? AppStrings.System.FileExistsLabel : AppStrings.System.FileMissingLabel;
+
+    public string DisplayText =>
+        string.Concat(
+            BaseName,
             AppStrings.System.NameValueSeparator,
             FileName,
             AppStrings.System.OpenParenthesisWithLeadingSpace,

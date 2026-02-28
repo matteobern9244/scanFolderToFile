@@ -10,12 +10,20 @@ Questo changelog segue il formato di [Keep a Changelog](https://keepachangelog.c
 
 - `AGENTS.md` con regole operative del repository per agenti, workflow di modifica, test e policy pre-commit
 - Test UI headless in `tests/ScanFolderToFile.App.Tests` per la finestra principale e le finestre dedicate del flusso macOS
+- Servizio `FileOperationsService` nel core per:
+  - copia file
+  - spostamento file
+  - riordino per estensione
+- Nuova finestra `UtilitiesWindow` per eseguire le utility operative da macOS
+- Nuova finestra `DuplicatesWindow` per consultare e aprire i duplicati trovati
+- Nuovi test del core per le utility operative
 
 ### Changed
 
 - Formalizzata la policy operativa del repository: prima di ogni `commit` e `push` vanno aggiornati `README.md` e `CHANGELOG.md`, ed eseguito `dotnet format`
 - Il README e' stato riallineato allo stato reale del repository dopo il completamento del Piano 2
 - La UI macOS non e' piu' descritta come shell minima: il flusso principale e' ora implementato in `src/ScanFolderToFile.App`
+- Il README e' stato riallineato anche al completamento del Piano 3 e alle nuove utility operative
 
 ### Completed
 
@@ -26,6 +34,11 @@ Questo changelog segue il formato di [Keep a Changelog](https://keepachangelog.c
   - menu desktop macOS
   - preview interna dei risultati
   - comandi di apertura file e cartelle coerenti con macOS
+- Chiuso il Piano 3 del porting macOS con:
+  - `copy/move` integrati nella UI
+  - riordino per estensione
+  - finestra duplicati dedicata
+  - menu utility attivati per le funzioni del piano
 
 ### Planned
 

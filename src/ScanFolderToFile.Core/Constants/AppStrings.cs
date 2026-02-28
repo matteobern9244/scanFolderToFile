@@ -8,6 +8,7 @@ public static class AppStrings
         public const string OutputTitle = "CONTENUTO";
         public const string HistoryDirectoryName = "History";
         public const string ZipDirectoryName = "ZipFiles";
+        public const string NoExtensionDirectoryName = "no_extension";
         public const string HistoryFileName = "HistoryFileCreated.json";
         public const string OutputTextFileName = "CONTENUTO.txt";
         public const string OutputMarkdownFileName = "CONTENUTO.md";
@@ -41,6 +42,8 @@ public static class AppStrings
         public const string UnsupportedExportFormat = "Nessun exporter supporta il formato richiesto.";
         public const string ExportFailed = "La generazione del file richiesto non e' riuscita.";
         public const string ExternalOpenFailed = "L'apertura del percorso richiesto non e' riuscita.";
+        public const string MissingDestinationFolder = "La cartella di destinazione e' obbligatoria.";
+        public const string DestinationFolderMatchesSource = "La cartella di destinazione deve essere diversa dalla cartella sorgente.";
     }
 
     public static class Filters
@@ -57,12 +60,14 @@ public static class AppStrings
         public const string IsoDateFormat = "yyyy-MM-dd";
         public const string NameValueSeparator = ": ";
         public const string ListSeparator = ", ";
+        public const string NewLine = "\n";
         public const string FileExistsLabel = "presente";
         public const string FileMissingLabel = "mancante";
         public const string DashPlaceholder = "-";
         public const string Space = " ";
         public const string OpenParenthesisWithLeadingSpace = " (";
         public const string CloseParenthesis = ")";
+        public const string PathSeparator = "/";
     }
 
     public static class Ui
@@ -89,12 +94,36 @@ public static class AppStrings
         public const string OpenOutputFolderButtonName = "OpenOutputFolderButton";
         public const string OpenFiltersButtonName = "OpenFiltersButton";
         public const string OpenHistoryButtonName = "OpenHistoryButton";
+        public const string OpenDuplicatesButtonName = "OpenDuplicatesButton";
+        public const string OpenUtilitiesButtonName = "OpenUtilitiesButton";
         public const string StatusTitleTextBlockName = "StatusTitleTextBlock";
         public const string StatusTextBlockName = "StatusTextBlock";
         public const string ResultTitleTextBlockName = "ResultTitleTextBlock";
         public const string ResultSummaryTextBlockName = "ResultSummaryTextBlock";
         public const string PreviewTitleTextBlockName = "PreviewTitleTextBlock";
         public const string PreviewTextBoxName = "PreviewTextBox";
+
+        public const string UtilitiesModeLabelTextBlockName = "UtilitiesModeLabelTextBlock";
+        public const string UtilityCopyRadioButtonName = "UtilityCopyRadioButton";
+        public const string UtilityMoveRadioButtonName = "UtilityMoveRadioButton";
+        public const string UtilityReorderRadioButtonName = "UtilityReorderRadioButton";
+        public const string UtilitySourceLabelTextBlockName = "UtilitySourceLabelTextBlock";
+        public const string UtilitySourceTextBoxName = "UtilitySourceTextBox";
+        public const string UtilityBrowseSourceButtonName = "UtilityBrowseSourceButton";
+        public const string UtilityDestinationLabelTextBlockName = "UtilityDestinationLabelTextBlock";
+        public const string UtilityDestinationTextBoxName = "UtilityDestinationTextBox";
+        public const string UtilityBrowseDestinationButtonName = "UtilityBrowseDestinationButton";
+        public const string UtilityStatusTextBlockName = "UtilityStatusTextBlock";
+        public const string UtilityResultTextBoxName = "UtilityResultTextBox";
+        public const string UtilityExecuteButtonName = "UtilityExecuteButton";
+        public const string UtilityCloseButtonName = "UtilityCloseButton";
+
+        public const string DuplicatesStatusTextBlockName = "DuplicatesStatusTextBlock";
+        public const string DuplicatesSummaryTextBlockName = "DuplicatesSummaryTextBlock";
+        public const string DuplicatesListBoxName = "DuplicatesListBox";
+        public const string DuplicatesOpenFileButtonName = "DuplicatesOpenFileButton";
+        public const string DuplicatesOpenFolderButtonName = "DuplicatesOpenFolderButton";
+        public const string DuplicatesEmptyTextBlockName = "DuplicatesEmptyTextBlock";
 
         public const string FilterWindowModeLabelTextBlockName = "FilterWindowModeLabelTextBlock";
         public const string FilterNoneRadioButtonName = "FilterNoneRadioButton";
@@ -140,6 +169,8 @@ public static class AppStrings
         public const string OpenOutputFolderButtonText = "Apri cartella";
         public const string OpenFiltersButtonText = "Filtri...";
         public const string OpenHistoryButtonText = "Storico...";
+        public const string OpenDuplicatesButtonText = "Duplicati...";
+        public const string OpenUtilitiesButtonText = "Utility...";
         public const string StatusTitle = "Stato";
         public const string ResultTitle = "Risultato";
         public const string PreviewTitle = "Preview";
@@ -158,6 +189,7 @@ public static class AppStrings
         public const string BrowseOutputDialogTitle = "Seleziona la cartella di output";
         public const string PreviewEmpty = "Nessun risultato ancora disponibile.";
         public const string NoFilterSummary = "Nessun filtro";
+        public const string NoDuplicatesStatus = "Nessun gruppo duplicato disponibile per questa esecuzione.";
         public const string InvalidDecimalPrefix = "Valore numerico non valido: ";
         public const string InvalidDatePrefix = "Data non valida: ";
         public const string MissingControlPrefix = "Missing control: ";
@@ -216,6 +248,7 @@ public static class AppStrings
         public const string MenuOpenGeneratedFile = "Apri file generato";
         public const string MenuOpenOutputFolder = "Apri cartella file";
         public const string MenuOpenHistory = "Storico file creati";
+        public const string MenuOpenDuplicates = "Mostra duplicati";
         public const string MenuScanHeader = "Scansione";
         public const string MenuConfigureFilters = "Configura filtri";
         public const string MenuClearFilters = "Rimuovi filtri";
@@ -225,5 +258,39 @@ public static class AppStrings
         public const string MenuReorder = "Riordino per tipo";
         public const string MenuEditor = "Editor interno";
         public const string MenuPrint = "Stampa";
+
+        public const string UtilitiesWindowTitle = "Utility file";
+        public const string UtilitiesModeLabel = "Scegli l'operazione da eseguire";
+        public const string UtilityCopyText = "Copia file";
+        public const string UtilityMoveText = "Sposta file";
+        public const string UtilityReorderText = "Riordina per estensione";
+        public const string UtilitySourceLabel = "Cartella sorgente";
+        public const string UtilityDestinationLabel = "Cartella destinazione";
+        public const string UtilityBrowseSourceText = "Scegli sorgente...";
+        public const string UtilityBrowseDestinationText = "Scegli destinazione...";
+        public const string UtilityExecuteButtonText = "Esegui";
+        public const string UtilityCloseButtonText = "Chiudi";
+        public const string UtilityResultEmpty = "Nessuna operazione eseguita.";
+        public const string UtilityReadyStatus = "Configura l'operazione e premi Esegui.";
+        public const string UtilityDestinationDisabledStatus = "Per il riordino per estensione la destinazione coincide con la cartella sorgente.";
+        public const string UtilityCopySuccessPrefix = "Copia completata. File coinvolti: ";
+        public const string UtilityMoveSuccessPrefix = "Spostamento completato. File coinvolti: ";
+        public const string UtilityReorderSuccessPrefix = "Riordino completato. File coinvolti: ";
+        public const string UtilityNoSourceStatus = "Seleziona una cartella sorgente valida.";
+        public const string UtilityNoDestinationStatus = "Seleziona una cartella di destinazione valida.";
+        public const string UtilityBrowseSourceDialogTitle = "Seleziona la cartella sorgente per l'operazione";
+        public const string UtilityBrowseDestinationDialogTitle = "Seleziona la cartella di destinazione";
+        public const string UtilityAffectedTitle = "File coinvolti";
+        public const string UtilitySkippedTitle = "File saltati";
+
+        public const string DuplicatesWindowTitle = "Gruppi duplicati";
+        public const string DuplicatesEmpty = "Nessun duplicato disponibile.";
+        public const string DuplicatesStatusReady = "Seleziona un file duplicato per aprirlo o aprirne la cartella.";
+        public const string DuplicatesOpenFileButtonText = "Apri file";
+        public const string DuplicatesOpenFolderButtonText = "Apri cartella";
+        public const string DuplicatesMissingFileStatus = "Il file duplicato selezionato non e' disponibile.";
+        public const string DuplicatesMissingFolderStatus = "La cartella del duplicato selezionato non e' disponibile.";
+        public const string DuplicatesSummaryPrefix = "Gruppi duplicati trovati: ";
+        public const string DuplicatesSelectedPrefix = "Duplicato selezionato: ";
     }
 }
