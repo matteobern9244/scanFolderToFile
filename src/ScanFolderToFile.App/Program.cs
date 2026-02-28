@@ -14,6 +14,13 @@ internal static class Program
     {
         return AppBuilder.Configure<App>()
             .UsePlatformDetect()
+            .With(
+                new AvaloniaNativePlatformOptions
+                {
+                    // Force software rendering to avoid native renderer crashes on recent macOS builds.
+                    RenderingMode = new[] { AvaloniaNativeRenderingMode.Software },
+                }
+            )
             .LogToTrace();
     }
 }
