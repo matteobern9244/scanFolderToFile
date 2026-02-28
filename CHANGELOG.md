@@ -6,10 +6,29 @@ Questo changelog segue il formato di [Keep a Changelog](https://keepachangelog.c
 
 ## [Unreleased]
 
+### Added
+
+- `AGENTS.md` con regole operative del repository per agenti, workflow di modifica, test e policy pre-commit
+- Test UI headless in `tests/ScanFolderToFile.App.Tests` per la finestra principale e le finestre dedicate del flusso macOS
+
+### Changed
+
+- Formalizzata la policy operativa del repository: prima di ogni `commit` e `push` vanno aggiornati `README.md` e `CHANGELOG.md`, ed eseguito `dotnet format`
+- Il README e' stato riallineato allo stato reale del repository dopo il completamento del Piano 2
+- La UI macOS non e' piu' descritta come shell minima: il flusso principale e' ora implementato in `src/ScanFolderToFile.App`
+
+### Completed
+
+- Chiuso il Piano 2 del porting macOS con:
+  - `MainWindow` rifinita per il flusso principale
+  - `FilterWindow` dedicata
+  - `HistoryWindow` dedicata
+  - menu desktop macOS
+  - preview interna dei risultati
+  - comandi di apertura file e cartelle coerenti con macOS
+
 ### Planned
 
-- Estensione della shell Avalonia da finestra minima a interfaccia macOS reale
-- Introduzione dei flussi utente completi per scansione, export e gestione file
 - Porting progressivo di tutte le funzionalita' attualmente disponibili nella versione Windows
 - Evoluzione del packaging macOS oltre gli artifact di CI
 

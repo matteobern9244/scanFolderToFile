@@ -5,7 +5,7 @@ ScanFolderToFile e' un repository in transizione:
 - contiene l'applicazione storica WinForms per Windows basata su .NET Framework 4.8
 - contiene la nuova base moderna per il porting macOS, basata su .NET 10 e Avalonia
 
-L'obiettivo finale e' mantenere la parita' funzionale tra Windows e macOS, ma il repository oggi e' organizzato per lavorare per step. Il primo step implementato introduce il nuovo core, una shell desktop minima per macOS, test rigorosi, quality gates e CI/CD separata dalla pipeline legacy.
+L'obiettivo finale e' mantenere la parita' funzionale tra Windows e macOS, ma il repository oggi e' organizzato per lavorare per step. I primi due step sono gia' implementati: il nuovo core cross-platform, la UI macOS del flusso principale, test rigorosi, quality gates e CI/CD separata dalla pipeline legacy.
 
 ## Stato Del Repository
 
@@ -24,10 +24,11 @@ La nuova base di lavoro e' gia presente:
 
 - solution: `ScanFolderToFile.Modern.sln`
 - `src/ScanFolderToFile.Core`: logica applicativa cross-platform
-- `src/ScanFolderToFile.App`: shell desktop minima Avalonia
+- `src/ScanFolderToFile.App`: applicazione desktop Avalonia per macOS
 - `tests/ScanFolderToFile.Core.Tests`: unit test e integration test sul core
+- `tests/ScanFolderToFile.App.Tests`: test UI headless sull'app macOS
 
-## Cosa E' Gia Stato Implementato Nel Piano 1
+## Cosa E' Gia Stato Implementato Nei Piani 1 E 2
 
 La nuova base moderna include:
 
@@ -47,7 +48,17 @@ La nuova base moderna include:
   - `src/ScanFolderToFile.Core/Constants/AppAssets.cs`
 - costanti di build e quality gate in:
   - `src/ScanFolderToFile.Core/Constants/AppBuild.cs`
-- shell Avalonia minima lanciabile
+- applicazione Avalonia lanciabile con rendering software stabile su macOS
+- finestra principale macOS per il flusso core:
+  - selezione cartella sorgente
+  - selezione cartella output
+  - scelta formato
+  - toggle opzioni principali
+  - preview interna dei risultati
+  - apertura file e cartella
+- finestra dedicata filtri
+- finestra dedicata storico file creati
+- menu desktop macOS con azioni principali e roadmap visibile
 - launcher macOS intelligente:
   - `start_scanfolder.command`
 - GitHub Actions moderna separata da quella legacy
@@ -61,12 +72,14 @@ La nuova base moderna include:
 |   |   |-- ci.yml                  # pipeline legacy Windows
 |   |   |-- modern-ci.yml           # CI moderna automatica
 |   |   `-- modern-manual.yml       # workflow manuale
+|-- AGENTS.md                       # regole operative per agenti e flusso pre-commit
 |-- scanFolderToFile/               # applicazione WinForms legacy
 |-- src/
 |   |-- ScanFolderToFile.Core/      # core moderno
-|   `-- ScanFolderToFile.App/       # shell Avalonia minima
+|   `-- ScanFolderToFile.App/       # app Avalonia macOS
 |-- tests/
-|   `-- ScanFolderToFile.Core.Tests/
+|   |-- ScanFolderToFile.Core.Tests/
+|   `-- ScanFolderToFile.App.Tests/
 |-- ScanFolderToFile.Modern.sln     # solution moderna
 |-- scanFolderToFile.sln            # solution legacy
 |-- global.json                     # SDK .NET 10 fissata
@@ -132,12 +145,28 @@ La base moderna e' protetta da quality gate obbligatori:
 
 Queste soglie sono allineate ai workflow GitHub Actions del progetto.
 
+## Workflow Prima Di Commit E Push
+
+Per mantenere il repository coerente, prima di ogni `commit` e `push` bisogna sempre:
+
+1. aggiornare `README.md` se lo stato del progetto o la documentazione operativa sono cambiati
+2. aggiornare `CHANGELOG.md` con le modifiche rilevanti
+3. eseguire `dotnet format` sulla solution moderna
+
+La policy e' formalizzata anche in:
+
+- `AGENTS.md`
+
 ## Test
 
 La suite moderna contiene:
 
 - unit test su validazione, path, storico, filtri, duplicati, exporter e orchestrazione
 - integration test mirati su filesystem temporaneo reale
+- test UI headless su:
+  - finestra principale
+  - filtri
+  - storico
 - controlli di policy per:
   - costanti centralizzate
   - asset dichiarati
@@ -146,7 +175,7 @@ La suite moderna contiene:
 Esecuzione consigliata:
 
 ```bash
-dotnet test tests/ScanFolderToFile.Core.Tests/ScanFolderToFile.Core.Tests.csproj -c Release
+dotnet test ScanFolderToFile.Modern.sln -c Release
 ```
 
 Per raccogliere coverage:
@@ -206,22 +235,26 @@ La mappatura canonica vive in:
 
 - `src/ScanFolderToFile.Core/Constants/AppAssets.cs`
 
-## Note Sulla Shell Avalonia
+## Stato Della UI macOS
 
-La shell attuale e' volutamente minima. In questo step serve a:
+La UI moderna copre gia' il flusso principale del porting:
 
-- validare il bootstrap desktop moderno
-- produrre un target reale per il launcher
-- preparare il passaggio alla UI macOS completa nei piani successivi
+- finestra principale operativa
+- filtri dedicati
+- storico dedicato
+- preview interna dei risultati
+- menu macOS con azioni principali
 
-Non rappresenta ancora l'interfaccia finale dell'app.
+Le utility avanzate, l'editor interno, la stampa e il packaging finale restano nei piani successivi.
 
 ## Roadmap Di Alto Livello
 
 I prossimi step del porting completeranno:
 
-- UI macOS reale per i flussi principali
-- integrazione completa di tutte le funzioni presenti nella versione Windows
+- utility operative:
+  - `copy/move`
+  - riordino per tipo
+  - duplicati avanzati
 - editor interno
 - stampa e anteprima in-app
 - packaging desktop piu' avanzato
@@ -235,4 +268,4 @@ I prossimi step del porting completeranno:
 
 ## Licenza E Note Operative
 
-Questo README descrive lo stato corrente del repository e la nuova base introdotta dal Piano 1. La codebase legacy resta presente per confronto, verifica funzionale e continuita' operativa mentre il porting verso macOS procede.
+Questo README descrive lo stato corrente del repository dopo i Piani 1 e 2. La codebase legacy resta presente per confronto, verifica funzionale e continuita' operativa mentre il porting verso macOS procede.
