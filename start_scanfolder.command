@@ -7,6 +7,7 @@ CONFIGURATION="Release"
 FRAMEWORK="net10.0"
 APP_PROJECT_DIR="src/ScanFolderToFile.App"
 ASSEMBLY_NAME="ScanFolderToFile"
+USER_DOTNET="$HOME/.dotnet/dotnet"
 LOCAL_DOTNET="$ROOT_DIR/.dotnet/dotnet"
 STEP_FORMAT="[1/5] Checking formatting..."
 STEP_RESTORE="[2/5] Restoring solution..."
@@ -17,8 +18,11 @@ ERROR_DOTNET="A compatible dotnet executable was not found."
 ERROR_SOLUTION="The modern solution file was not found."
 ERROR_APP="No launchable app-host or DLL was produced."
 FORMAT_DIFF="Formatting differences detected. Running auto-format..."
+APP_HOST_FALLBACK="App-host launch failed. Falling back to the DLL..."
 
-if [[ -x "$LOCAL_DOTNET" ]]; then
+if [[ -x "$USER_DOTNET" ]]; then
+  DOTNET_CMD="$USER_DOTNET"
+elif [[ -x "$LOCAL_DOTNET" ]]; then
   DOTNET_CMD="$LOCAL_DOTNET"
 elif command -v dotnet >/dev/null 2>&1; then
   DOTNET_CMD="dotnet"
@@ -26,6 +30,13 @@ else
   echo "$ERROR_DOTNET" >&2
   exit 1
 fi
+
+if [[ "$DOTNET_CMD" == "dotnet" ]]; then
+  DOTNET_ROOT="$(cd "$(dirname "$(command -v dotnet)")" && pwd)"
+else
+  DOTNET_ROOT="$(cd "$(dirname "$DOTNET_CMD")" && pwd)"
+fi
+export DOTNET_ROOT
 
 cd "$ROOT_DIR"
 
@@ -55,7 +66,11 @@ APP_DLL="$APP_DIR/$ASSEMBLY_NAME.dll"
 
 echo "$STEP_LAUNCH"
 if [[ -x "$APP_HOST" ]]; then
-  exec "$APP_HOST" "$@"
+  if "$APP_HOST" "$@"; then
+    exit 0
+  fi
+
+  echo "$APP_HOST_FALLBACK"
 fi
 
 if [[ -f "$APP_DLL" ]]; then
