@@ -2,46 +2,100 @@
     x:Class="ScanFolderToFile.App.MainWindow"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Width="720"
-    Height="420"
-    MinWidth="720"
-    MinHeight="420"
+    Width="1180"
+    Height="820"
+    MinWidth="1024"
+    MinHeight="760"
     Background="#F4F1EA"
     RequestedThemeVariant="Light"
     Icon="/Assets/Deleket-Sleek-Xp-Basic-Files.ico">
-  <Grid Margin="24" RowDefinitions="Auto,*,Auto" RowSpacing="18">
-    <Border Grid.Row="0" Padding="24" Background="#173F35" CornerRadius="20">
-      <StackPanel Spacing="8">
-        <TextBlock x:Name="HeadlineTextBlock" FontSize="30" FontWeight="Bold" Foreground="#F8F6F1" />
-        <TextBlock x:Name="SubheadlineTextBlock" FontSize="14" TextWrapping="Wrap" Foreground="#D7E7DC" />
-      </StackPanel>
-    </Border>
-
-    <Grid Grid.Row="1" ColumnDefinitions="*,*" RowDefinitions="*,*" ColumnSpacing="18" RowSpacing="18">
-      <Border Grid.Row="0" Grid.Column="0" Padding="20" Background="#FFFDF8" BorderBrush="#D7CFBE" BorderThickness="1" CornerRadius="18">
-        <StackPanel Spacing="10">
-          <TextBlock x:Name="CoreTitleTextBlock" FontSize="20" FontWeight="SemiBold" Foreground="#173F35" />
-          <TextBlock x:Name="CoreBodyTextBlock" FontSize="14" TextWrapping="Wrap" Foreground="#4F5A57" />
+  <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+    <Grid Margin="24" RowDefinitions="Auto,Auto,*" RowSpacing="18">
+      <Border Grid.Row="0" Padding="24" Background="#173F35" CornerRadius="20">
+        <StackPanel Spacing="8">
+          <TextBlock x:Name="HeaderTitleTextBlock" FontSize="32" FontWeight="Bold" Foreground="#F8F6F1" />
+          <TextBlock x:Name="HeaderSubtitleTextBlock" FontSize="14" TextWrapping="Wrap" Foreground="#D7E7DC" />
         </StackPanel>
       </Border>
 
-      <Border Grid.Row="0" Grid.Column="1" Padding="20" Background="#FFFDF8" BorderBrush="#D7CFBE" BorderThickness="1" CornerRadius="18">
-        <StackPanel Spacing="10">
-          <TextBlock x:Name="LauncherTitleTextBlock" FontSize="20" FontWeight="SemiBold" Foreground="#173F35" />
-          <TextBlock x:Name="LauncherBodyTextBlock" FontSize="14" TextWrapping="Wrap" Foreground="#4F5A57" />
+      <Border Grid.Row="1" Padding="16,14" Background="#FFFDF8" BorderBrush="#D7CFBE" BorderThickness="1" CornerRadius="18">
+        <StackPanel Spacing="8">
+          <TextBlock x:Name="StatusTitleTextBlock" FontSize="18" FontWeight="SemiBold" Foreground="#173F35" />
+          <TextBlock x:Name="StatusTextBlock" FontSize="14" TextWrapping="Wrap" Foreground="#4F5A57" />
         </StackPanel>
       </Border>
 
-      <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Padding="20" Background="#D98E04" CornerRadius="18">
-        <StackPanel Spacing="10">
-          <TextBlock x:Name="CiTitleTextBlock" FontSize="20" FontWeight="SemiBold" Foreground="#FFF9EE" />
-          <TextBlock x:Name="CiBodyTextBlock" FontSize="14" TextWrapping="Wrap" Foreground="#FFF2D6" />
+      <Grid Grid.Row="2" ColumnDefinitions="1.05*,0.95*" ColumnSpacing="18">
+        <StackPanel Grid.Column="0" Spacing="18">
+          <Border Padding="20" Background="#FFFDF8" BorderBrush="#D7CFBE" BorderThickness="1" CornerRadius="18">
+            <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="12" RowSpacing="10">
+              <TextBlock x:Name="SourceFolderLabelTextBlock" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" FontSize="14" FontWeight="SemiBold" Foreground="#173F35" />
+              <TextBox x:Name="SourceFolderTextBox" Grid.Row="0" Grid.Column="1" Height="38" VerticalContentAlignment="Center" Background="#F7F3EA" BorderBrush="#D7CFBE" />
+              <Button x:Name="BrowseSourceButton" Grid.Row="0" Grid.Column="2" Height="38" MinWidth="110" Background="#173F35" Foreground="#F8F6F1" />
+
+              <TextBlock x:Name="OutputFolderLabelTextBlock" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" FontSize="14" FontWeight="SemiBold" Foreground="#173F35" />
+              <TextBox x:Name="OutputFolderTextBox" Grid.Row="1" Grid.Column="1" Height="38" VerticalContentAlignment="Center" Background="#F7F3EA" BorderBrush="#D7CFBE" />
+              <Button x:Name="BrowseOutputButton" Grid.Row="1" Grid.Column="2" Height="38" MinWidth="110" Background="#173F35" Foreground="#F8F6F1" />
+            </Grid>
+          </Border>
+
+          <Border Padding="20" Background="#FFFDF8" BorderBrush="#D7CFBE" BorderThickness="1" CornerRadius="18">
+            <StackPanel Spacing="16">
+              <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                <TextBlock x:Name="OutputFormatLabelTextBlock" Grid.Column="0" VerticalAlignment="Center" FontSize="14" FontWeight="SemiBold" Foreground="#173F35" />
+                <ComboBox x:Name="OutputFormatComboBox" Grid.Column="1" Height="38" Background="#F7F3EA" />
+              </Grid>
+
+              <Grid ColumnDefinitions="Auto,Auto,*" ColumnSpacing="16">
+                <CheckBox x:Name="OnlyExtensionsCheckBox" Grid.Column="0" />
+                <CheckBox x:Name="CreateZipCheckBox" Grid.Column="1" />
+                <CheckBox x:Name="CollectDuplicatesCheckBox" Grid.Column="2" />
+              </Grid>
+            </StackPanel>
+          </Border>
+
+          <Border Padding="20" Background="#FFFDF8" BorderBrush="#D7CFBE" BorderThickness="1" CornerRadius="18">
+            <StackPanel Spacing="10">
+              <TextBlock x:Name="FilterSummaryTitleTextBlock" FontSize="18" FontWeight="SemiBold" Foreground="#173F35" />
+              <TextBlock x:Name="FilterSummaryTextBlock" FontSize="14" TextWrapping="Wrap" Foreground="#4F5A57" />
+            </StackPanel>
+          </Border>
+
+          <Border Padding="20" Background="#FFFDF8" BorderBrush="#D7CFBE" BorderThickness="1" CornerRadius="18">
+            <Grid ColumnDefinitions="Auto,Auto,Auto,Auto,Auto,*" ColumnSpacing="12" RowSpacing="12">
+              <Button x:Name="GenerateButton" Grid.Column="0" Height="42" MinWidth="130" Background="#D98E04" Foreground="#FFF9EE" FontWeight="SemiBold" />
+              <Button x:Name="OpenGeneratedFileButton" Grid.Column="1" Height="42" MinWidth="130" Background="#173F35" Foreground="#F8F6F1" />
+              <Button x:Name="OpenOutputFolderButton" Grid.Column="2" Height="42" MinWidth="150" Background="#173F35" Foreground="#F8F6F1" />
+              <Button x:Name="OpenFiltersButton" Grid.Column="3" Height="42" MinWidth="110" Background="#173F35" Foreground="#F8F6F1" />
+              <Button x:Name="OpenHistoryButton" Grid.Column="4" Height="42" MinWidth="120" Background="#173F35" Foreground="#F8F6F1" />
+            </Grid>
+          </Border>
         </StackPanel>
-      </Border>
+
+        <StackPanel Grid.Column="1" Spacing="18">
+          <Border Padding="18" Background="#FFFDF8" BorderBrush="#D7CFBE" BorderThickness="1" CornerRadius="18">
+            <StackPanel Spacing="10">
+              <TextBlock x:Name="ResultTitleTextBlock" FontSize="18" FontWeight="SemiBold" Foreground="#173F35" />
+              <TextBlock x:Name="ResultSummaryTextBlock" FontSize="14" TextWrapping="Wrap" Foreground="#4F5A57" />
+            </StackPanel>
+          </Border>
+
+          <Border Padding="18" Background="#FFFDF8" BorderBrush="#D7CFBE" BorderThickness="1" CornerRadius="18">
+            <StackPanel Spacing="10">
+              <TextBlock x:Name="PreviewTitleTextBlock" FontSize="18" FontWeight="SemiBold" Foreground="#173F35" />
+              <TextBox
+                  x:Name="PreviewTextBox"
+                  Height="500"
+                  IsReadOnly="True"
+                  AcceptsReturn="True"
+                  TextWrapping="Wrap"
+                  VerticalContentAlignment="Top"
+                  Background="#F7F3EA"
+                  BorderThickness="0" />
+            </StackPanel>
+          </Border>
+        </StackPanel>
+      </Grid>
     </Grid>
-
-    <Border Grid.Row="2" Padding="16,12" Background="#E7E0D0" CornerRadius="16">
-      <TextBlock x:Name="FooterTextBlock" FontSize="13" FontWeight="Medium" Foreground="#5F5B52" TextWrapping="Wrap" />
-    </Border>
-  </Grid>
+  </ScrollViewer>
 </Window>

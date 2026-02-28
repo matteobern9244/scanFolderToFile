@@ -1,0 +1,48 @@
+<Window
+    x:Class="ScanFolderToFile.App.FilterWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Width="560"
+    Height="420"
+    MinWidth="560"
+    MinHeight="420"
+    CanResize="False"
+    Background="#F4F1EA"
+    RequestedThemeVariant="Light"
+    Icon="/Assets/Deleket-Sleek-Xp-Basic-Files.ico">
+  <Grid Margin="20" RowDefinitions="Auto,Auto,Auto,Auto,*" RowSpacing="16">
+    <TextBlock x:Name="FilterWindowModeLabelTextBlock" Grid.Row="0" FontSize="18" FontWeight="SemiBold" Foreground="#173F35" />
+
+    <StackPanel Grid.Row="1" Spacing="10">
+      <RadioButton x:Name="FilterNoneRadioButton" GroupName="FilterMode" />
+      <RadioButton x:Name="FilterSizeRadioButton" GroupName="FilterMode" />
+      <RadioButton x:Name="FilterDateRadioButton" GroupName="FilterMode" />
+    </StackPanel>
+
+    <Grid Grid.Row="2" ColumnDefinitions="Auto,*,Auto,*" ColumnSpacing="12" RowSpacing="10">
+      <TextBlock x:Name="FilterMinSizeLabelTextBlock" Grid.Column="0" VerticalAlignment="Center" FontSize="14" FontWeight="SemiBold" Foreground="#173F35" />
+      <TextBox x:Name="FilterMinSizeTextBox" Grid.Column="1" Height="38" VerticalContentAlignment="Center" Background="#F7F3EA" BorderBrush="#D7CFBE" />
+      <TextBlock x:Name="FilterMaxSizeLabelTextBlock" Grid.Column="2" VerticalAlignment="Center" FontSize="14" FontWeight="SemiBold" Foreground="#173F35" />
+      <TextBox x:Name="FilterMaxSizeTextBox" Grid.Column="3" Height="38" VerticalContentAlignment="Center" Background="#F7F3EA" BorderBrush="#D7CFBE" />
+    </Grid>
+
+    <Grid Grid.Row="3" ColumnDefinitions="Auto,*,Auto,*" ColumnSpacing="12" RowSpacing="10">
+      <TextBlock x:Name="FilterStartDateLabelTextBlock" Grid.Column="0" VerticalAlignment="Center" FontSize="14" FontWeight="SemiBold" Foreground="#173F35" />
+      <TextBox x:Name="FilterStartDateTextBox" Grid.Column="1" Height="38" VerticalContentAlignment="Center" Background="#F7F3EA" BorderBrush="#D7CFBE" />
+      <TextBlock x:Name="FilterEndDateLabelTextBlock" Grid.Column="2" VerticalAlignment="Center" FontSize="14" FontWeight="SemiBold" Foreground="#173F35" />
+      <TextBox x:Name="FilterEndDateTextBox" Grid.Column="3" Height="38" VerticalContentAlignment="Center" Background="#F7F3EA" BorderBrush="#D7CFBE" />
+    </Grid>
+
+    <Grid Grid.Row="4" RowDefinitions="Auto,*,Auto" RowSpacing="12">
+      <TextBlock x:Name="FilterDateHintTextBlock" Grid.Row="0" FontSize="12" FontWeight="Medium" Foreground="#7A7469" />
+      <Border Grid.Row="1" Padding="14,12" Background="#FFFDF8" BorderBrush="#D7CFBE" BorderThickness="1" CornerRadius="14">
+        <TextBlock x:Name="FilterStatusTextBlock" FontSize="13" TextWrapping="Wrap" Foreground="#4F5A57" />
+      </Border>
+      <Grid Grid.Row="2" ColumnDefinitions="Auto,Auto,*" ColumnSpacing="12">
+        <Button x:Name="FilterApplyButton" Grid.Column="0" Height="40" MinWidth="110" Background="#D98E04" Foreground="#FFF9EE" FontWeight="SemiBold" />
+        <Button x:Name="FilterClearButton" Grid.Column="1" Height="40" MinWidth="130" Background="#173F35" Foreground="#F8F6F1" />
+        <Button x:Name="FilterCancelButton" Grid.Column="2" Height="40" MinWidth="110" HorizontalAlignment="Right" Background="#B8B1A3" Foreground="#2F2B24" />
+      </Grid>
+    </Grid>
+  </Grid>
+</Window>
