@@ -1,12 +1,49 @@
-bin/
-obj/
+# Build outputs
+**/[Bb]in/
+**/[Oo]bj/
+artifacts/
+TestResults/
+.coverage/
+coverage/
+coveragereport/
+
+# Dependency caches and local SDK bootstrap
 packages/
+.dotnet/
+.dotnet-install.sh
 
+# Test and coverage artifacts
+*.trx
+*.coverage
+*.coveragexml
+
+# IDE and user-specific files
 .vs/
-
+.vscode/
+.idea/
 *.suo
 *.user
-*.dll
-*.exe
+*.userosscache
+*.rsuser
+*.sln.docstates
+*.DotSettings.user
+_ReSharper*/
+
+# Logs and temporary files
 *.log
-scanFolderToFile/bin
+*.tmp
+*.temp
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+.Spotlight-V100/
+.Trashes/
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/

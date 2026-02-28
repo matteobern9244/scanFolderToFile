@@ -1,0 +1,112 @@
+name: Modern CI
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "src/**"
+      - "tests/**"
+      - "Directory.Build.props"
+      - "Directory.Packages.props"
+      - "global.json"
+      - "start_scanfolder.command"
+      - ".github/workflows/modern-ci.yml"
+      - ".github/workflows/modern-manual.yml"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "src/**"
+      - "tests/**"
+      - "Directory.Build.props"
+      - "Directory.Packages.props"
+      - "global.json"
+      - "start_scanfolder.command"
+      - ".github/workflows/modern-ci.yml"
+      - ".github/workflows/modern-manual.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: modern-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-core:
+    runs-on: macos-14
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          global-json-file: global.json
+          cache: true
+          cache-dependency-path: |
+            **/packages.lock.json
+            **/*.csproj
+            Directory.Build.props
+            Directory.Packages.props
+            global.json
+            ScanFolderToFile.Modern.sln
+
+      - name: Restore
+        run: dotnet restore ScanFolderToFile.Modern.sln --locked-mode --nologo
+
+      - name: Check Formatting
+        run: dotnet format --verify-no-changes ScanFolderToFile.Modern.sln
+
+      - name: Build
+        run: dotnet build ScanFolderToFile.Modern.sln -c Release -p:UseAppHost=true --no-restore --nologo -v minimal
+
+      - name: Test With Coverage
+        run: dotnet test ScanFolderToFile.Modern.sln -c Release --no-build --nologo -v minimal --logger "trx;LogFileName=test-results.trx" --results-directory "artifacts/test-results" --collect:"XPlat Code Coverage;Format=cobertura"
+
+      - name: Install ReportGenerator
+        run: dotnet tool install --global dotnet-reportgenerator-globaltool
+
+      - name: Generate Coverage Report
+        run: |
+          export PATH="$PATH:$HOME/.dotnet/tools"
+          reportgenerator \
+            -reports:"artifacts/test-results/**/coverage.cobertura.xml" \
+            -targetdir:"artifacts/coverage" \
+            -reporttypes:"HtmlInline_AzurePipelines;Cobertura"
+
+      - name: Verify Coverage Thresholds
+        run: |
+          COVERAGE_FILE="$(find artifacts/test-results -name 'coverage.cobertura.xml' | head -n 1)"
+          if [[ -z "$COVERAGE_FILE" ]]; then
+            echo "Coverage file not found." >&2
+            exit 1
+          fi
+          python3 - "$COVERAGE_FILE" <<'PY'
+          import sys
+          import xml.etree.ElementTree as ET
+
+          coverage_path = sys.argv[1]
+          root = ET.parse(coverage_path).getroot()
+          line_rate = float(root.attrib.get("line-rate", "0")) * 100
+          branch_rate = float(root.attrib.get("branch-rate", "0")) * 100
+          print(f"Line coverage: {line_rate:.2f}%")
+          print(f"Branch coverage: {branch_rate:.2f}%")
+          if line_rate < 90 or branch_rate < 85:
+              raise SystemExit(1)
+          PY
+
+      - name: Upload Modern Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: modern-ci-artifacts
+          path: |
+            artifacts/test-results/**
+            artifacts/coverage/**
+            src/ScanFolderToFile.App/bin/Release/net10.0/**
+            start_scanfolder.command
+          if-no-files-found: warn
+          retention-days: 14
