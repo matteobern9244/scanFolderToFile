@@ -17,6 +17,9 @@ public sealed partial class MainWindow : Window
     private readonly IExternalLauncher _externalLauncher;
     private readonly IFileOperationsService _fileOperationsService;
     private readonly IPrintService _printService;
+    private readonly IRichTextEditorService _richTextEditorService;
+    private readonly IPrintWorkflowService _printWorkflowService;
+    private readonly IEditorWindowLauncher _editorWindowLauncher;
     private readonly MainWindowUiState _uiState;
     private readonly IReadOnlyList<OutputFormatChoice> _formatChoices;
     private readonly TextBox _sourceFolderTextBox;
@@ -63,7 +66,7 @@ public sealed partial class MainWindow : Window
         IAppPaths appPaths,
         IHistoryStore historyStore,
         IExternalLauncher externalLauncher)
-        : this(new DefaultAppServices(scanService, appPaths, historyStore, externalLauncher, new FileOperationsService(), new MacPrintService()))
+        : this(CreateNativeServices(scanService, appPaths, historyStore, externalLauncher, new FileOperationsService(), new MacPrintService()))
     {
     }
 
@@ -73,7 +76,7 @@ public sealed partial class MainWindow : Window
         IHistoryStore historyStore,
         IExternalLauncher externalLauncher,
         IFileOperationsService fileOperationsService)
-        : this(new DefaultAppServices(scanService, appPaths, historyStore, externalLauncher, fileOperationsService, new MacPrintService()))
+        : this(CreateNativeServices(scanService, appPaths, historyStore, externalLauncher, fileOperationsService, new MacPrintService()))
     {
     }
 
@@ -84,7 +87,31 @@ public sealed partial class MainWindow : Window
         IExternalLauncher externalLauncher,
         IFileOperationsService fileOperationsService,
         IPrintService printService)
-        : this(new DefaultAppServices(scanService, appPaths, historyStore, externalLauncher, fileOperationsService, printService))
+        : this(CreateFallbackServices(scanService, appPaths, historyStore, externalLauncher, fileOperationsService, printService))
+    {
+    }
+
+    internal MainWindow(
+        IScanService scanService,
+        IAppPaths appPaths,
+        IHistoryStore historyStore,
+        IExternalLauncher externalLauncher,
+        IFileOperationsService fileOperationsService,
+        IPrintService printService,
+        IRichTextEditorService richTextEditorService,
+        IPrintWorkflowService printWorkflowService,
+        IEditorWindowLauncher editorWindowLauncher)
+        : this(
+            new DefaultAppServices(
+                scanService,
+                appPaths,
+                historyStore,
+                externalLauncher,
+                fileOperationsService,
+                printService,
+                richTextEditorService,
+                printWorkflowService,
+                editorWindowLauncher))
     {
     }
 
@@ -96,6 +123,9 @@ public sealed partial class MainWindow : Window
         _externalLauncher = services.ExternalLauncher;
         _fileOperationsService = services.FileOperationsService;
         _printService = services.PrintService;
+        _richTextEditorService = services.RichTextEditorService;
+        _printWorkflowService = services.PrintWorkflowService;
+        _editorWindowLauncher = services.EditorWindowLauncher;
         _uiState = new MainWindowUiState();
 
         AvaloniaXamlLoader.Load(this);
@@ -166,9 +196,10 @@ public sealed partial class MainWindow : Window
         _uiState.LastResult = scanResult;
         _resultSummaryTextBlock.Text = ResultPreviewBuilder.BuildSummary(scanResult);
         _previewTextBox.Text = ResultPreviewBuilder.BuildPreview(scanResult);
-        _statusTextBlock.Text = string.Concat(
-            AppStrings.Ui.GenerateSuccessPrefix,
-            scanResult.GeneratedFilePath ?? AppStrings.Ui.ResultUnavailableValue);
+        var generatedArtifactPath = GetCurrentGeneratedArtifactPath();
+        _statusTextBlock.Text = scanResult.GeneratedFilePath is not null
+            ? string.Concat(AppStrings.Ui.GenerateSuccessPrefix, generatedArtifactPath ?? AppStrings.Ui.ResultUnavailableValue)
+            : string.Concat(AppStrings.Ui.ZipGenerateSuccessPrefix, generatedArtifactPath ?? AppStrings.Ui.ResultUnavailableValue);
         RefreshActionState();
     }
 
@@ -220,6 +251,7 @@ public sealed partial class MainWindow : Window
                 Menu = new NativeMenu
                 {
                     _menuOpenGeneratedFileItem,
+                    _menuPrintItem,
                     _menuOpenOutputFolderItem,
                     _menuOpenHistoryItem,
                     _menuOpenDuplicatesItem,
@@ -243,7 +275,6 @@ public sealed partial class MainWindow : Window
                     _menuCopyMoveItem,
                     _menuReorderItem,
                     _menuEditorItem,
-                    _menuPrintItem,
                 },
             },
         };
@@ -352,7 +383,19 @@ public sealed partial class MainWindow : Window
                 _appPaths);
 
             _outputFolderTextBox.Text = request.OutputFolder;
-            ApplyScanResult(await _scanService.ExecuteAsync(request).ConfigureAwait(true));
+            var scanResult = await _scanService.ExecuteAsync(request).ConfigureAwait(true);
+            ApplyScanResult(scanResult);
+
+            var generatedFilePath = scanResult.GeneratedFilePath;
+            if (!request.CreateZip
+                && request.OutputFormat == OutputFormat.Txt
+                && !string.IsNullOrWhiteSpace(generatedFilePath)
+                && File.Exists(generatedFilePath))
+            {
+                await _editorWindowLauncher
+                    .ShowEditorAsync(this, generatedFilePath, GetCurrentPreviewContent(), _externalLauncher, _printService)
+                    .ConfigureAwait(true);
+            }
         }
         catch (Exception exception)
         {
@@ -369,7 +412,7 @@ public sealed partial class MainWindow : Window
     {
         try
         {
-            var generatedFilePath = _uiState.LastResult?.GeneratedFilePath;
+            var generatedFilePath = GetCurrentGeneratedArtifactPath();
             if (string.IsNullOrWhiteSpace(generatedFilePath) || !File.Exists(generatedFilePath))
             {
                 _statusTextBlock.Text = AppStrings.Ui.MissingGeneratedFileStatus;
@@ -477,13 +520,9 @@ public sealed partial class MainWindow : Window
     {
         try
         {
-            var editorWindow = new EditorWindow(
-                GetCurrentEditableSourceFilePath(),
-                GetCurrentPreviewContent(),
-                _externalLauncher,
-                _printService);
-
-            await editorWindow.ShowDialog(this).ConfigureAwait(true);
+            await _richTextEditorService
+                .ShowAsync(this, GetCurrentEditableSourceFilePath(), GetCurrentPreviewContent())
+                .ConfigureAwait(true);
         }
         catch (Exception exception)
         {
@@ -504,13 +543,9 @@ public sealed partial class MainWindow : Window
                 return;
             }
 
-            var printPreviewWindow = new PrintPreviewWindow(
-                previewContent,
-                generatedFilePath,
-                _externalLauncher,
-                _printService);
-
-            await printPreviewWindow.ShowDialog(this).ConfigureAwait(true);
+            await _printWorkflowService
+                .ShowPrintPreviewAsync(this, previewContent, generatedFilePath)
+                .ConfigureAwait(true);
         }
         catch (Exception exception)
         {
@@ -587,8 +622,9 @@ public sealed partial class MainWindow : Window
     private void RefreshActionState()
     {
         var generatedFilePath = _uiState.LastResult?.GeneratedFilePath;
+        var generatedArtifactPath = GetCurrentGeneratedArtifactPath();
         var outputFolder = GetOutputFolderOrDefault();
-        var hasGeneratedFile = !string.IsNullOrWhiteSpace(generatedFilePath) && File.Exists(generatedFilePath);
+        var hasGeneratedFile = !string.IsNullOrWhiteSpace(generatedArtifactPath) && File.Exists(generatedArtifactPath);
         var hasOutputFolder = !string.IsNullOrWhiteSpace(outputFolder) && Directory.Exists(outputFolder);
         var hasFilter = _uiState.ActiveFilter.Mode != FilterMode.None;
         var hasDuplicateGroups = _uiState.LastResult?.DuplicateGroups.Count > 0;
@@ -637,6 +673,21 @@ public sealed partial class MainWindow : Window
         return string.Equals(content, AppStrings.Ui.PreviewEmpty, StringComparison.Ordinal)
             ? string.Empty
             : content;
+    }
+
+    private string? GetCurrentGeneratedArtifactPath()
+    {
+        if (!string.IsNullOrWhiteSpace(_uiState.LastResult?.GeneratedFilePath))
+        {
+            return _uiState.LastResult.GeneratedFilePath;
+        }
+
+        if (!string.IsNullOrWhiteSpace(_uiState.LastResult?.GeneratedZipPath))
+        {
+            return _uiState.LastResult.GeneratedZipPath;
+        }
+
+        return null;
     }
 
     private string? GetCurrentEditableSourceFilePath()
@@ -707,6 +758,52 @@ public sealed partial class MainWindow : Window
     private void SetCheckBoxContent(string controlName, string value)
     {
         GetRequiredControl<CheckBox>(controlName).Content = value;
+    }
+
+    private static DefaultAppServices CreateNativeServices(
+        IScanService scanService,
+        IAppPaths appPaths,
+        IHistoryStore historyStore,
+        IExternalLauncher externalLauncher,
+        IFileOperationsService fileOperationsService,
+        IPrintService printService)
+    {
+        var fallbackPrintWorkflowService = new FallbackPrintWorkflowService(externalLauncher, printService);
+        var printWorkflowService = new AppKitPrintWorkflowService(printService, fallbackPrintWorkflowService);
+        var fallbackRichTextEditorService = new FallbackRichTextEditorService(externalLauncher, printService);
+        var richTextEditorService = new AppKitRichTextEditorService(printWorkflowService, fallbackRichTextEditorService);
+        return new DefaultAppServices(
+            scanService,
+            appPaths,
+            historyStore,
+            externalLauncher,
+            fileOperationsService,
+            printService,
+            richTextEditorService,
+            printWorkflowService,
+            new DefaultEditorWindowLauncher(richTextEditorService));
+    }
+
+    private static DefaultAppServices CreateFallbackServices(
+        IScanService scanService,
+        IAppPaths appPaths,
+        IHistoryStore historyStore,
+        IExternalLauncher externalLauncher,
+        IFileOperationsService fileOperationsService,
+        IPrintService printService)
+    {
+        var printWorkflowService = new FallbackPrintWorkflowService(externalLauncher, printService);
+        var richTextEditorService = new FallbackRichTextEditorService(externalLauncher, printService);
+        return new DefaultAppServices(
+            scanService,
+            appPaths,
+            historyStore,
+            externalLauncher,
+            fileOperationsService,
+            printService,
+            richTextEditorService,
+            printWorkflowService,
+            new PassiveEditorWindowLauncher());
     }
 
     private sealed record OutputFormatChoice(OutputFormat Value, string Label)

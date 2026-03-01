@@ -11,9 +11,11 @@ coveragereport/
 # Dependency caches and local SDK bootstrap
 packages/
 .dotnet/
+.tools/
 .dotnet-install.sh
 
 # Test and coverage artifacts
+**/TestResults/
 *.trx
 *.coverage
 *.coveragexml

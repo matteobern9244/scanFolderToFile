@@ -69,7 +69,10 @@ La nuova base moderna include:
   - sposta
   - riordino per estensione
 - editor interno per file testuali e preview modificabile
-- finestra di anteprima di stampa con invio alla stampante di default su macOS
+- bridge nativo AppKit per:
+  - editor rich text come superficie primaria
+  - stampa e anteprima con dialoghi macOS
+- `EditorWindow` e `PrintPreviewWindow` Avalonia mantenuti come fallback tecnico
 - menu desktop macOS con azioni principali e roadmap visibile
 - unico script `.command` al root:
   - `start_scanfolder.command`
@@ -77,6 +80,9 @@ La nuova base moderna include:
 - bundle `.app` self-contained generabile localmente e in CI:
   - `dist/ScanFolderToFile.app`
 - GitHub Actions moderna separata da quella legacy
+- parita' di flusso riallineata con Windows su:
+  - semantica ZIP-only (`Creare Zip Cartella Scelta` crea solo lo ZIP)
+  - auto-apertura dell'editor dopo `GENERA FILE` quando il formato e' TXT
 
 ## Struttura Del Repository
 

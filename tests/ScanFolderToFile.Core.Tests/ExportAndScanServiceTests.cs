@@ -83,7 +83,7 @@ public sealed class ExportAndScanServiceTests
     }
 
     [Fact]
-    public async Task ScanService_ExecutesEndToEnd_WithZipAndDuplicates()
+    public async Task ScanService_ExecutesEndToEnd_WithZipOnly()
     {
         using var documentsDirectory = TestEnvironment.CreateTemporaryDirectory();
         using var sourceDirectory = TestEnvironment.CreateTemporaryDirectory();
@@ -103,16 +103,15 @@ public sealed class ExportAndScanServiceTests
             CollectDuplicates = true
         });
 
-        result.CollectedItems.Should().HaveCount(2);
-        result.GeneratedFilePath.Should().NotBeNull();
+        result.CollectedItems.Should().BeEmpty();
+        result.GeneratedFilePath.Should().BeNull();
         result.GeneratedZipPath.Should().NotBeNull();
-        result.DuplicateGroups.Should().ContainSingle();
-        File.Exists(result.GeneratedFilePath!).Should().BeTrue();
+        result.DuplicateGroups.Should().BeEmpty();
         File.Exists(result.GeneratedZipPath!).Should().BeTrue();
 
         var historyStore = new JsonHistoryStore();
         var historyEntries = await historyStore.ReadAsync(appPaths.GetHistoryFilePath(outputDirectory));
-        historyEntries.Should().HaveCount(2);
+        historyEntries.Should().ContainSingle();
     }
 
     [Fact]

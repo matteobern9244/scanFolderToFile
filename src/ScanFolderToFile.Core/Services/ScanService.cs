@@ -37,21 +37,28 @@ public sealed class ScanService : IScanService
     {
         ScanRequestValidator.Validate(request);
 
-        var collectedItems = await _fileCollector.CollectAsync(request, cancellationToken).ConfigureAwait(false);
-        var exporter = GetExporter(request.OutputFormat);
-        var generatedFilePath = await exporter.ExportAsync(collectedItems, request.OutputFolder, cancellationToken).ConfigureAwait(false);
-
         var historyFilePath = _appPaths.GetHistoryFilePath(request.OutputFolder);
-        await _historyStore.AppendAsync(historyFilePath, CreateHistoryEntry(generatedFilePath), cancellationToken).ConfigureAwait(false);
-
-        string? generatedZipPath = null;
         if (request.CreateZip)
         {
-            generatedZipPath = await _archiveService
+            var generatedZipPath = await _archiveService
                 .CreateZipAsync(request.SourceFolder, _appPaths.GetZipFolder(request.OutputFolder), cancellationToken)
                 .ConfigureAwait(false);
             await _historyStore.AppendAsync(historyFilePath, CreateHistoryEntry(generatedZipPath), cancellationToken).ConfigureAwait(false);
+
+            return new ScanResult
+            {
+                CollectedItems = Array.Empty<string>(),
+                GeneratedFilePath = null,
+                GeneratedZipPath = generatedZipPath,
+                DuplicateGroups = Array.Empty<DuplicateFileGroup>(),
+                Warnings = Array.Empty<string>()
+            };
         }
+
+        var collectedItems = await _fileCollector.CollectAsync(request, cancellationToken).ConfigureAwait(false);
+        var exporter = GetExporter(request.OutputFormat);
+        var generatedFilePath = await exporter.ExportAsync(collectedItems, request.OutputFolder, cancellationToken).ConfigureAwait(false);
+        await _historyStore.AppendAsync(historyFilePath, CreateHistoryEntry(generatedFilePath), cancellationToken).ConfigureAwait(false);
 
         IReadOnlyList<DuplicateFileGroup> duplicateGroups = Array.Empty<DuplicateFileGroup>();
         if (request.CollectDuplicates && !request.OnlyExtensions)
@@ -63,7 +70,7 @@ public sealed class ScanService : IScanService
         {
             CollectedItems = collectedItems,
             GeneratedFilePath = generatedFilePath,
-            GeneratedZipPath = generatedZipPath,
+            GeneratedZipPath = null,
             DuplicateGroups = duplicateGroups,
             Warnings = Array.Empty<string>()
         };

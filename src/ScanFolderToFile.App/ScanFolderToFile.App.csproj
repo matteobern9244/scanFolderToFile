@@ -10,6 +10,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="Microsoft.macOS">
+      <HintPath>../../.dotnet/packs/Microsoft.macOS.Runtime.osx.net10.0_26.2/26.2.10197/runtimes/osx/lib/net10.0/Microsoft.macOS.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
       <_Parameter1>ScanFolderToFile.App.Tests</_Parameter1>
     </AssemblyAttribute>

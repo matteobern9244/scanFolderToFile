@@ -24,6 +24,14 @@ Questo changelog segue il formato di [Keep a Changelog](https://keepachangelog.c
 - Nuovi test UI headless per editor interno e anteprima di stampa
 - Script `scripts/create_macos_bundle.sh` per assemblare il bundle macOS
 - Template `Info.plist` per il bundle `ScanFolderToFile.app`
+- Nuovi test di parita' per:
+  - semantica ZIP-only del `ScanService`
+  - auto-apertura dell'editor TXT
+  - fallback di `Apri file generato` verso lo ZIP
+- Nuovi servizi di workflow:
+  - `IRichTextEditorService`
+  - `IPrintWorkflowService`
+  - `IEditorWindowLauncher`
 
 ### Changed
 
@@ -41,6 +49,17 @@ Questo changelog segue il formato di [Keep a Changelog](https://keepachangelog.c
 - I workflow GitHub Actions moderni verificano ora la coverage sul report Cobertura aggregato invece che sul primo file trovato
 - I workflow GitHub Actions moderni generano ora sia il report coverage completo sia il report code-only, e usano il report code-only per i gate CI
 - Le soglie CI della coverage sono state riallineate al floor oggi verificato dalla suite moderna (`88%` line, `71%` branch sul report code-only)
+- `ScanService` ora riallinea la semantica ZIP a Windows:
+  - con `Creare Zip Cartella Scelta` attivo genera solo lo ZIP
+  - non esegue export TXT/PDF/Markdown
+  - non esegue duplicate check
+  - scrive una sola entry di storico
+- `MainWindow` ora riallinea il caso TXT a Windows:
+  - dopo `GENERA FILE`, se il formato e' TXT, apre automaticamente l'editor
+  - `Apri file generato` usa il fallback allo ZIP quando la run e' ZIP-only
+- L'app macOS usa ora un bridge nativo AppKit come superficie primaria per editor e stampa, mantenendo le finestre Avalonia come fallback tecnico
+- Il launcher e i workflow moderni non forzano piu' l'installazione del workload `macos`, evitando errori di permessi sulle macchine dove il progetto e' gia' compilabile
+- `.gitignore` esclude ora esplicitamente i tool locali `.tools/` e i `TestResults` annidati generati dalle run di coverage
 
 ### Completed
 

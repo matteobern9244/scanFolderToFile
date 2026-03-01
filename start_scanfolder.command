@@ -103,7 +103,7 @@ if [[ "$PUBLISH_MODE" == "true" ]]; then
   fi
 
   echo "$STEP_PUBLISH"
-  "$DOTNET_CMD" publish "$APP_PROJECT" -c "$CONFIGURATION" -r "$RUNTIME" --self-contained true -p:UseAppHost=true --no-restore --nologo -v minimal -o "$PUBLISH_DIR"
+  "$DOTNET_CMD" publish "$APP_PROJECT" -f "$FRAMEWORK" -c "$CONFIGURATION" -r "$RUNTIME" --self-contained true -p:UseAppHost=true --no-restore --nologo -v minimal -o "$PUBLISH_DIR"
   bash "$BUNDLE_SCRIPT" "$PUBLISH_DIR" "$BUNDLE_DIR"
   echo "$READY_MESSAGE $ROOT_DIR/$BUNDLE_DIR"
   exit 0

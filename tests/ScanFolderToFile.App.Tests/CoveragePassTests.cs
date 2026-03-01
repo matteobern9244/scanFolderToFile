@@ -61,6 +61,9 @@ public sealed class CoveragePassTests : IDisposable
         services.ExternalLauncher.Should().BeOfType<MacExternalLauncher>();
         services.FileOperationsService.Should().BeOfType<ScanFolderToFile.Core.Services.FileOperationsService>();
         services.PrintService.Should().BeOfType<MacPrintService>();
+        services.RichTextEditorService.Should().BeOfType<AppKitRichTextEditorService>();
+        services.PrintWorkflowService.Should().BeOfType<AppKitPrintWorkflowService>();
+        services.EditorWindowLauncher.Should().BeOfType<DefaultEditorWindowLauncher>();
     }
 
     [Fact]
