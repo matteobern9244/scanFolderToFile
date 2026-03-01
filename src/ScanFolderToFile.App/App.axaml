@@ -2,7 +2,131 @@
     x:Class="ScanFolderToFile.App.App"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Application.Resources>
+    <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#F4F1EA" />
+    <SolidColorBrush x:Key="CardBackgroundBrush" Color="#FFFDF8" />
+    <SolidColorBrush x:Key="CardBorderBrush" Color="#D7CFBE" />
+    <SolidColorBrush x:Key="InputBackgroundBrush" Color="#F7F3EA" />
+    <SolidColorBrush x:Key="FooterBackgroundBrush" Color="#E7E0D0" />
+    <SolidColorBrush x:Key="HeroBackgroundBrush" Color="#173F35" />
+    <SolidColorBrush x:Key="HeroForegroundBrush" Color="#F8F6F1" />
+    <SolidColorBrush x:Key="HeroMutedForegroundBrush" Color="#D7E7DC" />
+    <SolidColorBrush x:Key="PrimaryBackgroundBrush" Color="#D98E04" />
+    <SolidColorBrush x:Key="PrimaryForegroundBrush" Color="#FFF9EE" />
+    <SolidColorBrush x:Key="SecondaryBackgroundBrush" Color="#173F35" />
+    <SolidColorBrush x:Key="SecondaryForegroundBrush" Color="#F8F6F1" />
+    <SolidColorBrush x:Key="TertiaryBackgroundBrush" Color="#B8B1A3" />
+    <SolidColorBrush x:Key="TertiaryForegroundBrush" Color="#2F2B24" />
+    <SolidColorBrush x:Key="HeadingForegroundBrush" Color="#173F35" />
+    <SolidColorBrush x:Key="BodyForegroundBrush" Color="#4F5A57" />
+    <SolidColorBrush x:Key="MutedForegroundBrush" Color="#7A7469" />
+    <SolidColorBrush x:Key="FooterForegroundBrush" Color="#5F5B52" />
+  </Application.Resources>
   <Application.Styles>
     <FluentTheme />
+    <Style Selector="Window">
+      <Setter Property="Background" Value="{DynamicResource WindowBackgroundBrush}" />
+    </Style>
+    <Style Selector="Border.card">
+      <Setter Property="Background" Value="{DynamicResource CardBackgroundBrush}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource CardBorderBrush}" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="CornerRadius" Value="18" />
+    </Style>
+    <Style Selector="Border.hero-card">
+      <Setter Property="Background" Value="{DynamicResource HeroBackgroundBrush}" />
+      <Setter Property="CornerRadius" Value="18" />
+    </Style>
+    <Style Selector="Border.footer-card">
+      <Setter Property="Background" Value="{DynamicResource FooterBackgroundBrush}" />
+      <Setter Property="CornerRadius" Value="14" />
+    </Style>
+    <Style Selector="TextBlock.hero-title">
+      <Setter Property="FontSize" Value="32" />
+      <Setter Property="FontWeight" Value="Bold" />
+      <Setter Property="Foreground" Value="{DynamicResource HeroForegroundBrush}" />
+    </Style>
+    <Style Selector="TextBlock.hero-subtitle">
+      <Setter Property="FontSize" Value="14" />
+      <Setter Property="TextWrapping" Value="Wrap" />
+      <Setter Property="Foreground" Value="{DynamicResource HeroMutedForegroundBrush}" />
+    </Style>
+    <Style Selector="TextBlock.section-title">
+      <Setter Property="FontSize" Value="18" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="Foreground" Value="{DynamicResource HeadingForegroundBrush}" />
+    </Style>
+    <Style Selector="TextBlock.field-label">
+      <Setter Property="FontSize" Value="14" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="Foreground" Value="{DynamicResource HeadingForegroundBrush}" />
+    </Style>
+    <Style Selector="TextBlock.body-copy">
+      <Setter Property="FontSize" Value="14" />
+      <Setter Property="TextWrapping" Value="Wrap" />
+      <Setter Property="Foreground" Value="{DynamicResource BodyForegroundBrush}" />
+    </Style>
+    <Style Selector="TextBlock.subtle-copy">
+      <Setter Property="FontSize" Value="13" />
+      <Setter Property="TextWrapping" Value="Wrap" />
+      <Setter Property="Foreground" Value="{DynamicResource BodyForegroundBrush}" />
+    </Style>
+    <Style Selector="TextBlock.footer-copy">
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="Foreground" Value="{DynamicResource FooterForegroundBrush}" />
+    </Style>
+    <Style Selector="TextBox.surface">
+      <Setter Property="MinHeight" Value="38" />
+      <Setter Property="VerticalContentAlignment" Value="Center" />
+      <Setter Property="Background" Value="{DynamicResource InputBackgroundBrush}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource CardBorderBrush}" />
+    </Style>
+    <Style Selector="ComboBox.surface">
+      <Setter Property="MinHeight" Value="38" />
+      <Setter Property="Background" Value="{DynamicResource InputBackgroundBrush}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource CardBorderBrush}" />
+    </Style>
+    <Style Selector="ListBox.surface">
+      <Setter Property="Background" Value="{DynamicResource InputBackgroundBrush}" />
+      <Setter Property="BorderThickness" Value="0" />
+    </Style>
+    <Style Selector="Button">
+      <Setter Property="MinHeight" Value="42" />
+      <Setter Property="Padding" Value="16,0" />
+      <Setter Property="FontSize" Value="14" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="HorizontalContentAlignment" Value="Center" />
+      <Setter Property="VerticalContentAlignment" Value="Center" />
+    </Style>
+    <Style Selector="Button:disabled">
+      <Setter Property="Opacity" Value="0.6" />
+    </Style>
+    <Style Selector="Button.primary">
+      <Setter Property="Background" Value="{DynamicResource PrimaryBackgroundBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource PrimaryForegroundBrush}" />
+    </Style>
+    <Style Selector="Button.secondary">
+      <Setter Property="Background" Value="{DynamicResource SecondaryBackgroundBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource SecondaryForegroundBrush}" />
+    </Style>
+    <Style Selector="Button.tertiary">
+      <Setter Property="Background" Value="{DynamicResource TertiaryBackgroundBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource TertiaryForegroundBrush}" />
+    </Style>
+    <Style Selector="CheckBox">
+      <Setter Property="FontSize" Value="14" />
+      <Setter Property="FontWeight" Value="Medium" />
+      <Setter Property="Foreground" Value="{DynamicResource HeadingForegroundBrush}" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="RadioButton">
+      <Setter Property="FontSize" Value="14" />
+      <Setter Property="FontWeight" Value="Medium" />
+      <Setter Property="Foreground" Value="{DynamicResource HeadingForegroundBrush}" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="RadioButton.hero-toggle">
+      <Setter Property="Foreground" Value="{DynamicResource HeroForegroundBrush}" />
+    </Style>
   </Application.Styles>
 </Application>

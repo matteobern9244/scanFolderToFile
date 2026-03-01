@@ -12,6 +12,18 @@ internal interface IPrintService
 
 internal sealed class MacPrintService : IPrintService
 {
+    private readonly string _printCommandName;
+
+    public MacPrintService()
+        : this(AppStrings.System.MacPrintCommandName)
+    {
+    }
+
+    internal MacPrintService(string printCommandName)
+    {
+        _printCommandName = printCommandName;
+    }
+
     public Task PrintFileAsync(string filePath, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
@@ -26,7 +38,7 @@ internal sealed class MacPrintService : IPrintService
             throw new FileNotFoundException(AppStrings.Ui.PrintPreviewMissingFileStatus, filePath);
         }
 
-        StartPrintProcess(filePath);
+        StartPrintProcess(filePath, _printCommandName);
         return Task.CompletedTask;
     }
 
@@ -46,7 +58,7 @@ internal sealed class MacPrintService : IPrintService
         await File.WriteAllTextAsync(tempFilePath, content, cancellationToken).ConfigureAwait(false);
         try
         {
-            StartPrintProcess(tempFilePath);
+            StartPrintProcess(tempFilePath, _printCommandName);
         }
         finally
         {
@@ -57,11 +69,11 @@ internal sealed class MacPrintService : IPrintService
         }
     }
 
-    private static void StartPrintProcess(string filePath)
+    private static void StartPrintProcess(string filePath, string printCommandName)
     {
         var startInfo = new ProcessStartInfo
         {
-            FileName = AppStrings.System.MacPrintCommandName,
+            FileName = printCommandName,
             UseShellExecute = false,
         };
         startInfo.ArgumentList.Add(filePath);

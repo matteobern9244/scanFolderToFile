@@ -56,6 +56,8 @@ These instructions are for coding agents working in this repository.
 ## Testing
 
 - Run the smallest relevant tests first.
+- The desired coverage target for the modern codebase is `100%` line coverage and `100%` branch coverage.
+- Do not lower coverage standards; when practical, add tests in the same change that introduces new logic.
 - For changes in the modern codebase, use the modern solution:
   - `dotnet build ScanFolderToFile.Modern.sln`
   - `dotnet test ScanFolderToFile.Modern.sln`

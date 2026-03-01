@@ -181,31 +181,31 @@ public static class AppStrings
         public const string HistoryCreatedAtHeaderTextBlockName = "HistoryCreatedAtHeaderTextBlock";
         public const string HistoryStateHeaderTextBlockName = "HistoryStateHeaderTextBlock";
 
-        public const string HeaderTitle = "Scansione cartelle e export";
-        public const string HeaderSubtitle = "La UI macOS copre il flusso principale della vecchia WinForms: scegli la cartella, definisci output e filtri, genera il file e consulta lo storico.";
-        public const string SourceFolderLabel = "Cartella sorgente";
-        public const string OutputFolderLabel = "Cartella output";
+        public const string HeaderTitle = "Seleziona cartella da scansionare";
+        public const string HeaderSubtitle = "Genera il file in TXT, PDF o Markdown, applica i filtri, crea lo ZIP e consulta lo storico dei file creati.";
+        public const string SourceFolderLabel = "Cartella da scansionare";
+        public const string OutputFolderLabel = "Cartella file creati";
         public const string OutputFormatLabel = "Formato output";
-        public const string BrowseSourceButtonText = "Scegli...";
-        public const string BrowseOutputButtonText = "Cambia...";
-        public const string OnlyExtensionsCheckBoxText = "Solo estensioni";
-        public const string CreateZipCheckBoxText = "Crea ZIP";
-        public const string CollectDuplicatesCheckBoxText = "Rileva duplicati";
-        public const string FilterSummaryTitle = "Filtro attivo";
-        public const string GenerateButtonText = "Genera";
-        public const string OpenGeneratedFileButtonText = "Apri file";
-        public const string OpenOutputFolderButtonText = "Apri cartella";
+        public const string BrowseSourceButtonText = "Seleziona cartella...";
+        public const string BrowseOutputButtonText = "Seleziona cartella...";
+        public const string OnlyExtensionsCheckBoxText = "Solo Estensioni";
+        public const string CreateZipCheckBoxText = "Creare Zip Cartella Scelta";
+        public const string CollectDuplicatesCheckBoxText = "Check nomi files duplicati";
+        public const string FilterSummaryTitle = "Filtri Scansione Cartella";
+        public const string GenerateButtonText = "GENERA FILE";
+        public const string OpenGeneratedFileButtonText = "Apri";
+        public const string OpenOutputFolderButtonText = "Apri cartella files";
         public const string OpenFiltersButtonText = "Filtri...";
-        public const string OpenHistoryButtonText = "Storico...";
-        public const string OpenDuplicatesButtonText = "Duplicati...";
-        public const string OpenUtilitiesButtonText = "Utility...";
-        public const string OpenEditorButtonText = "Editor...";
-        public const string OpenPrintPreviewButtonText = "Stampa...";
+        public const string OpenHistoryButtonText = "Storico File Creati";
+        public const string OpenDuplicatesButtonText = "Nomi files duplicati";
+        public const string OpenUtilitiesButtonText = "Altre operazioni...";
+        public const string OpenEditorButtonText = "Editor File TXT";
+        public const string OpenPrintPreviewButtonText = "Stampa";
         public const string StatusTitle = "Stato";
         public const string ResultTitle = "Risultato";
-        public const string PreviewTitle = "Preview";
+        public const string PreviewTitle = "Anteprima";
 
-        public const string ReadyStatus = "Pronto. Seleziona una cartella sorgente e avvia la generazione.";
+        public const string ReadyStatus = "Pronto. Seleziona la cartella da scansionare e genera il file.";
         public const string RunningStatus = "Scansione in corso...";
         public const string FilterAppliedStatusPrefix = "Filtro applicato: ";
         public const string FilterClearedStatus = "Filtro rimosso.";
@@ -244,11 +244,11 @@ public static class AppStrings
         public const string FilterFromLabel = "da";
         public const string FilterToLabel = "a";
 
-        public const string FilterWindowTitle = "Filtri scansione";
-        public const string FilterWindowModeLabel = "Scegli una sola modalita' di filtro";
+        public const string FilterWindowTitle = "Filtri Scansione Cartella";
+        public const string FilterWindowModeLabel = "Filtra i files per data o per dimensione";
         public const string FilterNoneOptionText = "Nessun filtro";
-        public const string FilterSizeOptionText = "Filtro per dimensione";
-        public const string FilterDateOptionText = "Filtro per date";
+        public const string FilterSizeOptionText = "Intervallo di dimensioni";
+        public const string FilterDateOptionText = "Intervallo di data/e";
         public const string FilterMinSizeLabel = "Min MB";
         public const string FilterMaxSizeLabel = "Max MB";
         public const string FilterStartDateLabel = "Data inizio";
@@ -261,7 +261,7 @@ public static class AppStrings
         public const string FilterClearButtonText = "Rimuovi filtro";
         public const string FilterCancelButtonText = "Annulla";
 
-        public const string HistoryWindowTitle = "Storico file creati";
+        public const string HistoryWindowTitle = "Storico File Creati";
         public const string HistoryStatusReady = "Seleziona un elemento per aprire il file o la cartella.";
         public const string HistoryEmpty = "Nessun file generato nello storico corrente.";
         public const string HistoryReadFailedPrefix = "Storico non leggibile: ";
@@ -277,29 +277,29 @@ public static class AppStrings
         public const string HistorySelectedLabelPrefix = "Selezionato: ";
 
         public const string MenuFileHeader = "Operazioni su File";
-        public const string MenuOpenGeneratedFile = "Apri file generato";
-        public const string MenuOpenOutputFolder = "Apri cartella file";
-        public const string MenuOpenHistory = "Storico file creati";
-        public const string MenuOpenDuplicates = "Mostra duplicati";
-        public const string MenuScanHeader = "Scansione";
-        public const string MenuConfigureFilters = "Configura filtri";
+        public const string MenuOpenGeneratedFile = "Apri";
+        public const string MenuOpenOutputFolder = "Apri cartella files";
+        public const string MenuOpenHistory = "Storico File Creati";
+        public const string MenuOpenDuplicates = "Nomi files duplicati";
+        public const string MenuScanHeader = "Filtri Scansione Cartella";
+        public const string MenuConfigureFilters = "Configura";
         public const string MenuClearFilters = "Rimuovi filtri";
-        public const string MenuGenerate = "Genera file";
+        public const string MenuGenerate = "Genera File";
         public const string MenuOtherHeader = "Altro";
         public const string MenuCopyMove = "Copia / Sposta Files";
-        public const string MenuReorder = "Riordino per tipo";
+        public const string MenuReorder = "Riordinamento files in cartelle per tipo";
         public const string MenuEditor = "Editor interno";
         public const string MenuPrint = "Stampa";
 
-        public const string UtilitiesWindowTitle = "Utility file";
+        public const string UtilitiesWindowTitle = "Copia / Sposta Files";
         public const string UtilitiesModeLabel = "Scegli l'operazione da eseguire";
-        public const string UtilityCopyText = "Copia file";
-        public const string UtilityMoveText = "Sposta file";
-        public const string UtilityReorderText = "Riordina per estensione";
-        public const string UtilitySourceLabel = "Cartella sorgente";
-        public const string UtilityDestinationLabel = "Cartella destinazione";
-        public const string UtilityBrowseSourceText = "Scegli sorgente...";
-        public const string UtilityBrowseDestinationText = "Scegli destinazione...";
+        public const string UtilityCopyText = "Copia";
+        public const string UtilityMoveText = "Sposta";
+        public const string UtilityReorderText = "Riordinamento per tipo";
+        public const string UtilitySourceLabel = "Cartella di partenza";
+        public const string UtilityDestinationLabel = "Cartella di destinazione";
+        public const string UtilityBrowseSourceText = "SFOGLIA";
+        public const string UtilityBrowseDestinationText = "SFOGLIA";
         public const string UtilityExecuteButtonText = "Esegui";
         public const string UtilityCloseButtonText = "Chiudi";
         public const string UtilityResultEmpty = "Nessuna operazione eseguita.";
@@ -315,7 +315,7 @@ public static class AppStrings
         public const string UtilityAffectedTitle = "File coinvolti";
         public const string UtilitySkippedTitle = "File saltati";
 
-        public const string DuplicatesWindowTitle = "Gruppi duplicati";
+        public const string DuplicatesWindowTitle = "Nomi files duplicati";
         public const string DuplicatesEmpty = "Nessun duplicato disponibile.";
         public const string DuplicatesStatusReady = "Seleziona un file duplicato per aprirlo o aprirne la cartella.";
         public const string DuplicatesOpenFileButtonText = "Apri file";
@@ -325,7 +325,7 @@ public static class AppStrings
         public const string DuplicatesSummaryPrefix = "Gruppi duplicati trovati: ";
         public const string DuplicatesSelectedPrefix = "Duplicato selezionato: ";
 
-        public const string EditorWindowTitle = "Editor interno";
+        public const string EditorWindowTitle = "Editor File TXT";
         public const string EditorNoFileLoaded = "Nessun file caricato.";
         public const string EditorLoadedFromFilePrefix = "File caricato: ";
         public const string EditorLoadedFromPreviewStatus = "Preview caricata come documento modificabile.";

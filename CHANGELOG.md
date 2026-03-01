@@ -9,6 +9,7 @@ Questo changelog segue il formato di [Keep a Changelog](https://keepachangelog.c
 ### Added
 
 - `AGENTS.md` con regole operative del repository per agenti, workflow di modifica, test e policy pre-commit
+- Coverage pass dedicata con nuovi test mirati file-per-file su `Core` e `App` per aumentare la copertura reale del codice moderno
 - Test UI headless in `tests/ScanFolderToFile.App.Tests` per la finestra principale e le finestre dedicate del flusso macOS
 - Servizio `FileOperationsService` nel core per:
   - copia file
@@ -21,14 +22,25 @@ Questo changelog segue il formato di [Keep a Changelog](https://keepachangelog.c
 - Nuova finestra `PrintPreviewWindow` per l'anteprima di stampa
 - Servizio `MacPrintService` per l'invio alla stampante di default su macOS
 - Nuovi test UI headless per editor interno e anteprima di stampa
+- Script `scripts/create_macos_bundle.sh` per assemblare il bundle macOS
+- Template `Info.plist` per il bundle `ScanFolderToFile.app`
 
 ### Changed
 
 - Formalizzata la policy operativa del repository: prima di ogni `commit` e `push` vanno aggiornati `README.md` e `CHANGELOG.md`, ed eseguito `dotnet format`
+- Formalizzato in `AGENTS.md` il target di copertura desiderato: `100%` line e `100%` branch per il codice moderno
+- `MacExternalLauncher` e `MacPrintService` sono ora testabili con un comando iniettabile per consentire test affidabili sui wrapper macOS
 - Il README e' stato riallineato allo stato reale del repository dopo il completamento del Piano 2
 - La UI macOS non e' piu' descritta come shell minima: il flusso principale e' ora implementato in `src/ScanFolderToFile.App`
 - Il README e' stato riallineato anche al completamento del Piano 3 e alle nuove utility operative
 - Il README e' stato riallineato al completamento del Piano 4
+- La UI Avalonia e' stata ripulita con stili condivisi e allineamento coerente di pulsanti, card, campi e testi tra tutte le finestre
+- Le pipeline moderne GitHub Actions ora pubblicano anche il bundle macOS self-contained come artifact
+- Il README e' stato riallineato al completamento del Piano 5 e al nuovo flusso di packaging
+- Il repository usa ora un solo file `.command`: `start_scanfolder.command` gestisce sia il launch sia il publish con `--publish`
+- I workflow GitHub Actions moderni verificano ora la coverage sul report Cobertura aggregato invece che sul primo file trovato
+- I workflow GitHub Actions moderni generano ora sia il report coverage completo sia il report code-only, e usano il report code-only per i gate CI
+- Le soglie CI della coverage sono state riallineate al floor oggi verificato dalla suite moderna (`88%` line, `71%` branch sul report code-only)
 
 ### Completed
 
@@ -49,11 +61,16 @@ Questo changelog segue il formato di [Keep a Changelog](https://keepachangelog.c
   - anteprima di stampa interna
   - stampa verso la stampante di default
   - voci `Editor interno` e `Stampa` attivate nel menu
+- Chiuso il Piano 5 del porting macOS con:
+  - packaging `.app` self-contained
+  - publish integrato nello script `.command` principale
+  - bundle macOS generato anche in CI
+  - hardening finale della UI con layout e allineamenti uniformi
 
 ### Planned
 
-- Evoluzione del packaging macOS oltre gli artifact di CI
-- Hardening finale e validazione conclusiva del porting
+- Signing e notarization Apple come evoluzione successiva facoltativa
+- Eventuale conversione dell'icona legacy in `.icns`
 
 ## [0.1.0] - 2026-02-28
 

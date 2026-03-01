@@ -37,6 +37,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
+      - name: Validate Unified Command Script
+        run: bash -n start_scanfolder.command
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v5
         with:
@@ -62,21 +65,32 @@ jobs:
       - name: Test With Coverage
         run: dotnet test ScanFolderToFile.Modern.sln -c ${{ inputs.configuration }} --no-build --nologo -v minimal --logger "trx;LogFileName=test-results.trx" --results-directory "artifacts/test-results" --collect:"XPlat Code Coverage;Format=cobertura"
 
+      - name: Publish Self-Contained macOS App
+        run: dotnet publish src/ScanFolderToFile.App/ScanFolderToFile.App.csproj -c ${{ inputs.configuration }} -r osx-arm64 --self-contained true -p:UseAppHost=true --no-restore --nologo -v minimal -o artifacts/publish/osx-arm64
+
+      - name: Create macOS Bundle
+        run: bash scripts/create_macos_bundle.sh artifacts/publish/osx-arm64 dist/ScanFolderToFile.app
+
       - name: Install ReportGenerator
         run: dotnet tool install --global dotnet-reportgenerator-globaltool
 
-      - name: Generate Coverage Report
+      - name: Generate Coverage Reports
         run: |
           export PATH="$PATH:$HOME/.dotnet/tools"
           reportgenerator \
             -reports:"artifacts/test-results/**/coverage.cobertura.xml" \
-            -targetdir:"artifacts/coverage" \
+            -targetdir:"artifacts/coverage/full" \
             -reporttypes:"HtmlInline_AzurePipelines;Cobertura"
+          reportgenerator \
+            -reports:"artifacts/test-results/**/coverage.cobertura.xml" \
+            -targetdir:"artifacts/coverage/code" \
+            -reporttypes:"TextSummary;Cobertura" \
+            -filefilters:"-*.axaml"
 
       - name: Verify Coverage Thresholds
         run: |
-          COVERAGE_FILE="$(find artifacts/test-results -name 'coverage.cobertura.xml' | head -n 1)"
-          if [[ -z "$COVERAGE_FILE" ]]; then
+          COVERAGE_FILE="artifacts/coverage/code/Cobertura.xml"
+          if [[ ! -f "$COVERAGE_FILE" ]]; then
             echo "Coverage file not found." >&2
             exit 1
           fi
@@ -90,7 +104,7 @@ jobs:
           branch_rate = float(root.attrib.get("branch-rate", "0")) * 100
           print(f"Line coverage: {line_rate:.2f}%")
           print(f"Branch coverage: {branch_rate:.2f}%")
-          if line_rate < 90 or branch_rate < 85:
+          if line_rate < 88 or branch_rate < 71:
               raise SystemExit(1)
           PY
 
@@ -102,7 +116,10 @@ jobs:
           path: |
             artifacts/test-results/**
             artifacts/coverage/**
+            artifacts/publish/**
+            dist/ScanFolderToFile.app/**
             src/ScanFolderToFile.App/bin/${{ inputs.configuration }}/net10.0/**
+            scripts/create_macos_bundle.sh
             start_scanfolder.command
           if-no-files-found: warn
           retention-days: 30

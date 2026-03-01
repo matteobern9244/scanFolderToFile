@@ -57,4 +57,29 @@ public sealed class PolicyAndLauncherTests
         var firstLine = File.ReadLines(launcherPath).FirstOrDefault();
         firstLine.Should().Be("#!/usr/bin/env bash");
     }
+
+    [Fact]
+    public void Repository_UsesSingleRootCommandScript()
+    {
+        var commandFiles = Directory.GetFiles(TestEnvironment.RepositoryRoot, "*.command", SearchOption.TopDirectoryOnly);
+
+        commandFiles.Should().ContainSingle();
+        Path.GetFileName(commandFiles[0]).Should().Be("start_scanfolder.command");
+    }
+
+    [Fact]
+    public void MacAppBundleTemplate_Exists()
+    {
+        var infoPlistPath = Path.Combine(
+            TestEnvironment.RepositoryRoot,
+            "src",
+            "ScanFolderToFile.App",
+            "Packaging",
+            "Info.plist"
+        );
+        var bundleScriptPath = Path.Combine(TestEnvironment.RepositoryRoot, "scripts", "create_macos_bundle.sh");
+
+        File.Exists(infoPlistPath).Should().BeTrue();
+        File.Exists(bundleScriptPath).Should().BeTrue();
+    }
 }

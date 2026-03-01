@@ -6,35 +6,34 @@
     Height="720"
     MinWidth="840"
     MinHeight="620"
-    Background="#F4F1EA"
     RequestedThemeVariant="Light"
     Icon="/Assets/Deleket-Sleek-Xp-Basic-Files.ico">
   <Grid Margin="22" RowDefinitions="Auto,Auto,*,Auto" RowSpacing="16">
-    <Border Grid.Row="0" Padding="18" Background="#173F35" CornerRadius="18">
-      <TextBlock x:Name="PrintPreviewSummaryTextBlock" FontSize="15" FontWeight="SemiBold" TextWrapping="Wrap" Foreground="#F8F6F1" />
+    <Border Grid.Row="0" Padding="18" Classes="hero-card">
+      <TextBlock x:Name="PrintPreviewSummaryTextBlock" Classes="section-title" FontSize="15" TextWrapping="Wrap" Foreground="{DynamicResource HeroForegroundBrush}" />
     </Border>
 
-    <Border Grid.Row="1" Padding="16,14" Background="#FFFDF8" BorderBrush="#D7CFBE" BorderThickness="1" CornerRadius="18">
-      <TextBlock x:Name="PrintPreviewStatusTextBlock" FontSize="14" TextWrapping="Wrap" Foreground="#4F5A57" />
+    <Border Grid.Row="1" Padding="16,14" Classes="card">
+      <TextBlock x:Name="PrintPreviewStatusTextBlock" Classes="body-copy" />
     </Border>
 
-    <Border Grid.Row="2" Padding="18" Background="#FFFDF8" BorderBrush="#D7CFBE" BorderThickness="1" CornerRadius="18">
+    <Border Grid.Row="2" Padding="18" Classes="card">
       <TextBox
           x:Name="PrintPreviewTextBox"
+          Classes="surface"
           IsReadOnly="True"
           AcceptsReturn="True"
           TextWrapping="Wrap"
           VerticalContentAlignment="Top"
-          Background="#F7F3EA"
           BorderThickness="0" />
     </Border>
 
-    <Border Grid.Row="3" Padding="18" Background="#FFFDF8" BorderBrush="#D7CFBE" BorderThickness="1" CornerRadius="18">
-      <StackPanel Orientation="Horizontal" Spacing="12">
-        <Button x:Name="PrintPreviewPrintButton" Height="42" MinWidth="120" Background="#D98E04" Foreground="#FFF9EE" FontWeight="SemiBold" />
-        <Button x:Name="PrintPreviewOpenFileButton" Height="42" MinWidth="130" Background="#173F35" Foreground="#F8F6F1" />
-        <Button x:Name="PrintPreviewCloseButton" Height="42" MinWidth="120" Background="#173F35" Foreground="#F8F6F1" />
-      </StackPanel>
+    <Border Grid.Row="3" Padding="18" Classes="card">
+      <Grid ColumnDefinitions="*,*,*" ColumnSpacing="12">
+        <Button x:Name="PrintPreviewPrintButton" Grid.Column="0" Classes="primary" />
+        <Button x:Name="PrintPreviewOpenFileButton" Grid.Column="1" Classes="secondary" />
+        <Button x:Name="PrintPreviewCloseButton" Grid.Column="2" Classes="tertiary" />
+      </Grid>
     </Border>
   </Grid>
 </Window>

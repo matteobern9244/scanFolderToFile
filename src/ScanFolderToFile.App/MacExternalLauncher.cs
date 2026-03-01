@@ -6,21 +6,33 @@ namespace ScanFolderToFile.App;
 
 public sealed class MacExternalLauncher : IExternalLauncher
 {
+    private readonly string _openCommandName;
+
+    public MacExternalLauncher()
+        : this(AppStrings.System.MacOpenCommandName)
+    {
+    }
+
+    internal MacExternalLauncher(string openCommandName)
+    {
+        _openCommandName = openCommandName;
+    }
+
     public Task OpenFileAsync(string path, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        StartOpenProcess(path);
+        StartOpenProcess(path, _openCommandName);
         return Task.CompletedTask;
     }
 
     public Task OpenFolderAsync(string path, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        StartOpenProcess(path);
+        StartOpenProcess(path, _openCommandName);
         return Task.CompletedTask;
     }
 
-    private static void StartOpenProcess(string path)
+    private static void StartOpenProcess(string path, string openCommandName)
     {
         if (string.IsNullOrWhiteSpace(path))
         {
@@ -29,7 +41,7 @@ public sealed class MacExternalLauncher : IExternalLauncher
 
         var startInfo = new ProcessStartInfo
         {
-            FileName = AppStrings.System.MacOpenCommandName,
+            FileName = openCommandName,
             UseShellExecute = false,
         };
         startInfo.ArgumentList.Add(path);

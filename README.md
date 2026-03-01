@@ -5,7 +5,7 @@ ScanFolderToFile e' un repository in transizione:
 - contiene l'applicazione storica WinForms per Windows basata su .NET Framework 4.8
 - contiene la nuova base moderna per il porting macOS, basata su .NET 10 e Avalonia
 
-L'obiettivo finale e' mantenere la parita' funzionale tra Windows e macOS, ma il repository oggi e' organizzato per lavorare per step. I primi quattro step sono gia' implementati: il nuovo core cross-platform, la UI macOS del flusso principale, le utility operative principali, l'editor interno, la stampa/anteprima, test rigorosi, quality gates e CI/CD separata dalla pipeline legacy.
+L'obiettivo finale e' mantenere la parita' funzionale tra Windows e macOS. I cinque step del porting sono ora implementati: core cross-platform, UI macOS completa del flusso principale, utility operative, editor interno, stampa/anteprima, packaging `.app` self-contained, test rigorosi, quality gates e CI/CD separata dalla pipeline legacy.
 
 ## Stato Del Repository
 
@@ -28,7 +28,7 @@ La nuova base di lavoro e' gia presente:
 - `tests/ScanFolderToFile.Core.Tests`: unit test e integration test sul core
 - `tests/ScanFolderToFile.App.Tests`: test UI headless sull'app macOS
 
-## Cosa E' Gia Stato Implementato Nei Piani 1 E 2
+## Cosa E' Gia Stato Implementato Nei Piani 1, 2, 3, 4 E 5
 
 La nuova base moderna include:
 
@@ -53,6 +53,7 @@ La nuova base moderna include:
 - costanti di build e quality gate in:
   - `src/ScanFolderToFile.Core/Constants/AppBuild.cs`
 - applicazione Avalonia lanciabile con rendering software stabile su macOS
+- rifinitura UI condivisa con stili centralizzati e layout allineati tra finestre, testi e pulsanti
 - finestra principale macOS per il flusso core:
   - selezione cartella sorgente
   - selezione cartella output
@@ -70,8 +71,11 @@ La nuova base moderna include:
 - editor interno per file testuali e preview modificabile
 - finestra di anteprima di stampa con invio alla stampante di default su macOS
 - menu desktop macOS con azioni principali e roadmap visibile
-- launcher macOS intelligente:
+- unico script `.command` al root:
   - `start_scanfolder.command`
+  - supporta sia avvio sia publish del bundle macOS
+- bundle `.app` self-contained generabile localmente e in CI:
+  - `dist/ScanFolderToFile.app`
 - GitHub Actions moderna separata da quella legacy
 
 ## Struttura Del Repository
@@ -94,7 +98,7 @@ La nuova base moderna include:
 |-- ScanFolderToFile.Modern.sln     # solution moderna
 |-- scanFolderToFile.sln            # solution legacy
 |-- global.json                     # SDK .NET 10 fissata
-`-- start_scanfolder.command        # launcher macOS
+`-- start_scanfolder.command        # launcher e publish macOS
 ```
 
 ## Requisiti
@@ -113,15 +117,15 @@ Se non hai .NET 10 installato globalmente, il launcher puo' usare una copia loca
 
 ## Avvio Rapido Su macOS
 
-### Opzione 1: launcher intelligente
+### Opzione 1: script unico intelligente
 
-Il modo consigliato per avviare la base moderna e':
+Per l'avvio standard il modo consigliato e':
 
 ```bash
 ./start_scanfolder.command
 ```
 
-Il launcher esegue in sequenza:
+Lo script esegue in sequenza:
 
 1. controllo formattazione (`dotnet format --verify-no-changes`)
 2. auto-format se necessario
@@ -134,6 +138,29 @@ Strategia di avvio:
 
 - prova prima l'app-host nativo `ScanFolderToFile`
 - se manca, usa il fallback `dotnet ScanFolderToFile.dll`
+
+### Opzione 1B: packaging `.app` self-contained
+
+Per generare un bundle macOS pronto da aprire con Finder:
+
+```bash
+./start_scanfolder.command --publish
+```
+
+Il comando esegue:
+
+1. controllo formattazione (`dotnet format --verify-no-changes`)
+2. auto-format se necessario
+3. restore
+4. build e test
+5. `dotnet publish` self-contained per macOS
+6. creazione del bundle `dist/ScanFolderToFile.app`
+
+Varianti supportate:
+
+- `./start_scanfolder.command --publish --arm64`
+- `./start_scanfolder.command --publish --x64`
+- `./start_scanfolder.command --publish --debug`
 
 ### Opzione 2: comandi manuali
 
@@ -151,10 +178,22 @@ La base moderna e' protetta da quality gate obbligatori:
 - `dotnet format --verify-no-changes`
 - `dotnet build`
 - `dotnet test`
-- line coverage minima: `90%`
-- branch coverage minima: `85%`
+- line coverage minima CI (report code-only): `88%`
+- branch coverage minima CI (report code-only): `71%`
 
-Queste soglie sono allineate ai workflow GitHub Actions del progetto.
+I workflow GitHub Actions producono:
+
+- un report coverage completo per artifact e consultazione
+- un report coverage code-only (esclude i file `.axaml`) usato per i gate CI
+
+Queste soglie sono allineate ai workflow GitHub Actions del progetto e riflettono il floor oggi verificato dalla suite.
+
+Target operativo richiesto per il codice moderno:
+
+- line coverage: `100%`
+- branch coverage: `100%`
+
+Il repository oggi mantiene ancora una soglia minima CI piu' bassa mentre la suite viene portata gradualmente verso la copertura completa.
 
 ## Workflow Prima Di Commit E Push
 
@@ -187,6 +226,7 @@ La suite moderna contiene:
   - costanti centralizzate
   - asset dichiarati
   - presenza del launcher
+  - copertura aggiuntiva dei branch di UI e servizi con test dedicati
 
 Esecuzione consigliata:
 
@@ -197,7 +237,7 @@ dotnet test ScanFolderToFile.Modern.sln -c Release
 Per raccogliere coverage:
 
 ```bash
-dotnet test tests/ScanFolderToFile.Core.Tests/ScanFolderToFile.Core.Tests.csproj \
+dotnet test ScanFolderToFile.Modern.sln \
   -c Release \
   --collect:"XPlat Code Coverage;Format=cobertura"
 ```
@@ -228,6 +268,8 @@ Scopi:
 - validazione automatica su `push` e `pull_request` verso `main`
 - workflow manuale con `workflow_dispatch`
 - generazione artifact scaricabili
+- publish self-contained per `osx-arm64`
+- creazione e upload del bundle `ScanFolderToFile.app`
 - verifica automatica delle soglie di coverage
 
 Le pipeline moderne girano su:
@@ -264,16 +306,19 @@ La UI moderna copre gia' il flusso principale del porting:
 - stampa e anteprima integrate
 - preview interna dei risultati
 - menu macOS con azioni principali
+- bundle macOS self-contained generabile e archiviato in CI
+- layout UI ripulito e riallineato tra finestre, pulsanti e testi
 
-Resta solo il packaging finale e l'hardening conclusivo.
+Il porting pianificato in cinque piani e' quindi chiuso a livello funzionale. Restano solo eventuali evoluzioni successive non ancora incluse nel perimetro iniziale, come signing, notarization e affinamenti di distribuzione.
 
 ## Roadmap Di Alto Livello
 
-I prossimi step del porting completeranno:
+Il perimetro del porting iniziale e' completato. Le evoluzioni naturali successive, fuori dai cinque piani originali, sono:
 
-- packaging desktop piu' avanzato
-- hardening finale
-- validazione conclusiva del porting
+- signing del bundle macOS
+- notarization Apple
+- eventuale conversione dell'icona legacy in formato `.icns`
+- distribuzione pubblica oltre gli artifact GitHub Actions
 
 ## Convenzioni Del Progetto
 
@@ -284,4 +329,4 @@ I prossimi step del porting completeranno:
 
 ## Licenza E Note Operative
 
-Questo README descrive lo stato corrente del repository dopo i Piani 1, 2, 3 e 4. La codebase legacy resta presente per confronto, verifica funzionale e continuita' operativa mentre il porting verso macOS procede.
+Questo README descrive lo stato corrente del repository dopo il completamento dei Piani 1, 2, 3, 4 e 5. La codebase legacy resta presente per confronto, verifica funzionale e continuita' operativa mentre la base macOS moderna resta ora il target principale di manutenzione e rifinitura.

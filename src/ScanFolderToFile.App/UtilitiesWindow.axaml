@@ -6,52 +6,51 @@
     Height="700"
     MinWidth="820"
     MinHeight="620"
-    Background="#F4F1EA"
     RequestedThemeVariant="Light"
     Icon="/Assets/Deleket-Sleek-Xp-Basic-Files.ico">
   <Grid Margin="22" RowDefinitions="Auto,Auto,Auto,Auto,*" RowSpacing="16">
-    <Border Grid.Row="0" Padding="18" Background="#173F35" CornerRadius="18">
+    <Border Grid.Row="0" Padding="18" Classes="hero-card">
       <StackPanel Spacing="10">
-        <TextBlock x:Name="UtilitiesModeLabelTextBlock" FontSize="18" FontWeight="SemiBold" Foreground="#F8F6F1" />
+        <TextBlock x:Name="UtilitiesModeLabelTextBlock" Classes="section-title" Foreground="{DynamicResource HeroForegroundBrush}" />
         <StackPanel Orientation="Horizontal" Spacing="18">
-          <RadioButton x:Name="UtilityCopyRadioButton" Foreground="#F8F6F1" />
-          <RadioButton x:Name="UtilityMoveRadioButton" Foreground="#F8F6F1" />
-          <RadioButton x:Name="UtilityReorderRadioButton" Foreground="#F8F6F1" />
+          <RadioButton x:Name="UtilityCopyRadioButton" Classes="hero-toggle" />
+          <RadioButton x:Name="UtilityMoveRadioButton" Classes="hero-toggle" />
+          <RadioButton x:Name="UtilityReorderRadioButton" Classes="hero-toggle" />
         </StackPanel>
       </StackPanel>
     </Border>
 
-    <Border Grid.Row="1" Padding="18" Background="#FFFDF8" BorderBrush="#D7CFBE" BorderThickness="1" CornerRadius="18">
-      <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="12" RowSpacing="10">
-        <TextBlock x:Name="UtilitySourceLabelTextBlock" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" FontWeight="SemiBold" Foreground="#173F35" />
-        <TextBox x:Name="UtilitySourceTextBox" Grid.Row="0" Grid.Column="1" Height="38" VerticalContentAlignment="Center" Background="#F7F3EA" BorderBrush="#D7CFBE" />
-        <Button x:Name="UtilityBrowseSourceButton" Grid.Row="0" Grid.Column="2" Height="38" MinWidth="150" Background="#173F35" Foreground="#F8F6F1" />
+    <Border Grid.Row="1" Padding="18" Classes="card">
+      <Grid ColumnDefinitions="132,*,152" RowDefinitions="Auto,Auto" ColumnSpacing="12" RowSpacing="10">
+        <TextBlock x:Name="UtilitySourceLabelTextBlock" Grid.Row="0" Grid.Column="0" Classes="field-label" VerticalAlignment="Center" />
+        <TextBox x:Name="UtilitySourceTextBox" Grid.Row="0" Grid.Column="1" Classes="surface" />
+        <Button x:Name="UtilityBrowseSourceButton" Grid.Row="0" Grid.Column="2" Classes="secondary" Width="152" />
 
-        <TextBlock x:Name="UtilityDestinationLabelTextBlock" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" FontWeight="SemiBold" Foreground="#173F35" />
-        <TextBox x:Name="UtilityDestinationTextBox" Grid.Row="1" Grid.Column="1" Height="38" VerticalContentAlignment="Center" Background="#F7F3EA" BorderBrush="#D7CFBE" />
-        <Button x:Name="UtilityBrowseDestinationButton" Grid.Row="1" Grid.Column="2" Height="38" MinWidth="150" Background="#173F35" Foreground="#F8F6F1" />
+        <TextBlock x:Name="UtilityDestinationLabelTextBlock" Grid.Row="1" Grid.Column="0" Classes="field-label" VerticalAlignment="Center" />
+        <TextBox x:Name="UtilityDestinationTextBox" Grid.Row="1" Grid.Column="1" Classes="surface" />
+        <Button x:Name="UtilityBrowseDestinationButton" Grid.Row="1" Grid.Column="2" Classes="secondary" Width="152" />
       </Grid>
     </Border>
 
-    <Border Grid.Row="2" Padding="16,14" Background="#FFFDF8" BorderBrush="#D7CFBE" BorderThickness="1" CornerRadius="18">
-      <TextBlock x:Name="UtilityStatusTextBlock" FontSize="14" TextWrapping="Wrap" Foreground="#4F5A57" />
+    <Border Grid.Row="2" Padding="16,14" Classes="card">
+      <TextBlock x:Name="UtilityStatusTextBlock" Classes="body-copy" />
     </Border>
 
-    <Border Grid.Row="3" Padding="18" Background="#FFFDF8" BorderBrush="#D7CFBE" BorderThickness="1" CornerRadius="18">
-      <StackPanel Orientation="Horizontal" Spacing="12">
-        <Button x:Name="UtilityExecuteButton" Height="42" MinWidth="130" Background="#D98E04" Foreground="#FFF9EE" FontWeight="SemiBold" />
-        <Button x:Name="UtilityCloseButton" Height="42" MinWidth="130" Background="#173F35" Foreground="#F8F6F1" />
-      </StackPanel>
+    <Border Grid.Row="3" Padding="18" Classes="card">
+      <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+        <Button x:Name="UtilityExecuteButton" Grid.Column="0" Classes="primary" />
+        <Button x:Name="UtilityCloseButton" Grid.Column="1" Classes="secondary" />
+      </Grid>
     </Border>
 
-    <Border Grid.Row="4" Padding="18" Background="#FFFDF8" BorderBrush="#D7CFBE" BorderThickness="1" CornerRadius="18">
+    <Border Grid.Row="4" Padding="18" Classes="card">
       <TextBox
           x:Name="UtilityResultTextBox"
+          Classes="surface"
           IsReadOnly="True"
           AcceptsReturn="True"
           TextWrapping="Wrap"
           VerticalContentAlignment="Top"
-          Background="#F7F3EA"
           BorderThickness="0" />
     </Border>
   </Grid>
