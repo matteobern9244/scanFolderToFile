@@ -17,6 +17,10 @@ Questo changelog segue il formato di [Keep a Changelog](https://keepachangelog.c
 - Nuova finestra `UtilitiesWindow` per eseguire le utility operative da macOS
 - Nuova finestra `DuplicatesWindow` per consultare e aprire i duplicati trovati
 - Nuovi test del core per le utility operative
+- Nuova finestra `EditorWindow` per l'editing interno dei file testuali
+- Nuova finestra `PrintPreviewWindow` per l'anteprima di stampa
+- Servizio `MacPrintService` per l'invio alla stampante di default su macOS
+- Nuovi test UI headless per editor interno e anteprima di stampa
 
 ### Changed
 
@@ -24,6 +28,7 @@ Questo changelog segue il formato di [Keep a Changelog](https://keepachangelog.c
 - Il README e' stato riallineato allo stato reale del repository dopo il completamento del Piano 2
 - La UI macOS non e' piu' descritta come shell minima: il flusso principale e' ora implementato in `src/ScanFolderToFile.App`
 - Il README e' stato riallineato anche al completamento del Piano 3 e alle nuove utility operative
+- Il README e' stato riallineato al completamento del Piano 4
 
 ### Completed
 
@@ -39,11 +44,16 @@ Questo changelog segue il formato di [Keep a Changelog](https://keepachangelog.c
   - riordino per estensione
   - finestra duplicati dedicata
   - menu utility attivati per le funzioni del piano
+- Chiuso il Piano 4 del porting macOS con:
+  - editor interno operativo
+  - anteprima di stampa interna
+  - stampa verso la stampante di default
+  - voci `Editor interno` e `Stampa` attivate nel menu
 
 ### Planned
 
-- Porting progressivo di tutte le funzionalita' attualmente disponibili nella versione Windows
 - Evoluzione del packaging macOS oltre gli artifact di CI
+- Hardening finale e validazione conclusiva del porting
 
 ## [0.1.0] - 2026-02-28
 

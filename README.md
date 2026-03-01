@@ -5,7 +5,7 @@ ScanFolderToFile e' un repository in transizione:
 - contiene l'applicazione storica WinForms per Windows basata su .NET Framework 4.8
 - contiene la nuova base moderna per il porting macOS, basata su .NET 10 e Avalonia
 
-L'obiettivo finale e' mantenere la parita' funzionale tra Windows e macOS, ma il repository oggi e' organizzato per lavorare per step. I primi tre step sono gia' implementati: il nuovo core cross-platform, la UI macOS del flusso principale, le utility operative principali, test rigorosi, quality gates e CI/CD separata dalla pipeline legacy.
+L'obiettivo finale e' mantenere la parita' funzionale tra Windows e macOS, ma il repository oggi e' organizzato per lavorare per step. I primi quattro step sono gia' implementati: il nuovo core cross-platform, la UI macOS del flusso principale, le utility operative principali, l'editor interno, la stampa/anteprima, test rigorosi, quality gates e CI/CD separata dalla pipeline legacy.
 
 ## Stato Del Repository
 
@@ -67,6 +67,8 @@ La nuova base moderna include:
   - copia
   - sposta
   - riordino per estensione
+- editor interno per file testuali e preview modificabile
+- finestra di anteprima di stampa con invio alla stampante di default su macOS
 - menu desktop macOS con azioni principali e roadmap visibile
 - launcher macOS intelligente:
   - `start_scanfolder.command`
@@ -179,6 +181,8 @@ La suite moderna contiene:
   - storico
   - duplicati
   - utility file
+  - editor interno
+  - anteprima di stampa
 - controlli di policy per:
   - costanti centralizzate
   - asset dichiarati
@@ -256,18 +260,20 @@ La UI moderna copre gia' il flusso principale del porting:
 - storico dedicato
 - duplicati dedicati
 - utility operative integrate
+- editor interno integrato
+- stampa e anteprima integrate
 - preview interna dei risultati
 - menu macOS con azioni principali
 
-L'editor interno, la stampa e il packaging finale restano nei piani successivi.
+Resta solo il packaging finale e l'hardening conclusivo.
 
 ## Roadmap Di Alto Livello
 
 I prossimi step del porting completeranno:
 
-- editor interno
-- stampa e anteprima in-app
 - packaging desktop piu' avanzato
+- hardening finale
+- validazione conclusiva del porting
 
 ## Convenzioni Del Progetto
 
@@ -278,4 +284,4 @@ I prossimi step del porting completeranno:
 
 ## Licenza E Note Operative
 
-Questo README descrive lo stato corrente del repository dopo i Piani 1, 2 e 3. La codebase legacy resta presente per confronto, verifica funzionale e continuita' operativa mentre il porting verso macOS procede.
+Questo README descrive lo stato corrente del repository dopo i Piani 1, 2, 3 e 4. La codebase legacy resta presente per confronto, verifica funzionale e continuita' operativa mentre il porting verso macOS procede.

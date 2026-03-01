@@ -16,6 +16,7 @@ public sealed partial class MainWindow : Window
     private readonly IHistoryStore _historyStore;
     private readonly IExternalLauncher _externalLauncher;
     private readonly IFileOperationsService _fileOperationsService;
+    private readonly IPrintService _printService;
     private readonly MainWindowUiState _uiState;
     private readonly IReadOnlyList<OutputFormatChoice> _formatChoices;
     private readonly TextBox _sourceFolderTextBox;
@@ -37,6 +38,8 @@ public sealed partial class MainWindow : Window
     private readonly Button _openHistoryButton;
     private readonly Button _openDuplicatesButton;
     private readonly Button _openUtilitiesButton;
+    private readonly Button _openEditorButton;
+    private readonly Button _openPrintPreviewButton;
     private readonly NativeMenuItem _menuOpenGeneratedFileItem;
     private readonly NativeMenuItem _menuOpenOutputFolderItem;
     private readonly NativeMenuItem _menuOpenHistoryItem;
@@ -46,6 +49,8 @@ public sealed partial class MainWindow : Window
     private readonly NativeMenuItem _menuGenerateItem;
     private readonly NativeMenuItem _menuCopyMoveItem;
     private readonly NativeMenuItem _menuReorderItem;
+    private readonly NativeMenuItem _menuEditorItem;
+    private readonly NativeMenuItem _menuPrintItem;
     private bool _isBusy;
 
     public MainWindow()
@@ -58,7 +63,7 @@ public sealed partial class MainWindow : Window
         IAppPaths appPaths,
         IHistoryStore historyStore,
         IExternalLauncher externalLauncher)
-        : this(new DefaultAppServices(scanService, appPaths, historyStore, externalLauncher, new FileOperationsService()))
+        : this(new DefaultAppServices(scanService, appPaths, historyStore, externalLauncher, new FileOperationsService(), new MacPrintService()))
     {
     }
 
@@ -68,7 +73,18 @@ public sealed partial class MainWindow : Window
         IHistoryStore historyStore,
         IExternalLauncher externalLauncher,
         IFileOperationsService fileOperationsService)
-        : this(new DefaultAppServices(scanService, appPaths, historyStore, externalLauncher, fileOperationsService))
+        : this(new DefaultAppServices(scanService, appPaths, historyStore, externalLauncher, fileOperationsService, new MacPrintService()))
+    {
+    }
+
+    internal MainWindow(
+        IScanService scanService,
+        IAppPaths appPaths,
+        IHistoryStore historyStore,
+        IExternalLauncher externalLauncher,
+        IFileOperationsService fileOperationsService,
+        IPrintService printService)
+        : this(new DefaultAppServices(scanService, appPaths, historyStore, externalLauncher, fileOperationsService, printService))
     {
     }
 
@@ -79,6 +95,7 @@ public sealed partial class MainWindow : Window
         _historyStore = services.HistoryStore;
         _externalLauncher = services.ExternalLauncher;
         _fileOperationsService = services.FileOperationsService;
+        _printService = services.PrintService;
         _uiState = new MainWindowUiState();
 
         AvaloniaXamlLoader.Load(this);
@@ -102,6 +119,8 @@ public sealed partial class MainWindow : Window
         _openHistoryButton = GetRequiredControl<Button>(AppStrings.Ui.OpenHistoryButtonName);
         _openDuplicatesButton = GetRequiredControl<Button>(AppStrings.Ui.OpenDuplicatesButtonName);
         _openUtilitiesButton = GetRequiredControl<Button>(AppStrings.Ui.OpenUtilitiesButtonName);
+        _openEditorButton = GetRequiredControl<Button>(AppStrings.Ui.OpenEditorButtonName);
+        _openPrintPreviewButton = GetRequiredControl<Button>(AppStrings.Ui.OpenPrintPreviewButtonName);
         _formatChoices = CreateOutputFormatChoices();
 
         _menuOpenGeneratedFileItem = CreateMenuItem(AppStrings.Ui.MenuOpenGeneratedFile, (_, _) => _ = OpenGeneratedFileAsync());
@@ -113,6 +132,8 @@ public sealed partial class MainWindow : Window
         _menuGenerateItem = CreateMenuItem(AppStrings.Ui.MenuGenerate, (_, _) => _ = GenerateAsync());
         _menuCopyMoveItem = CreateMenuItem(AppStrings.Ui.MenuCopyMove, (_, _) => _ = OpenUtilitiesWindowAsync(UtilityOperationMode.Copy));
         _menuReorderItem = CreateMenuItem(AppStrings.Ui.MenuReorder, (_, _) => _ = OpenUtilitiesWindowAsync(UtilityOperationMode.Reorder));
+        _menuEditorItem = CreateMenuItem(AppStrings.Ui.MenuEditor, (_, _) => _ = OpenEditorWindowAsync());
+        _menuPrintItem = CreateMenuItem(AppStrings.Ui.MenuPrint, (_, _) => _ = OpenPrintPreviewWindowAsync());
 
         Title = AppStrings.Ui.WindowTitle;
         InitializeText();
@@ -127,6 +148,8 @@ public sealed partial class MainWindow : Window
     internal string CurrentFilterSummary => _filterSummaryTextBlock.Text ?? string.Empty;
 
     internal bool CanOpenDuplicates => _openDuplicatesButton.IsEnabled;
+
+    internal bool CanOpenPrintPreview => _openPrintPreviewButton.IsEnabled;
 
     internal void ApplyFilterResult(FilterDialogResult filterResult)
     {
@@ -169,6 +192,8 @@ public sealed partial class MainWindow : Window
         SetButtonContent(AppStrings.Ui.OpenHistoryButtonName, AppStrings.Ui.OpenHistoryButtonText);
         SetButtonContent(AppStrings.Ui.OpenDuplicatesButtonName, AppStrings.Ui.OpenDuplicatesButtonText);
         SetButtonContent(AppStrings.Ui.OpenUtilitiesButtonName, AppStrings.Ui.OpenUtilitiesButtonText);
+        SetButtonContent(AppStrings.Ui.OpenEditorButtonName, AppStrings.Ui.OpenEditorButtonText);
+        SetButtonContent(AppStrings.Ui.OpenPrintPreviewButtonName, AppStrings.Ui.OpenPrintPreviewButtonText);
         SetCheckBoxContent(AppStrings.Ui.OnlyExtensionsCheckBoxName, AppStrings.Ui.OnlyExtensionsCheckBoxText);
         SetCheckBoxContent(AppStrings.Ui.CreateZipCheckBoxName, AppStrings.Ui.CreateZipCheckBoxText);
         SetCheckBoxContent(AppStrings.Ui.CollectDuplicatesCheckBoxName, AppStrings.Ui.CollectDuplicatesCheckBoxText);
@@ -217,8 +242,8 @@ public sealed partial class MainWindow : Window
                 {
                     _menuCopyMoveItem,
                     _menuReorderItem,
-                    CreateDisabledMenuItem(AppStrings.Ui.MenuEditor),
-                    CreateDisabledMenuItem(AppStrings.Ui.MenuPrint),
+                    _menuEditorItem,
+                    _menuPrintItem,
                 },
             },
         };
@@ -237,6 +262,8 @@ public sealed partial class MainWindow : Window
         _openHistoryButton.Click += HandleOpenHistoryClick;
         _openDuplicatesButton.Click += HandleOpenDuplicatesClick;
         _openUtilitiesButton.Click += HandleOpenUtilitiesClick;
+        _openEditorButton.Click += HandleOpenEditorClick;
+        _openPrintPreviewButton.Click += HandleOpenPrintPreviewClick;
         _sourceFolderTextBox.TextChanged += HandleTextChanged;
         _outputFolderTextBox.TextChanged += HandleTextChanged;
         _outputFormatComboBox.SelectionChanged += HandleSelectionChanged;
@@ -285,6 +312,16 @@ public sealed partial class MainWindow : Window
     private async void HandleOpenUtilitiesClick(object? sender, RoutedEventArgs e)
     {
         await OpenUtilitiesWindowAsync(UtilityOperationMode.Copy).ConfigureAwait(true);
+    }
+
+    private async void HandleOpenEditorClick(object? sender, RoutedEventArgs e)
+    {
+        await OpenEditorWindowAsync().ConfigureAwait(true);
+    }
+
+    private async void HandleOpenPrintPreviewClick(object? sender, RoutedEventArgs e)
+    {
+        await OpenPrintPreviewWindowAsync().ConfigureAwait(true);
     }
 
     private void HandleTextChanged(object? sender, TextChangedEventArgs e)
@@ -436,6 +473,51 @@ public sealed partial class MainWindow : Window
         }
     }
 
+    private async Task OpenEditorWindowAsync()
+    {
+        try
+        {
+            var editorWindow = new EditorWindow(
+                GetCurrentEditableSourceFilePath(),
+                GetCurrentPreviewContent(),
+                _externalLauncher,
+                _printService);
+
+            await editorWindow.ShowDialog(this).ConfigureAwait(true);
+        }
+        catch (Exception exception)
+        {
+            _statusTextBlock.Text = string.Concat(AppStrings.Ui.ErrorPrefix, exception.Message);
+        }
+    }
+
+    private async Task OpenPrintPreviewWindowAsync()
+    {
+        try
+        {
+            var previewContent = GetCurrentPreviewContent();
+            var generatedFilePath = _uiState.LastResult?.GeneratedFilePath;
+            if (string.IsNullOrWhiteSpace(previewContent) && string.IsNullOrWhiteSpace(generatedFilePath))
+            {
+                _statusTextBlock.Text = AppStrings.Ui.NoPrintPreviewStatus;
+                RefreshActionState();
+                return;
+            }
+
+            var printPreviewWindow = new PrintPreviewWindow(
+                previewContent,
+                generatedFilePath,
+                _externalLauncher,
+                _printService);
+
+            await printPreviewWindow.ShowDialog(this).ConfigureAwait(true);
+        }
+        catch (Exception exception)
+        {
+            _statusTextBlock.Text = string.Concat(AppStrings.Ui.ErrorPrefix, exception.Message);
+        }
+    }
+
     private async Task SelectFolderAsync(TextBox targetTextBox, string title)
     {
         var topLevel = TopLevel.GetTopLevel(this);
@@ -497,6 +579,8 @@ public sealed partial class MainWindow : Window
         _openHistoryButton.IsEnabled = !isBusy;
         _openDuplicatesButton.IsEnabled = !isBusy;
         _openUtilitiesButton.IsEnabled = !isBusy;
+        _openEditorButton.IsEnabled = !isBusy;
+        _openPrintPreviewButton.IsEnabled = !isBusy;
         RefreshActionState();
     }
 
@@ -508,6 +592,7 @@ public sealed partial class MainWindow : Window
         var hasOutputFolder = !string.IsNullOrWhiteSpace(outputFolder) && Directory.Exists(outputFolder);
         var hasFilter = _uiState.ActiveFilter.Mode != FilterMode.None;
         var hasDuplicateGroups = _uiState.LastResult?.DuplicateGroups.Count > 0;
+        var hasPreviewContent = !string.IsNullOrWhiteSpace(GetCurrentPreviewContent());
 
         _generateButton.IsEnabled = !_isBusy;
         _openGeneratedFileButton.IsEnabled = !_isBusy && hasGeneratedFile;
@@ -516,6 +601,8 @@ public sealed partial class MainWindow : Window
         _openHistoryButton.IsEnabled = !_isBusy;
         _openDuplicatesButton.IsEnabled = !_isBusy && hasDuplicateGroups;
         _openUtilitiesButton.IsEnabled = !_isBusy;
+        _openEditorButton.IsEnabled = !_isBusy;
+        _openPrintPreviewButton.IsEnabled = !_isBusy && (hasGeneratedFile || hasPreviewContent);
 
         _menuOpenGeneratedFileItem.IsEnabled = !_isBusy && hasGeneratedFile;
         _menuOpenOutputFolderItem.IsEnabled = !_isBusy && hasOutputFolder;
@@ -526,6 +613,8 @@ public sealed partial class MainWindow : Window
         _menuGenerateItem.IsEnabled = !_isBusy;
         _menuCopyMoveItem.IsEnabled = !_isBusy;
         _menuReorderItem.IsEnabled = !_isBusy;
+        _menuEditorItem.IsEnabled = !_isBusy;
+        _menuPrintItem.IsEnabled = !_isBusy && (hasGeneratedFile || hasPreviewContent);
     }
 
     private OutputFormat GetSelectedOutputFormat()
@@ -540,6 +629,33 @@ public sealed partial class MainWindow : Window
         return string.IsNullOrWhiteSpace(_outputFolderTextBox.Text)
             ? _appPaths.GetDefaultOutputFolder()
             : _outputFolderTextBox.Text.Trim();
+    }
+
+    private string GetCurrentPreviewContent()
+    {
+        var content = _previewTextBox.Text ?? string.Empty;
+        return string.Equals(content, AppStrings.Ui.PreviewEmpty, StringComparison.Ordinal)
+            ? string.Empty
+            : content;
+    }
+
+    private string? GetCurrentEditableSourceFilePath()
+    {
+        var generatedFilePath = _uiState.LastResult?.GeneratedFilePath;
+        if (string.IsNullOrWhiteSpace(generatedFilePath) || !File.Exists(generatedFilePath))
+        {
+            return null;
+        }
+
+        var extension = Path.GetExtension(generatedFilePath);
+        return string.Equals(extension, AppStrings.System.TextFileExtension, StringComparison.OrdinalIgnoreCase)
+            || string.Equals(extension, AppStrings.System.MarkdownFileExtension, StringComparison.OrdinalIgnoreCase)
+            || string.Equals(extension, AppStrings.System.JsonFileExtension, StringComparison.OrdinalIgnoreCase)
+            || string.Equals(extension, AppStrings.System.CsvFileExtension, StringComparison.OrdinalIgnoreCase)
+            || string.Equals(extension, AppStrings.System.XmlFileExtension, StringComparison.OrdinalIgnoreCase)
+            || string.Equals(extension, AppStrings.System.LogFileExtension, StringComparison.OrdinalIgnoreCase)
+            ? generatedFilePath
+            : null;
     }
 
     private NativeMenuItem CreateMenuItem(string header, EventHandler onClick)

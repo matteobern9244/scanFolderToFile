@@ -187,6 +187,24 @@ public sealed class AppUiTests : IDisposable
     }
 
     [AvaloniaFact]
+    public void MainWindow_ApplyScanResult_WithGeneratedFile_EnablesPrintPreview()
+    {
+        var appPaths = new FakeAppPaths(_tempRoot);
+        var outputFolder = appPaths.GetDefaultOutputFolder();
+        var generatedPath = Path.Combine(outputFolder, AppStrings.Files.OutputTextFileName);
+        File.WriteAllText(generatedPath, "contenuto");
+
+        var window = CreateMainWindow(appPaths);
+        window.ApplyScanResult(new ScanResult
+        {
+            GeneratedFilePath = generatedPath,
+            CollectedItems = new[] { "contenuto" },
+        });
+
+        window.CanOpenPrintPreview.Should().BeTrue();
+    }
+
+    [AvaloniaFact]
     public void HistoryWindow_WithMissingFile_DisablesOpenButton()
     {
         var window = new HistoryWindow(
@@ -242,6 +260,27 @@ public sealed class AppUiTests : IDisposable
         window.FindControl<Button>(AppStrings.Ui.DuplicatesOpenFolderButtonName)!.IsEnabled.Should().BeTrue();
     }
 
+    [AvaloniaFact]
+    public void EditorWindow_WhenCreatedWithTextFile_LoadsFileContent()
+    {
+        var filePath = Path.Combine(_tempRoot, "note.txt");
+        File.WriteAllText(filePath, "ciao editor");
+
+        var window = new EditorWindow(filePath, string.Empty, new FakeExternalLauncher(), new FakePrintService());
+
+        window.CurrentDocumentText.Should().Be("ciao editor");
+        window.CanSaveDirectly.Should().BeTrue();
+    }
+
+    [AvaloniaFact]
+    public void PrintPreviewWindow_WhenCreatedWithoutContent_DisablesPrint()
+    {
+        var window = new PrintPreviewWindow(string.Empty, null, new FakeExternalLauncher(), new FakePrintService());
+
+        window.CurrentPreviewText.Should().Be(AppStrings.Ui.PrintPreviewNoContent);
+        window.CanPrint.Should().BeFalse();
+    }
+
     public void Dispose()
     {
         if (Directory.Exists(_tempRoot))
@@ -256,7 +295,9 @@ public sealed class AppUiTests : IDisposable
             new FakeScanService(),
             appPaths,
             new FakeHistoryStore(),
-            new FakeExternalLauncher());
+            new FakeExternalLauncher(),
+            new FakeFileOperationsService(),
+            new FakePrintService());
     }
 
     private sealed class FakeScanService : IScanService
@@ -337,6 +378,19 @@ public sealed class AppUiTests : IDisposable
         }
 
         public Task OpenFolderAsync(string path, CancellationToken cancellationToken = default)
+        {
+            return Task.CompletedTask;
+        }
+    }
+
+    private sealed class FakePrintService : IPrintService
+    {
+        public Task PrintFileAsync(string filePath, CancellationToken cancellationToken = default)
+        {
+            return Task.CompletedTask;
+        }
+
+        public Task PrintTextAsync(string content, CancellationToken cancellationToken = default)
         {
             return Task.CompletedTask;
         }

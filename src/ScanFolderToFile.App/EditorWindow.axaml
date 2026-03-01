@@ -1,0 +1,41 @@
+<Window
+    x:Class="ScanFolderToFile.App.EditorWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Width="980"
+    Height="760"
+    MinWidth="860"
+    MinHeight="640"
+    Background="#F4F1EA"
+    RequestedThemeVariant="Light"
+    Icon="/Assets/Deleket-Sleek-Xp-Basic-Files.ico">
+  <Grid Margin="22" RowDefinitions="Auto,Auto,Auto,*" RowSpacing="16">
+    <Border Grid.Row="0" Padding="18" Background="#173F35" CornerRadius="18">
+      <TextBlock x:Name="EditorPathTextBlock" FontSize="15" FontWeight="SemiBold" TextWrapping="Wrap" Foreground="#F8F6F1" />
+    </Border>
+
+    <Border Grid.Row="1" Padding="16,14" Background="#FFFDF8" BorderBrush="#D7CFBE" BorderThickness="1" CornerRadius="18">
+      <TextBlock x:Name="EditorStatusTextBlock" FontSize="14" TextWrapping="Wrap" Foreground="#4F5A57" />
+    </Border>
+
+    <Border Grid.Row="2" Padding="18" Background="#FFFDF8" BorderBrush="#D7CFBE" BorderThickness="1" CornerRadius="18">
+      <StackPanel Orientation="Horizontal" Spacing="12">
+        <Button x:Name="EditorOpenButton" Height="42" MinWidth="120" Background="#173F35" Foreground="#F8F6F1" />
+        <Button x:Name="EditorSaveButton" Height="42" MinWidth="120" Background="#D98E04" Foreground="#FFF9EE" FontWeight="SemiBold" />
+        <Button x:Name="EditorSaveAsButton" Height="42" MinWidth="140" Background="#173F35" Foreground="#F8F6F1" />
+        <Button x:Name="EditorPrintPreviewButton" Height="42" MinWidth="160" Background="#173F35" Foreground="#F8F6F1" />
+        <Button x:Name="EditorCloseButton" Height="42" MinWidth="120" Background="#173F35" Foreground="#F8F6F1" />
+      </StackPanel>
+    </Border>
+
+    <Border Grid.Row="3" Padding="18" Background="#FFFDF8" BorderBrush="#D7CFBE" BorderThickness="1" CornerRadius="18">
+      <TextBox
+          x:Name="EditorTextBox"
+          AcceptsReturn="True"
+          TextWrapping="Wrap"
+          VerticalContentAlignment="Top"
+          Background="#F7F3EA"
+          BorderThickness="0" />
+    </Border>
+  </Grid>
+</Window>

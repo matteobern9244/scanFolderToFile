@@ -57,6 +57,7 @@ public static class AppStrings
         public const string DotNetExecutableName = "dotnet";
         public const string CommandExtension = ".command";
         public const string MacOpenCommandName = "open";
+        public const string MacPrintCommandName = "lp";
         public const string IsoDateFormat = "yyyy-MM-dd";
         public const string NameValueSeparator = ": ";
         public const string ListSeparator = ", ";
@@ -68,6 +69,15 @@ public static class AppStrings
         public const string OpenParenthesisWithLeadingSpace = " (";
         public const string CloseParenthesis = ")";
         public const string PathSeparator = "/";
+        public const string TextFileExtension = ".txt";
+        public const string MarkdownFileExtension = ".md";
+        public const string PdfFileExtension = ".pdf";
+        public const string JsonFileExtension = ".json";
+        public const string CsvFileExtension = ".csv";
+        public const string XmlFileExtension = ".xml";
+        public const string LogFileExtension = ".log";
+        public const string TempPrintFilePrefix = "scanfolder-print-";
+        public const string GuidCompactFormat = "N";
     }
 
     public static class Ui
@@ -96,6 +106,8 @@ public static class AppStrings
         public const string OpenHistoryButtonName = "OpenHistoryButton";
         public const string OpenDuplicatesButtonName = "OpenDuplicatesButton";
         public const string OpenUtilitiesButtonName = "OpenUtilitiesButton";
+        public const string OpenEditorButtonName = "OpenEditorButton";
+        public const string OpenPrintPreviewButtonName = "OpenPrintPreviewButton";
         public const string StatusTitleTextBlockName = "StatusTitleTextBlock";
         public const string StatusTextBlockName = "StatusTextBlock";
         public const string ResultTitleTextBlockName = "ResultTitleTextBlock";
@@ -124,6 +136,22 @@ public static class AppStrings
         public const string DuplicatesOpenFileButtonName = "DuplicatesOpenFileButton";
         public const string DuplicatesOpenFolderButtonName = "DuplicatesOpenFolderButton";
         public const string DuplicatesEmptyTextBlockName = "DuplicatesEmptyTextBlock";
+
+        public const string EditorPathTextBlockName = "EditorPathTextBlock";
+        public const string EditorStatusTextBlockName = "EditorStatusTextBlock";
+        public const string EditorTextBoxName = "EditorTextBox";
+        public const string EditorOpenButtonName = "EditorOpenButton";
+        public const string EditorSaveButtonName = "EditorSaveButton";
+        public const string EditorSaveAsButtonName = "EditorSaveAsButton";
+        public const string EditorPrintPreviewButtonName = "EditorPrintPreviewButton";
+        public const string EditorCloseButtonName = "EditorCloseButton";
+
+        public const string PrintPreviewSummaryTextBlockName = "PrintPreviewSummaryTextBlock";
+        public const string PrintPreviewStatusTextBlockName = "PrintPreviewStatusTextBlock";
+        public const string PrintPreviewTextBoxName = "PrintPreviewTextBox";
+        public const string PrintPreviewPrintButtonName = "PrintPreviewPrintButton";
+        public const string PrintPreviewOpenFileButtonName = "PrintPreviewOpenFileButton";
+        public const string PrintPreviewCloseButtonName = "PrintPreviewCloseButton";
 
         public const string FilterWindowModeLabelTextBlockName = "FilterWindowModeLabelTextBlock";
         public const string FilterNoneRadioButtonName = "FilterNoneRadioButton";
@@ -171,6 +199,8 @@ public static class AppStrings
         public const string OpenHistoryButtonText = "Storico...";
         public const string OpenDuplicatesButtonText = "Duplicati...";
         public const string OpenUtilitiesButtonText = "Utility...";
+        public const string OpenEditorButtonText = "Editor...";
+        public const string OpenPrintPreviewButtonText = "Stampa...";
         public const string StatusTitle = "Stato";
         public const string ResultTitle = "Risultato";
         public const string PreviewTitle = "Preview";
@@ -190,6 +220,8 @@ public static class AppStrings
         public const string PreviewEmpty = "Nessun risultato ancora disponibile.";
         public const string NoFilterSummary = "Nessun filtro";
         public const string NoDuplicatesStatus = "Nessun gruppo duplicato disponibile per questa esecuzione.";
+        public const string NoEditorSourceStatus = "Nessun file testuale disponibile: usa Apri per caricare un documento.";
+        public const string NoPrintPreviewStatus = "Nessun contenuto disponibile da inviare alla stampa.";
         public const string InvalidDecimalPrefix = "Valore numerico non valido: ";
         public const string InvalidDatePrefix = "Data non valida: ";
         public const string MissingControlPrefix = "Missing control: ";
@@ -292,5 +324,33 @@ public static class AppStrings
         public const string DuplicatesMissingFolderStatus = "La cartella del duplicato selezionato non e' disponibile.";
         public const string DuplicatesSummaryPrefix = "Gruppi duplicati trovati: ";
         public const string DuplicatesSelectedPrefix = "Duplicato selezionato: ";
+
+        public const string EditorWindowTitle = "Editor interno";
+        public const string EditorNoFileLoaded = "Nessun file caricato.";
+        public const string EditorLoadedFromFilePrefix = "File caricato: ";
+        public const string EditorLoadedFromPreviewStatus = "Preview caricata come documento modificabile.";
+        public const string EditorUnsupportedFileStatus = "Il file selezionato non e' un formato testuale modificabile. Usa Salva come per esportare il contenuto.";
+        public const string EditorOpenButtonText = "Apri...";
+        public const string EditorSaveButtonText = "Salva";
+        public const string EditorSaveAsButtonText = "Salva come...";
+        public const string EditorPrintPreviewButtonText = "Anteprima di stampa";
+        public const string EditorCloseButtonText = "Chiudi";
+        public const string EditorSavedStatus = "Documento salvato.";
+        public const string EditorOpenDialogTitle = "Seleziona un file testuale da modificare";
+        public const string EditorSaveDialogTitle = "Salva il documento modificato";
+        public const string EditorSuggestedSaveName = "documento.txt";
+        public const string EditorUntitledLabel = "Documento non salvato";
+
+        public const string PrintPreviewWindowTitle = "Anteprima di stampa";
+        public const string PrintPreviewSummaryPrefix = "Documento";
+        public const string PrintPreviewFromFileSuffix = "file reale";
+        public const string PrintPreviewFromBufferSuffix = "buffer interno";
+        public const string PrintPreviewReadyStatus = "Controlla l'anteprima e premi Stampa per inviare il documento alla stampante di default.";
+        public const string PrintPreviewPrintedStatus = "Documento inviato alla stampante di default.";
+        public const string PrintPreviewOpenFileButtonText = "Apri file";
+        public const string PrintPreviewPrintButtonText = "Stampa";
+        public const string PrintPreviewCloseButtonText = "Chiudi";
+        public const string PrintPreviewMissingFileStatus = "Il file associato all'anteprima non e' disponibile.";
+        public const string PrintPreviewNoContent = "Nessun contenuto disponibile per l'anteprima.";
     }
 }
