@@ -16,13 +16,16 @@ specific to Claude Code.
 - `global.json` pins SDK `10.0.103` (`rollForward: latestPatch`).
 - `start_scanfolder.command` looks for `dotnet` in this order: `~/.dotnet/dotnet`,
   `./.dotnet/dotnet` (git-ignored local SDK), then `PATH`.
-- `ScanFolderToFile.App` and `ScanFolderToFile.App.Tests` reference `Microsoft.macOS.dll` through a
-  `HintPath` inside `./.dotnet/packs/`: the App build needs that local SDK with the macOS pack.
-  If `dotnet` is missing, say so and stop instead of guessing a workaround.
+- `ScanFolderToFile.App` and `ScanFolderToFile.App.Tests` set `UseMacOSBindings=true`; `Directory.Build.props`
+  then downloads the `Microsoft.macOS.Runtime.osx.net10.0_*` NuGet package at restore and references its
+  `Microsoft.macOS.dll` (no `macos` workload needed). Change its version only there.
+- `ScanFolderToFile.App.Tests` runs on xunit v3; `ScanFolderToFile.Core.Tests` is still on xunit 2.
+- If `dotnet` is missing, say so and stop instead of guessing a workaround.
 
 ## Validation
 
-Run from the repository root, smallest scope first:
+Run from the repository root, smallest scope first. When `dotnet` is not on `PATH`, use the local SDK:
+`export DOTNET_ROOT="$PWD/.dotnet"` and call `./.dotnet/dotnet` in place of `dotnet`.
 
 - `dotnet build ScanFolderToFile.Modern.sln`
 - `dotnet test ScanFolderToFile.Modern.sln`

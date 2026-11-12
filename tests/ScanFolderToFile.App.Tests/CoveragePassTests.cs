@@ -74,7 +74,7 @@ public sealed class CoveragePassTests : IDisposable
         var historyItem = new HistoryListItem("alpha.txt", "txt", new DateTime(2026, 3, 1, 9, 0, 0), existingFilePath, true);
         var duplicateItem = new DuplicateFileListItem("alpha", existingFilePath);
 
-        historyItem.CreatedAtDisplay.Should().Contain("2026");
+        historyItem.CreatedAtDisplay.Should().Be("01/03/2026 09:00:00");
         historyItem.ExistsLabel.Should().Be(AppStrings.System.FileExistsLabel);
         historyItem.DisplayText.Should().Contain("alpha.txt");
         duplicateItem.FileName.Should().Be("alpha.txt");
@@ -103,8 +103,8 @@ public sealed class CoveragePassTests : IDisposable
         var scriptPath = await CreateCommandScriptAsync("open-stub.sh", "#!/usr/bin/env bash\nexit 0\n");
         var launcher = new MacExternalLauncher(scriptPath);
 
-        await launcher.OpenFileAsync("/tmp/example.txt");
-        await launcher.OpenFolderAsync("/tmp");
+        await launcher.OpenFileAsync("/tmp/example.txt", TestContext.Current.CancellationToken);
+        await launcher.OpenFolderAsync("/tmp", TestContext.Current.CancellationToken);
 
         var action = async () => await launcher.OpenFileAsync(" ");
         await action.Should().ThrowAsync<ArgumentException>();
@@ -116,10 +116,10 @@ public sealed class CoveragePassTests : IDisposable
         var scriptPath = await CreateCommandScriptAsync("lp-stub.sh", "#!/usr/bin/env bash\nexit 0\n");
         var service = new MacPrintService(scriptPath);
         var filePath = Path.Combine(_tempRoot, "print.txt");
-        await File.WriteAllTextAsync(filePath, "print");
+        await File.WriteAllTextAsync(filePath, "print", TestContext.Current.CancellationToken);
 
-        await service.PrintFileAsync(filePath);
-        await service.PrintTextAsync("buffer");
+        await service.PrintFileAsync(filePath, TestContext.Current.CancellationToken);
+        await service.PrintTextAsync("buffer", TestContext.Current.CancellationToken);
 
         using var cancellationSource = new CancellationTokenSource();
         cancellationSource.Cancel();
@@ -148,12 +148,31 @@ public sealed class CoveragePassTests : IDisposable
 
         var dateWindow = new FilterWindow(FilterDialogResult.CreateNone());
         dateWindow.FindControl<RadioButton>(AppStrings.Ui.FilterDateRadioButtonName)!.IsChecked = true;
-        dateWindow.FindControl<TextBox>(AppStrings.Ui.FilterStartDateTextBoxName)!.Text = "2026-03-05";
-        dateWindow.FindControl<TextBox>(AppStrings.Ui.FilterEndDateTextBoxName)!.Text = "2026-03-01";
+        dateWindow.FindControl<TextBox>(AppStrings.Ui.FilterStartDateTextBoxName)!.Text = "05/03/2026";
+        dateWindow.FindControl<TextBox>(AppStrings.Ui.FilterEndDateTextBoxName)!.Text = "01/03/2026";
 
         var invalidAction = () => InvokeNonPublic<FilterDialogResult>(dateWindow, "BuildResult");
         invalidAction.Should().Throw<TargetInvocationException>()
             .Where(exception => exception.InnerException is InvalidOperationException);
+    }
+
+    [AvaloniaFact]
+    public void FilterWindow_DateRange_UsesDayMonthYearFormat()
+    {
+        var window = new FilterWindow(FilterDialogResult.CreateDateRange(new DateTime(2026, 3, 5), new DateTime(2026, 3, 9)));
+        var startDateTextBox = window.FindControl<TextBox>(AppStrings.Ui.FilterStartDateTextBoxName)!;
+        var endDateTextBox = window.FindControl<TextBox>(AppStrings.Ui.FilterEndDateTextBoxName)!;
+
+        startDateTextBox.Text.Should().Be("05/03/2026");
+        endDateTextBox.Text.Should().Be("09/03/2026");
+
+        startDateTextBox.Text = "02/03/2026";
+        endDateTextBox.Text = "11/03/2026";
+        var result = InvokeNonPublic<FilterDialogResult>(window, "BuildResult");
+
+        result.Mode.Should().Be(FilterMode.DateRange);
+        result.Filter!.StartDate.Should().Be(new DateTime(2026, 3, 2));
+        result.Filter.EndDate.Should().Be(new DateTime(2026, 3, 11));
     }
 
     [AvaloniaFact]

@@ -3,13 +3,12 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Width="560"
-    Height="420"
     MinWidth="560"
-    MinHeight="420"
     CanResize="False"
+    SizeToContent="Height"
     RequestedThemeVariant="Light"
     Icon="/Assets/Deleket-Sleek-Xp-Basic-Files.ico">
-  <Grid Margin="20" RowDefinitions="Auto,Auto,Auto,Auto,*" RowSpacing="16">
+  <Grid Margin="20" RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="16">
     <TextBlock x:Name="FilterWindowModeLabelTextBlock" Grid.Row="0" Classes="section-title" />
 
     <StackPanel Grid.Row="1" Spacing="10">
@@ -32,12 +31,12 @@
       <TextBox x:Name="FilterEndDateTextBox" Grid.Column="3" Classes="surface" />
     </Grid>
 
-    <Grid Grid.Row="4" RowDefinitions="Auto,*,Auto" RowSpacing="12">
+    <Grid Grid.Row="4" RowDefinitions="Auto,Auto,Auto" RowSpacing="12">
       <TextBlock x:Name="FilterDateHintTextBlock" Grid.Row="0" FontSize="12" FontWeight="Medium" Foreground="{DynamicResource MutedForegroundBrush}" />
       <Border Grid.Row="1" Padding="14,12" Classes="card" CornerRadius="14">
         <TextBlock x:Name="FilterStatusTextBlock" Classes="subtle-copy" />
       </Border>
-      <Grid Grid.Row="2" ColumnDefinitions="*,*,*" ColumnSpacing="12">
+      <Grid Grid.Row="2" Classes="button-row" ColumnDefinitions="*,*,*" ColumnSpacing="12">
         <Button x:Name="FilterApplyButton" Grid.Column="0" Classes="primary" />
         <Button x:Name="FilterClearButton" Grid.Column="1" Classes="secondary" />
         <Button x:Name="FilterCancelButton" Grid.Column="2" Classes="tertiary" />

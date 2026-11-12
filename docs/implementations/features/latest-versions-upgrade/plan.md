@@ -29,10 +29,10 @@ Re-check the numbers when a slice starts: they move.
 
 | | state |
 |---|---|
-| **P1** decide the scope: current majors only, or .NET 11 + Avalonia 12 + xunit v3 | 📋 not started — Manual decision |
+| **P1** decide the scope: current majors only, or .NET 11 + Avalonia 12 + xunit v3 | ✅ — 2026-11-12, the user chose the latest majors: .NET 11, Avalonia 12, xunit v3 |
 | **P2** SDK + `global.json` (+ TFM if .NET 11) | 📋 not started |
-| **P3** test stack: Test.Sdk, runner, coverlet, FluentAssertions (xunit v3 if Avalonia 12) | 📋 not started |
-| **P4** Avalonia | 📋 not started |
+| **P3** test stack: Test.Sdk, runner, coverlet, FluentAssertions (xunit v3 if Avalonia 12) | ⏳ — App.Tests on `xunit.v3` 3.2.2 (the version `Avalonia.Headless.XUnit` 12.1.6 is built on; 4.x not used); Core.Tests still xunit 2; Test.Sdk, runner, coverlet, FluentAssertions not bumped |
+| **P4** Avalonia | ✅ — 12.1.6; build clean, App tests green; checked by screenshot (layout defects in [[BKLG-008]]); regression found and fixed: Avalonia 12 no longer sets the Dock icon from `Window.Icon`, now set at startup by `MacDockIconService`, and the bundle gets an `.icns` |
 | **P5** QuestPDF (check the exporter output and the Community licence setting) | 📋 not started |
-| **P6** macOS runtime pack | 📋 not started |
-| **P7** `README.md`, `CHANGELOG.md`, `CLAUDE.md` | 📋 not started |
+| **P6** macOS runtime pack | ✅ — `Microsoft.macOS.Runtime.osx.net10.0_26.5` 26.5.10318 (latest for net10.0), see [[BKLG-001]] P3 |
+| **P7** `README.md`, `CHANGELOG.md`, `CLAUDE.md` | ⏳ — updated for the Avalonia 12 / xunit v3 / macOS pack slice; to repeat for each next slice |

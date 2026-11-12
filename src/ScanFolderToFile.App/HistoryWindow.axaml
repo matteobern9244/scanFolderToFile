@@ -13,7 +13,7 @@
       <TextBlock x:Name="HistoryStatusTextBlock" Classes="subtle-copy" />
     </Border>
 
-    <Grid Grid.Row="1" ColumnDefinitions="*,*,*" ColumnSpacing="12">
+    <Grid Grid.Row="1" Classes="button-row" ColumnDefinitions="*,*,*" ColumnSpacing="12">
       <Button x:Name="HistoryOpenButton" Grid.Column="0" Classes="secondary" />
       <Button x:Name="HistoryOpenFolderButton" Grid.Column="1" Classes="secondary" />
       <Button x:Name="HistoryRefreshButton" Grid.Column="2" Classes="primary" />

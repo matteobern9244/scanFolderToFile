@@ -2,14 +2,9 @@
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <IsPackable>false</IsPackable>
+    <OutputType>Exe</OutputType>
+    <UseMacOSBindings>true</UseMacOSBindings>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Reference Include="Microsoft.macOS">
-      <HintPath>../../.dotnet/packs/Microsoft.macOS.Runtime.osx.net10.0_26.2/26.2.10197/runtimes/osx/lib/net10.0/Microsoft.macOS.dll</HintPath>
-      <Private>true</Private>
-    </Reference>
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Avalonia.Headless" />
@@ -20,7 +15,7 @@
     </PackageReference>
     <PackageReference Include="FluentAssertions" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
-    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.v3" />
     <PackageReference Include="xunit.runner.visualstudio" />
   </ItemGroup>
 

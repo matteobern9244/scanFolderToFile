@@ -32,7 +32,7 @@
 
         <TextBlock x:Name="DuplicatesEmptyTextBlock" Grid.Row="0" IsVisible="False" Classes="body-copy" />
 
-        <Grid Grid.Row="1" ColumnDefinitions="*,*" ColumnSpacing="12">
+        <Grid Grid.Row="1" Classes="button-row" ColumnDefinitions="*,*" ColumnSpacing="12">
           <Button x:Name="DuplicatesOpenFileButton" Grid.Column="0" Classes="secondary" />
           <Button x:Name="DuplicatesOpenFolderButton" Grid.Column="1" Classes="secondary" />
         </Grid>

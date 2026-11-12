@@ -27,20 +27,20 @@
       <Grid Grid.Row="2" ColumnDefinitions="1.05*,0.95*" ColumnSpacing="18">
         <StackPanel Grid.Column="0" Spacing="18">
           <Border Padding="20" Classes="card">
-            <Grid ColumnDefinitions="124,*,132" RowDefinitions="Auto,Auto" ColumnSpacing="12" RowSpacing="10">
+            <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="12" RowSpacing="10">
               <TextBlock x:Name="SourceFolderLabelTextBlock" Grid.Row="0" Grid.Column="0" Classes="field-label" VerticalAlignment="Center" />
               <TextBox x:Name="SourceFolderTextBox" Grid.Row="0" Grid.Column="1" Classes="surface" />
-              <Button x:Name="BrowseSourceButton" Grid.Row="0" Grid.Column="2" Classes="secondary" Width="132" />
+              <Button x:Name="BrowseSourceButton" Grid.Row="0" Grid.Column="2" Classes="secondary" />
 
               <TextBlock x:Name="OutputFolderLabelTextBlock" Grid.Row="1" Grid.Column="0" Classes="field-label" VerticalAlignment="Center" />
               <TextBox x:Name="OutputFolderTextBox" Grid.Row="1" Grid.Column="1" Classes="surface" />
-              <Button x:Name="BrowseOutputButton" Grid.Row="1" Grid.Column="2" Classes="secondary" Width="132" />
+              <Button x:Name="BrowseOutputButton" Grid.Row="1" Grid.Column="2" Classes="secondary" />
             </Grid>
           </Border>
 
           <Border Padding="20" Classes="card">
             <StackPanel Spacing="16">
-              <Grid ColumnDefinitions="124,*" ColumnSpacing="12">
+              <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
                 <TextBlock x:Name="OutputFormatLabelTextBlock" Grid.Column="0" Classes="field-label" VerticalAlignment="Center" />
                 <ComboBox x:Name="OutputFormatComboBox" Grid.Column="1" Classes="surface" />
               </Grid>
@@ -62,19 +62,16 @@
 
           <Border Padding="20" Classes="card">
             <StackPanel Spacing="12">
-              <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="12">
-                <Button x:Name="GenerateButton" Grid.Column="0" Classes="primary" />
-                <Button x:Name="OpenGeneratedFileButton" Grid.Column="1" Classes="secondary" />
-                <Button x:Name="OpenOutputFolderButton" Grid.Column="2" Classes="secondary" />
-                <Button x:Name="OpenFiltersButton" Grid.Column="3" Classes="secondary" />
-              </Grid>
-
-              <Grid ColumnDefinitions="*,*,*,*,*" ColumnSpacing="12">
-                <Button x:Name="OpenHistoryButton" Grid.Column="0" Classes="secondary" />
-                <Button x:Name="OpenDuplicatesButton" Grid.Column="1" Classes="secondary" />
-                <Button x:Name="OpenUtilitiesButton" Grid.Column="2" Classes="secondary" />
-                <Button x:Name="OpenEditorButton" Grid.Column="3" Classes="secondary" />
-                <Button x:Name="OpenPrintPreviewButton" Grid.Column="4" Classes="secondary" />
+              <Grid Classes="button-row" ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="12" RowSpacing="12">
+                <Button x:Name="GenerateButton" Grid.Row="0" Grid.Column="0" Classes="primary" />
+                <Button x:Name="OpenGeneratedFileButton" Grid.Row="0" Grid.Column="1" Classes="secondary" />
+                <Button x:Name="OpenOutputFolderButton" Grid.Row="0" Grid.Column="2" Classes="secondary" />
+                <Button x:Name="OpenFiltersButton" Grid.Row="1" Grid.Column="0" Classes="secondary" />
+                <Button x:Name="OpenHistoryButton" Grid.Row="1" Grid.Column="1" Classes="secondary" />
+                <Button x:Name="OpenDuplicatesButton" Grid.Row="1" Grid.Column="2" Classes="secondary" />
+                <Button x:Name="OpenUtilitiesButton" Grid.Row="2" Grid.Column="0" Classes="secondary" />
+                <Button x:Name="OpenEditorButton" Grid.Row="2" Grid.Column="1" Classes="secondary" />
+                <Button x:Name="OpenPrintPreviewButton" Grid.Row="2" Grid.Column="2" Classes="secondary" />
               </Grid>
             </StackPanel>
           </Border>

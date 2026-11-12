@@ -72,7 +72,7 @@ public static class AppStrings
         public const string SelectorAlignCenter = "alignCenter:";
         public const string SelectorAlignRight = "alignRight:";
         public const string SelectorOrderFrontFontPanel = "orderFrontFontPanel:";
-        public const string IsoDateFormat = "yyyy-MM-dd";
+        public const string DateFormat = "dd/MM/yyyy";
         public const string NameValueSeparator = ": ";
         public const string ListSeparator = ", ";
         public const string NewLine = "\n";
@@ -93,6 +93,23 @@ public static class AppStrings
         public const string LogFileExtension = ".log";
         public const string TempPrintFilePrefix = "scanfolder-print-";
         public const string GuidCompactFormat = "N";
+    }
+
+    public static class MacNative
+    {
+        public const string ObjCRuntimeLibrary = "/usr/lib/libobjc.A.dylib";
+        public const string AppKitFramework = "/System/Library/Frameworks/AppKit.framework/AppKit";
+        public const string ObjCMessageSend = "objc_msgSend";
+        public const string NSApplicationClass = "NSApplication";
+        public const string NSDataClass = "NSData";
+        public const string NSImageClass = "NSImage";
+        public const string AllocSelector = "alloc";
+        public const string ReleaseSelector = "release";
+        public const string SharedApplicationSelector = "sharedApplication";
+        public const string InitWithBytesLengthSelector = "initWithBytes:length:";
+        public const string InitWithDataSelector = "initWithData:";
+        public const string SetApplicationIconImageSelector = "setApplicationIconImage:";
+        public const string AppIconResourceUri = "avares://ScanFolderToFile/Assets/Deleket-Sleek-Xp-Basic-Files.ico";
     }
 
     public static class Ui
@@ -251,7 +268,7 @@ public static class AppStrings
         public const string PreviewDuplicatesTitle = "Gruppi duplicati";
         public const string PreviewWarningsTitle = "Warning";
         public const string ResultUnavailableValue = "non disponibile";
-        public const string HistoryDateFormat = "yyyy-MM-dd HH:mm:ss";
+        public const string HistoryDateFormat = "dd/MM/yyyy HH:mm:ss";
         public const string OutputFormatTxtLabel = "TXT";
         public const string OutputFormatPdfLabel = "PDF";
         public const string OutputFormatMarkdownLabel = "Markdown";
@@ -269,7 +286,7 @@ public static class AppStrings
         public const string FilterMaxSizeLabel = "Max MB";
         public const string FilterStartDateLabel = "Data inizio";
         public const string FilterEndDateLabel = "Data fine";
-        public const string FilterDateHint = "Formato data: yyyy-MM-dd";
+        public const string FilterDateHint = "Formato data: dd/MM/yyyy";
         public const string FilterStatusReady = "Configura il filtro e premi Applica.";
         public const string FilterStatusMissingSizeValue = "Inserisci almeno un limite di dimensione.";
         public const string FilterStatusMissingDateValue = "Inserisci almeno una data.";

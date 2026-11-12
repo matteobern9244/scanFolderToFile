@@ -98,6 +98,13 @@
       <Setter Property="HorizontalContentAlignment" Value="Center" />
       <Setter Property="VerticalContentAlignment" Value="Center" />
     </Style>
+    <Style Selector="Button /template/ ContentPresenter">
+      <Setter Property="TextWrapping" Value="Wrap" />
+      <Setter Property="TextAlignment" Value="Center" />
+    </Style>
+    <Style Selector="Grid.button-row > Button">
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+    </Style>
     <Style Selector="Button:disabled">
       <Setter Property="Opacity" Value="0.6" />
     </Style>

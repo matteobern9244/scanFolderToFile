@@ -35,6 +35,15 @@ Questo changelog segue il formato di [Keep a Changelog](https://keepachangelog.c
 
 ### Changed
 
+- Avalonia aggiornato da `11.3.9` a `12.1.6`: risolve il blocco del restore causato dalla vulnerabilita' nota di `Tmds.DBus.Protocol` `0.21.2` (GHSA-xrw6-gwf8-vvr9, NU1903)
+- `ScanFolderToFile.App.Tests` migrato a xunit v3 (`xunit.v3` `3.2.2`, richiesto da `Avalonia.Headless.XUnit` 12) con `TestContext.Current.CancellationToken` nelle chiamate annullabili
+- Il riferimento a `Microsoft.macOS.dll` non punta piu' a una cartella locale `.dotnet/packs` a versione fissa: il pacchetto `Microsoft.macOS.Runtime.osx.net10.0_26.5` `26.5.10318` viene scaricato dal restore tramite `Directory.Build.props`, senza workload `macos` (verificato in locale; esecuzione in CI ancora da fare)
+- Aggiunti `CLAUDE.md` e il backlog del repository in `docs/implementations/`
+- Date nel formato `dd/MM/yyyy`: inserimento e riepilogo dei filtri (suggerimento "Formato data: dd/MM/yyyy") e storico dei file creati (`dd/MM/yyyy HH:mm:ss`), sempre con la barra come separatore
+- Layout delle finestre macOS: i testi dei pulsanti vanno a capo invece di essere tagliati, i pulsanti delle righe di azione occupano tutta la colonna, i nove pulsanti principali sono su una griglia 3x3, le colonne di etichette e pulsanti "Seleziona cartella..." / "SFOGLIA" si adattano al contenuto, la finestra Filtri si dimensiona sul contenuto
+- Icona dell'app nel Dock ripristinata: Avalonia 12 non la ricava piu' da `Window.Icon`, quindi `MacDockIconService` la imposta all'avvio tramite il runtime Objective-C
+- `scripts/create_macos_bundle.sh` genera `Deleket-Sleek-Xp-Basic-Files.icns` dall'icona legacy e `Info.plist` la usa come `CFBundleIconFile`
+- `README.md` riallineato allo stato reale: Avalonia 12, bridge AppKit non attivo, backlog, formato date, icona
 - Formalizzata la policy operativa del repository: prima di ogni `commit` e `push` vanno aggiornati `README.md` e `CHANGELOG.md`, ed eseguito `dotnet format`
 - Formalizzato in `AGENTS.md` il target di copertura desiderato: `100%` line e `100%` branch per il codice moderno
 - `MacExternalLauncher` e `MacPrintService` sono ora testabili con un comando iniettabile per consentire test affidabili sui wrapper macOS

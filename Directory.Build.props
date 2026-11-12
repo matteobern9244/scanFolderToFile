@@ -8,4 +8,19 @@
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
   </PropertyGroup>
+
+  <!-- AppKit bindings for the native editor/print bridge: the runtime pack is downloaded by restore, no workload needed. -->
+  <PropertyGroup Condition="'$(UsingMicrosoftNETSdk)' == 'true'">
+    <MacOSRuntimePackageId>Microsoft.macOS.Runtime.osx.net10.0_26.5</MacOSRuntimePackageId>
+    <MacOSRuntimePackageVersion>26.5.10318</MacOSRuntimePackageVersion>
+    <MacOSRuntimePackageTargetFramework>net10.0</MacOSRuntimePackageTargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(UsingMicrosoftNETSdk)' == 'true' and '$(UseMacOSBindings)' == 'true'">
+    <PackageDownload Include="$(MacOSRuntimePackageId)" Version="[$(MacOSRuntimePackageVersion)]" />
+    <Reference Include="Microsoft.macOS">
+      <HintPath>$(NuGetPackageRoot)$(MacOSRuntimePackageId.ToLowerInvariant())/$(MacOSRuntimePackageVersion)/runtimes/osx/lib/$(MacOSRuntimePackageTargetFramework)/Microsoft.macOS.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+  </ItemGroup>
 </Project>

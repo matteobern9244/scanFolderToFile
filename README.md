@@ -3,9 +3,11 @@
 ScanFolderToFile e' un repository in transizione:
 
 - contiene l'applicazione storica WinForms per Windows basata su .NET Framework 4.8
-- contiene la nuova base moderna per il porting macOS, basata su .NET 10 e Avalonia
+- contiene la nuova base moderna per il porting macOS, basata su .NET 10 e Avalonia 12
 
-L'obiettivo finale e' mantenere la parita' funzionale tra Windows e macOS. I cinque step del porting sono ora implementati: core cross-platform, UI macOS completa del flusso principale, utility operative, editor interno, stampa/anteprima, packaging `.app` self-contained, test rigorosi, quality gates e CI/CD separata dalla pipeline legacy.
+L'obiettivo finale e' mantenere la parita' funzionale tra Windows e macOS. I cinque step del porting sono implementati: core cross-platform, UI macOS completa del flusso principale, utility operative, editor interno, stampa/anteprima, packaging `.app` self-contained, test, quality gates e CI/CD separata dalla pipeline legacy.
+
+Il lavoro aperto (difetti noti, aggiornamenti, verifiche in sospeso) e' tracciato nel backlog: `docs/implementations/BACKLOG.md`.
 
 ## Stato Del Repository
 
@@ -27,6 +29,7 @@ La nuova base di lavoro e' gia presente:
 - `src/ScanFolderToFile.App`: applicazione desktop Avalonia per macOS
 - `tests/ScanFolderToFile.Core.Tests`: unit test e integration test sul core
 - `tests/ScanFolderToFile.App.Tests`: test UI headless sull'app macOS
+- `docs/implementations/`: backlog del repository (`BACKLOG.md`, `BACKLOG-HISTORY.md`) e piani di dettaglio
 
 ## Cosa E' Gia Stato Implementato Nei Piani 1, 2, 3, 4 E 5
 
@@ -52,8 +55,10 @@ La nuova base moderna include:
   - `src/ScanFolderToFile.Core/Constants/AppAssets.cs`
 - costanti di build e quality gate in:
   - `src/ScanFolderToFile.Core/Constants/AppBuild.cs`
-- applicazione Avalonia lanciabile con rendering software stabile su macOS
-- rifinitura UI condivisa con stili centralizzati e layout allineati tra finestre, testi e pulsanti
+- applicazione Avalonia 12 lanciabile con rendering software stabile su macOS
+- icona dell'app nel Dock impostata all'avvio (`MacDockIconService`) e icona `.icns` del bundle generata dall'icona legacy
+- date nel formato `dd/MM/yyyy` (inserimento e riepilogo dei filtri, storico con `dd/MM/yyyy HH:mm:ss`)
+- rifinitura UI condivisa con stili centralizzati: i testi dei pulsanti vanno a capo invece di essere tagliati, le colonne delle etichette si adattano al contenuto
 - finestra principale macOS per il flusso core:
   - selezione cartella sorgente
   - selezione cartella output
@@ -69,11 +74,8 @@ La nuova base moderna include:
   - sposta
   - riordino per estensione
 - editor interno per file testuali e preview modificabile
-- bridge nativo AppKit per:
-  - editor rich text come superficie primaria
-  - stampa e anteprima con dialoghi macOS
-- `EditorWindow` e `PrintPreviewWindow` Avalonia mantenuti come fallback tecnico
-- menu desktop macOS con azioni principali e roadmap visibile
+- bridge nativo AppKit (`AppKitWorkflowServices.cs`) pensato per editor rich text e stampa con dialoghi macOS: oggi non si attiva e l'app usa sempre le finestre Avalonia `EditorWindow` e `PrintPreviewWindow` (da indagare, vedi backlog [[BKLG-002]])
+- menu desktop macOS con le azioni principali (`Operazioni su File`, `Filtri Scansione Cartella`, `Altro`)
 - unico script `.command` al root:
   - `start_scanfolder.command`
   - supporta sia avvio sia publish del bundle macOS
@@ -94,6 +96,9 @@ La nuova base moderna include:
 |   |   |-- modern-ci.yml           # CI moderna automatica
 |   |   `-- modern-manual.yml       # workflow manuale
 |-- AGENTS.md                       # regole operative per agenti e flusso pre-commit
+|-- CLAUDE.md                       # note per Claude Code (importa AGENTS.md)
+|-- docs/implementations/           # backlog e piani di dettaglio
+|-- scripts/create_macos_bundle.sh  # assemblaggio del bundle .app
 |-- scanFolderToFile/               # applicazione WinForms legacy
 |-- src/
 |   |-- ScanFolderToFile.Core/      # core moderno
@@ -103,6 +108,8 @@ La nuova base moderna include:
 |   `-- ScanFolderToFile.App.Tests/
 |-- ScanFolderToFile.Modern.sln     # solution moderna
 |-- scanFolderToFile.sln            # solution legacy
+|-- Directory.Build.props           # impostazioni comuni e binding AppKit da NuGet
+|-- Directory.Packages.props        # versioni centralizzate dei pacchetti
 |-- global.json                     # SDK .NET 10 fissata
 `-- start_scanfolder.command        # launcher e publish macOS
 ```
@@ -112,14 +119,23 @@ La nuova base moderna include:
 Per lavorare sulla base moderna servono:
 
 - macOS (target primario del porting attuale)
-- .NET SDK 10.0.x
+- .NET SDK 10.0.1xx
 - accesso a una shell bash o zsh
 
 Il repository include `global.json`, quindi la versione attesa della SDK e':
 
 - `10.0.103`
 
-Se non hai .NET 10 installato globalmente, il launcher puo' usare una copia locale in `.dotnet/dotnet` se presente.
+con `rollForward: latestPatch`, quindi va bene qualunque SDK della serie `10.0.1xx` (verificato con `10.0.115`).
+
+Se non hai .NET 10 installato globalmente, il launcher puo' usare una copia locale in `.dotnet/dotnet` (esclusa da git). Per crearla senza privilegi di amministratore:
+
+```bash
+curl -sSfL https://dot.net/v1/dotnet-install.sh -o /tmp/dotnet-install.sh
+bash /tmp/dotnet-install.sh --version 10.0.115 --install-dir .dotnet --no-path
+```
+
+I binding AppKit (`Microsoft.macOS.dll`) usati dal bridge nativo di editor e stampa non richiedono il workload `macos`: il restore scarica da NuGet il pacchetto `Microsoft.macOS.Runtime.osx.net10.0_26.5`, configurato in `Directory.Build.props`.
 
 ## Avvio Rapido Su macOS
 
@@ -135,7 +151,7 @@ Lo script esegue in sequenza:
 
 1. controllo formattazione (`dotnet format --verify-no-changes`)
 2. auto-format se necessario
-3. restore
+3. restore in `--locked-mode` (i `packages.lock.json` devono essere aggiornati)
 4. build `Release` con `UseAppHost=true`
 5. test
 6. avvio dell'app moderna
@@ -169,6 +185,8 @@ Varianti supportate:
 - `./start_scanfolder.command --publish --debug`
 
 ### Opzione 2: comandi manuali
+
+Se `dotnet` non e' nel `PATH`, usa la copia locale: `export DOTNET_ROOT="$PWD/.dotnet"` e `./.dotnet/dotnet` al posto di `dotnet`.
 
 ```bash
 dotnet restore ScanFolderToFile.Modern.sln --locked-mode
@@ -214,6 +232,8 @@ La policy e' formalizzata anche in:
 - `AGENTS.md`
 
 ## Test
+
+La suite moderna usa xunit v3 per `ScanFolderToFile.App.Tests` (richiesto da `Avalonia.Headless.XUnit` 12) e xunit 2 per `ScanFolderToFile.Core.Tests`, entrambi con FluentAssertions.
 
 La suite moderna contiene:
 
@@ -271,7 +291,7 @@ File:
 
 Scopi:
 
-- validazione automatica su `push` e `pull_request` verso `main`
+- validazione automatica su `push` e `pull_request` verso `main` (non sui branch di lavoro: per ora va lanciato il workflow manuale)
 - workflow manuale con `workflow_dispatch`
 - generazione artifact scaricabili
 - publish self-contained per `osx-arm64`
@@ -293,7 +313,7 @@ Asset principali gia mappati:
 - `scanFolderToFile/Resources/open-file-icon1.png`
 - `scanFolderToFile/Resources/print.png`
 - `scanFolderToFile/Resources/file.png`
-- `scanFolderToFile/Resources/Deleket-Sleek-Xp-Basic-Files.ico`
+- `scanFolderToFile/Resources/Deleket-Sleek-Xp-Basic-Files.ico` (icona dell'app: risorsa Avalonia per il Dock, convertita in `.icns` da `scripts/create_macos_bundle.sh` per il bundle)
 
 La mappatura canonica vive in:
 
@@ -315,7 +335,7 @@ La UI moderna copre gia' il flusso principale del porting:
 - bundle macOS self-contained generabile e archiviato in CI
 - layout UI ripulito e riallineato tra finestre, pulsanti e testi
 
-Il porting pianificato in cinque piani e' quindi chiuso a livello funzionale. Restano solo eventuali evoluzioni successive non ancora incluse nel perimetro iniziale, come signing, notarization e affinamenti di distribuzione.
+Il porting pianificato in cinque piani e' chiuso a livello funzionale. I difetti noti e le verifiche ancora aperte (bridge AppKit, enumerazione dei file su macOS, ZIP dentro la sorgente, riordino per estensione, CI sul branch, aggiornamento a .NET 11) sono nel backlog `docs/implementations/BACKLOG.md`.
 
 ## Roadmap Di Alto Livello
 
@@ -323,7 +343,6 @@ Il perimetro del porting iniziale e' completato. Le evoluzioni naturali successi
 
 - signing del bundle macOS
 - notarization Apple
-- eventuale conversione dell'icona legacy in formato `.icns`
 - distribuzione pubblica oltre gli artifact GitHub Actions
 
 ## Convenzioni Del Progetto
@@ -335,4 +354,4 @@ Il perimetro del porting iniziale e' completato. Le evoluzioni naturali successi
 
 ## Licenza E Note Operative
 
-Questo README descrive lo stato corrente del repository dopo il completamento dei Piani 1, 2, 3, 4 e 5. La codebase legacy resta presente per confronto, verifica funzionale e continuita' operativa mentre la base macOS moderna resta ora il target principale di manutenzione e rifinitura.
+Questo README descrive lo stato corrente del repository dopo il completamento dei Piani 1, 2, 3, 4 e 5 e l'aggiornamento ad Avalonia 12. La codebase legacy resta presente per confronto, verifica funzionale e continuita' operativa mentre la base macOS moderna resta ora il target principale di manutenzione e rifinitura.

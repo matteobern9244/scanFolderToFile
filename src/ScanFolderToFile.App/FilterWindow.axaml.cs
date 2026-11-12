@@ -87,8 +87,8 @@ public sealed partial class FilterWindow : Window
                 break;
             case FilterMode.DateRange:
                 _dateRadioButton.IsChecked = true;
-                _startDateTextBox.Text = currentFilter.Filter?.StartDate?.ToString(AppStrings.System.IsoDateFormat, CultureInfo.InvariantCulture) ?? string.Empty;
-                _endDateTextBox.Text = currentFilter.Filter?.EndDate?.ToString(AppStrings.System.IsoDateFormat, CultureInfo.InvariantCulture) ?? string.Empty;
+                _startDateTextBox.Text = currentFilter.Filter?.StartDate?.ToString(AppStrings.System.DateFormat, CultureInfo.InvariantCulture) ?? string.Empty;
+                _endDateTextBox.Text = currentFilter.Filter?.EndDate?.ToString(AppStrings.System.DateFormat, CultureInfo.InvariantCulture) ?? string.Empty;
                 _statusTextBlock.Text = currentFilter.Summary;
                 break;
             default:
@@ -216,7 +216,7 @@ public sealed partial class FilterWindow : Window
 
         if (DateTime.TryParseExact(
                 rawValue,
-                AppStrings.System.IsoDateFormat,
+                AppStrings.System.DateFormat,
                 CultureInfo.InvariantCulture,
                 DateTimeStyles.None,
                 out var exactValue))

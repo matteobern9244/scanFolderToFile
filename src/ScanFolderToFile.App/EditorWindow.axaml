@@ -18,7 +18,7 @@
     </Border>
 
     <Border Grid.Row="2" Padding="18" Classes="card">
-      <Grid ColumnDefinitions="*,*,*,*,*" ColumnSpacing="12">
+      <Grid Classes="button-row" ColumnDefinitions="*,*,*,*,*" ColumnSpacing="12">
         <Button x:Name="EditorOpenButton" Grid.Column="0" Classes="secondary" />
         <Button x:Name="EditorSaveButton" Grid.Column="1" Classes="primary" />
         <Button x:Name="EditorSaveAsButton" Grid.Column="2" Classes="secondary" />

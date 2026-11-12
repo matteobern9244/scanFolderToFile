@@ -1,3 +1,4 @@
+using System.Globalization;
 using ScanFolderToFile.Core.Constants;
 using ScanFolderToFile.Core.Models;
 
@@ -69,11 +70,11 @@ internal sealed record FilterDialogResult(FilterMode Mode, ScanFilter? Filter, s
             AppStrings.System.NameValueSeparator,
             AppStrings.Ui.FilterFromLabel,
             AppStrings.System.Space,
-            startDate?.ToString(AppStrings.System.IsoDateFormat) ?? AppStrings.System.DashPlaceholder,
+            startDate?.ToString(AppStrings.System.DateFormat, CultureInfo.InvariantCulture) ?? AppStrings.System.DashPlaceholder,
             AppStrings.System.Space,
             AppStrings.Ui.FilterToLabel,
             AppStrings.System.Space,
-            endDate?.ToString(AppStrings.System.IsoDateFormat) ?? AppStrings.System.DashPlaceholder);
+            endDate?.ToString(AppStrings.System.DateFormat, CultureInfo.InvariantCulture) ?? AppStrings.System.DashPlaceholder);
     }
 }
 
@@ -84,7 +85,7 @@ internal sealed record HistoryListItem(
     string? FullPath,
     bool Exists)
 {
-    public string CreatedAtDisplay => CreatedAt.ToString(AppStrings.Ui.HistoryDateFormat);
+    public string CreatedAtDisplay => CreatedAt.ToString(AppStrings.Ui.HistoryDateFormat, CultureInfo.InvariantCulture);
 
     public string ExistsLabel => Exists ? AppStrings.System.FileExistsLabel : AppStrings.System.FileMissingLabel;
 

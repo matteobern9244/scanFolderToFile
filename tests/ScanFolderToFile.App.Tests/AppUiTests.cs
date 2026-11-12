@@ -116,7 +116,8 @@ public sealed class AppUiTests : IDisposable
         none.Summary.Should().Be(AppStrings.Ui.NoFilterSummary);
         size.Summary.Should().Contain(AppStrings.Ui.FilterSizeSummaryPrefix);
         dates.Summary.Should().Contain(AppStrings.Ui.FilterDateSummaryPrefix);
-        dates.Summary.Should().Contain("2026-03-01");
+        dates.Summary.Should().Contain("01/03/2026");
+        dates.Summary.Should().Contain("05/03/2026");
     }
 
     [AvaloniaFact]

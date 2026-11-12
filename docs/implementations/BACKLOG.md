@@ -18,21 +18,53 @@ Nothing pending.
 
 ## Open
 
-## BKLG-006 — Upgrade toolchain and packages to the latest available versions
-- **Status**: blocked — on [[BKLG-001]] (green baseline on the current pins) and on the scope decision (latest within current majors, or majors too)
+## BKLG-010 — Dark theme by default, with a switch to the light theme
+- **Status**: open
 - **Priority**: medium
 - **Added**: 2026-11-12
-- **Manual**: yes (choose the scope: .NET 10 LTS patch vs .NET 11, Avalonia 11.3 vs 12; FluentAssertions 8 licence for commercial use)
+- **Manual**: no
+- **Doc**: [spec.md](features/dark-theme/spec.md)
+- **Summary**: The app must open dark and let the user switch to light. Today every window forces `RequestedThemeVariant="Light"` and `App.axaml` holds fixed light brushes: move the palette into theme dictionaries, default Dark, add a menu switch and persist the choice.
+
+## BKLG-009 — macOS app menu shows "Avalonia Application" and "About Avalonia"
+- **Status**: open — seen 2026-11-12 in the published bundle
+- **Priority**: low
+- **Added**: 2026-11-12
+- **Manual**: no
+- **Doc**: —
+- **Summary**: The application menu reads "Avalonia Application" / "About Avalonia" / "Hide Avalonia Application" (English) although `Info.plist` names the bundle "Scan Folder To File": `App.axaml` sets no application `Name`. Set it from `AppStrings` and check the About item.
+
+## BKLG-008 — Clipped labels and squashed text in the macOS windows
+- **Status**: in-progress — fixed in the working tree 2026-11-12 (button text wraps, main actions on a 3×3 grid, auto label/browse columns, `FilterWindow` sized to content); verified by screenshots of main, Filtri, Storico, Copia/Sposta, editor; Duplicati and Anteprima di stampa not opened (need a scan); not committed
+- **Priority**: medium
+- **Added**: 2026-11-12
+- **Manual**: no
+- **Doc**: —
+- **Summary**: `MainWindow.axaml` packs the action buttons into 4 and 5 equal columns of a ~540 px card, so labels read "Storico Fi", "Altre oper", "Apri cartella fi"; the 132 px browse buttons cut "Seleziona cartella..."; the 124 px label column cuts "Cartella da scansionare" (same in `UtilitiesWindow`: "Cartella di destinazi"). `FilterWindow.axaml` is fixed at 560×420 and its status line is cut in half. Fix with content-sized layouts (wrapping rows, auto label columns, `SizeToContent`) and check every window by screenshot.
+
+## BKLG-007 — App restore fails: vulnerable `Tmds.DBus.Protocol` 0.21.2 (NU1903)
+- **Status**: in-progress — fixed in the working tree 2026-11-12 by Avalonia 12.1.6 (pulls `Tmds.DBus.Protocol` 0.94.1): `./start_scanfolder.command --publish` green (locked restore, Release build, 95/95 tests, bundle); not committed, CI not run
+- **Priority**: high
+- **Added**: 2026-11-12
+- **Manual**: no
+- **Doc**: —
+- **Summary**: Avalonia 11.3.9 pulls `Tmds.DBus.Protocol` 0.21.2 (advisory GHSA-xrw6-gwf8-vvr9, high); with `TreatWarningsAsErrors` the restore of `ScanFolderToFile.App` and `App.Tests` fails, so the App cannot build here or in CI. Avalonia 11.3.23 depends on 0.21.3, Avalonia 12.1.6 on 0.94.1: bump Avalonia (patch now, or straight to 12 in [[BKLG-006]]), regenerate the `packages.lock.json` files, confirm the warning is gone.
+
+## BKLG-006 — Upgrade toolchain and packages to the latest available versions
+- **Status**: in-progress — Avalonia 12.1.6, App.Tests on xunit v3 and macOS pack 26.5 done locally (2026-11-12); next: Core.Tests to xunit v3, test packages, QuestPDF, then .NET 11
+- **Priority**: medium
+- **Added**: 2026-11-12
+- **Manual**: yes (confirm the FluentAssertions 8 licence fits the project's use, or pick a replacement)
 - **Doc**: [plan.md](features/latest-versions-upgrade/plan.md)
 - **Summary**: The repo pins SDK 10.0.103 and packages from late 2025; move to the latest versions, one bump per slice, each with regenerated `packages.lock.json` and a green build/test.
 
 ## BKLG-005 — "Reorder by extension" renames files that are already sorted
-- **Status**: open — waiting for a decision: legacy parity (leave the file in place) or current behaviour
+- **Status**: open — decided 2026-11-12: legacy parity, an already-sorted file stays in place and is reported as skipped
 - **Priority**: medium
 - **Added**: 2026-11-12
-- **Manual**: yes (decide the expected behaviour)
+- **Manual**: no
 - **Doc**: —
-- **Summary**: `FileOperationsService.ReorderByExtensionAsync` calls `EnsureUniquePath` before `PathsMatch`, so `src/txt/a.txt` becomes `src/txt/a(1).txt` on every run and the `SkippedPaths` branch is dead; legacy `Utils.ReorderFilesInFolderByType` leaves it in place. The test `CoveragePassTests.FileOperationsService_ReorderByExtensionAsync_WhenFileAlreadyInTargetFolder_RenamesIt` asserts the current behaviour. Fix (if parity): compare the un-suffixed target with the source first, skip on match, flip the test.
+- **Summary**: `FileOperationsService.ReorderByExtensionAsync` calls `EnsureUniquePath` before `PathsMatch`, so `src/txt/a.txt` becomes `src/txt/a(1).txt` on every run and the `SkippedPaths` branch is dead; legacy `Utils.ReorderFilesInFolderByType` leaves it in place. The test `CoveragePassTests.FileOperationsService_ReorderByExtensionAsync_WhenFileAlreadyInTargetFolder_RenamesIt` asserts the current behaviour. Fix: compare the un-suffixed target with the source first, skip on match, flip the test.
 
 ## BKLG-004 — ZIP creation when the output folder is inside the source folder
 - **Status**: open — not reproduced yet; needs a failing test first
@@ -51,7 +83,7 @@ Nothing pending.
 - **Summary**: `FileCollector` and `FileOperationsService.EnumerateSourceFiles` use `Directory.EnumerateFiles(..., SearchOption.AllDirectories)`, so one folder protected by macOS privacy (TCC) aborts the whole scan, and `.DS_Store` is collected/moved while only `desktop.ini` is excluded. Fix: shared `EnumerationOptions { RecurseSubdirectories = true, IgnoreInaccessible = true }`, exclude `.DS_Store` via `AppStrings.Filters`, tests in `Core.Tests`.
 
 ## BKLG-002 — Verify the native AppKit bridge actually runs
-- **Status**: blocked — on [[BKLG-001]]: needs a working build and a launch of the app
+- **Status**: open — confirmed 2026-11-12 in the published bundle: menu Altro › Editor interno opens the Avalonia `EditorWindow` (accessibility root `WindowChrome`), not the native AppKit editor, so the native path fails and the bare `catch` hides why; next: surface the exception, then choose `net10.0-macos` or drop the bridge
 - **Priority**: high
 - **Added**: 2026-11-12
 - **Manual**: no
@@ -59,7 +91,7 @@ Nothing pending.
 - **Summary**: `AppKitWorkflowServices.cs` uses `AppKit`/`Foundation` from a bare `Microsoft.macOS.dll` in a plain `net10.0` Avalonia app, with no native Xamarin runtime initialisation; every call is wrapped in a bare `catch` that silently falls back (and also swallows cancellation). Likely the native editor/print never run. Check in the launched app; then either move to a supported setup or drop the bridge, and narrow the `catch` with logging.
 
 ## BKLG-001 — Reproducible toolchain: .NET SDK, macOS pack and modern CI
-- **Status**: open — audit done 2026-11-12: no `dotnet` on this Mac, build/test/format not run
+- **Status**: in-progress — P1–P3 done locally: SDK in `./.dotnet`, locked restore re-downloads the macOS pack from an empty cache, `./start_scanfolder.command --publish` green; P4 next: modern CI never ran on this branch
 - **Priority**: high
 - **Added**: 2026-11-12
 - **Manual**: yes (approve the SDK download; push the branch so CI can run)

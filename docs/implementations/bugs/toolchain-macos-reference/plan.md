@@ -30,11 +30,11 @@ The choice depends on [[BKLG-002]]; P1 and P2 do not.
 
 | | state |
 |---|---|
-| **P1** install the SDK locally in `./.dotnet` with `dotnet-install.sh` (no sudo), version per [[BKLG-006]] scope | 📋 not started — needs approval for the download |
-| **P2** green baseline on the current pins: restore `--locked-mode`, build, test, format | 📋 not started |
-| **P3** make the `Microsoft.macOS` reference resolvable in a fresh clone (option A or B) | 📋 not started |
-| **P4** run `modern-ci.yml` on the porting branch (add the branch or `workflow_dispatch`) and add the macOS pack step | 📋 not started |
-| **P5** update `CLAUDE.md` (.NET SDK section) and `README.md` setup | 📋 not started |
+| **P1** install the SDK locally in `./.dotnet` with `dotnet-install.sh` (no sudo): 10.0.1xx for the baseline, 11.0.100 for [[BKLG-006]] | ✅ — 2026-11-12: SDK 10.0.115 and 11.0.100 in `./.dotnet`; `global.json` resolves 10.0.115 |
+| **P2** green baseline on the current pins: restore `--locked-mode`, build, test, format | ✅ — Core green on the current pins (51/51); the App could not restore on them (NU1903, [[BKLG-007]]), so by the user's choice its baseline is on Avalonia 12.1.6: build clean, 95/95 tests, format clean |
+| **P3** make the `Microsoft.macOS` reference resolvable in a fresh clone (option A or B) | ✅ — option A: `PackageDownload` of `Microsoft.macOS.Runtime.osx.net10.0_26.5` 26.5.10318 in `Directory.Build.props`, enabled by `UseMacOSBindings`; App builds and launches locally |
+| **P4** run `modern-ci.yml` on the porting branch (add the branch or `workflow_dispatch`); no macOS workload step needed with option A | 📋 not started |
+| **P5** update `CLAUDE.md` (.NET SDK section) and `README.md` setup | ✅ — both describe the local SDK and the NuGet runtime pack |
 
 ## Acceptance
 
