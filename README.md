@@ -93,7 +93,7 @@ La nuova base moderna include:
 |-- .github/
 |   |-- workflows/
 |   |   |-- ci.yml                  # pipeline legacy Windows
-|   |   |-- modern-ci.yml           # CI moderna automatica
+|   |   |-- modern-ci.yml           # CI moderna (solo avvio manuale)
 |   |   `-- modern-manual.yml       # workflow manuale
 |-- AGENTS.md                       # regole operative per agenti e flusso pre-commit
 |-- CLAUDE.md                       # note per Claude Code (importa AGENTS.md)
@@ -270,7 +270,7 @@ dotnet test ScanFolderToFile.Modern.sln \
 
 ## CI/CD
 
-Il repository mantiene due pipeline distinte.
+Il repository mantiene due pipeline distinte. Dal 2026-11-12 nessuna parte da sola: la pipeline legacy e' disattivata su GitHub (`gh workflow enable` per riattivarla) e quelle moderne si avviano solo a mano (`workflow_dispatch`).
 
 ### Pipeline legacy
 
@@ -291,12 +291,12 @@ File:
 
 Scopi:
 
-- validazione automatica su `push` e `pull_request` verso `main` (non sui branch di lavoro: per ora va lanciato il workflow manuale)
+- validazione completa avviata a mano (`workflow_dispatch`): i trigger automatici su `push` e `pull_request` sono stati tolti
 - workflow manuale con `workflow_dispatch`
 - generazione artifact scaricabili
 - publish self-contained per `osx-arm64`
 - creazione e upload del bundle `ScanFolderToFile.app`
-- verifica automatica delle soglie di coverage
+- verifica delle soglie di coverage
 
 Le pipeline moderne girano su:
 

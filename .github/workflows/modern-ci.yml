@@ -1,34 +1,8 @@
 name: Modern CI
 
+# Automatic push/pull_request triggers are disabled: run this workflow by hand when needed.
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - "src/**"
-      - "tests/**"
-      - "Directory.Build.props"
-      - "Directory.Packages.props"
-      - "global.json"
-      - "start_scanfolder.command"
-      - "scripts/**"
-      - "src/ScanFolderToFile.App/Packaging/**"
-      - ".github/workflows/modern-ci.yml"
-      - ".github/workflows/modern-manual.yml"
-  pull_request:
-    branches:
-      - main
-    paths:
-      - "src/**"
-      - "tests/**"
-      - "Directory.Build.props"
-      - "Directory.Packages.props"
-      - "global.json"
-      - "start_scanfolder.command"
-      - "scripts/**"
-      - "src/ScanFolderToFile.App/Packaging/**"
-      - ".github/workflows/modern-ci.yml"
-      - ".github/workflows/modern-manual.yml"
+  workflow_dispatch:
 
 permissions:
   contents: read

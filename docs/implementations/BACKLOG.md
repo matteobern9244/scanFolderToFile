@@ -91,9 +91,17 @@ Nothing pending.
 - **Summary**: `AppKitWorkflowServices.cs` uses `AppKit`/`Foundation` from a bare `Microsoft.macOS.dll` in a plain `net10.0` Avalonia app, with no native Xamarin runtime initialisation; every call is wrapped in a bare `catch` that silently falls back (and also swallows cancellation). Likely the native editor/print never run. Check in the launched app; then either move to a supported setup or drop the bridge, and narrow the `catch` with logging.
 
 ## BKLG-001 — Reproducible toolchain: .NET SDK, macOS pack and modern CI
-- **Status**: in-progress — P1–P3 done locally: SDK in `./.dotnet`, locked restore re-downloads the macOS pack from an empty cache, `./start_scanfolder.command --publish` green; P4 next: modern CI never ran on this branch
+- **Status**: in-progress — P1–P3 done locally: SDK in `./.dotnet`, locked restore re-downloads the macOS pack from an empty cache, `./start_scanfolder.command --publish` green; P4 parked: CI switched off by the user on 2026-11-12 (legacy workflow disabled on GitHub, `modern-ci.yml` manual only), so the remote check waits for a manual run
 - **Priority**: high
 - **Added**: 2026-11-12
 - **Manual**: yes (approve the SDK download; push the branch so CI can run)
 - **Doc**: [plan.md](bugs/toolchain-macos-reference/plan.md)
 - **Summary**: The App and App.Tests reference `Microsoft.macOS.dll` through a `HintPath` into the git-ignored `./.dotnet/packs/...26.2.10197`, which no fresh clone or CI runner has, and `modern-ci.yml` runs only on `main` (never on this branch). Install the SDK locally, make the reference resolvable everywhere, run the modern CI on the porting branch.
+
+## BKLG-011 — Ricontrollare e rivalidare la CI/CD su GitHub
+- **Status**: open — CI switched off on 2026-11-12 by the user's choice; kept as the last entry on request
+- **Priority**: low
+- **Added**: 2026-11-12
+- **Manual**: yes (decide when the CI goes back on; re-enable `NetFramework.CI` in GitHub › Actions, or approve `gh workflow enable`)
+- **Doc**: —
+- **Summary**: Review and revalidate the GitHub CI/CD before turning it back on: legacy `ci.yml` (disabled, last run on `main` failed on 2026-02-28), `modern-ci.yml` and `modern-manual.yml` (manual only) with the Avalonia 12 / NuGet macOS pack setup, the coverage gate (88% line / 71% branch, never computed on the new code), publish and bundle artifacts; then restore the automatic triggers and close [[BKLG-001]] P4.

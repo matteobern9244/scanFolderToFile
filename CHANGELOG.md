@@ -43,6 +43,7 @@ Questo changelog segue il formato di [Keep a Changelog](https://keepachangelog.c
 - Layout delle finestre macOS: i testi dei pulsanti vanno a capo invece di essere tagliati, i pulsanti delle righe di azione occupano tutta la colonna, i nove pulsanti principali sono su una griglia 3x3, le colonne di etichette e pulsanti "Seleziona cartella..." / "SFOGLIA" si adattano al contenuto, la finestra Filtri si dimensiona sul contenuto
 - Icona dell'app nel Dock ripristinata: Avalonia 12 non la ricava piu' da `Window.Icon`, quindi `MacDockIconService` la imposta all'avvio tramite il runtime Objective-C
 - `scripts/create_macos_bundle.sh` genera `Deleket-Sleek-Xp-Basic-Files.icns` dall'icona legacy e `Info.plist` la usa come `CFBundleIconFile`
+- CI disattivata su richiesta: `NetFramework.CI` disabilitato su GitHub e tolti i trigger automatici `push`/`pull_request` da `modern-ci.yml`, che resta avviabile a mano
 - `README.md` riallineato allo stato reale: Avalonia 12, bridge AppKit non attivo, backlog, formato date, icona
 - Formalizzata la policy operativa del repository: prima di ogni `commit` e `push` vanno aggiornati `README.md` e `CHANGELOG.md`, ed eseguito `dotnet format`
 - Formalizzato in `AGENTS.md` il target di copertura desiderato: `100%` line e `100%` branch per il codice moderno

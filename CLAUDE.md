@@ -35,6 +35,9 @@ Run from the repository root, smallest scope first. When `dotnet` is not on `PAT
 CI for the modern track is `.github/workflows/modern-ci.yml` (macOS runner, locked restore,
 format check, Release build, tests with coverage, self-contained publish and bundle).
 `.github/workflows/ci.yml` belongs to the legacy Windows track.
+CI is off by the user's choice (2026-11-12): the legacy workflow is disabled on GitHub and the modern
+workflows run only by hand (`workflow_dispatch`). Do not re-enable triggers unless asked; local
+validation is the gate.
 
 ## Backlog
 
