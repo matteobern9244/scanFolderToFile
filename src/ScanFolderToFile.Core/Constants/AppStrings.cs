@@ -49,6 +49,8 @@ public static class AppStrings
     public static class Filters
     {
         public const string DesktopIni = "desktop.ini";
+        public const string DsStore = ".DS_Store";
+        public static readonly IReadOnlyList<string> ExcludedFileNames = [DesktopIni, DsStore];
     }
 
     public static class System

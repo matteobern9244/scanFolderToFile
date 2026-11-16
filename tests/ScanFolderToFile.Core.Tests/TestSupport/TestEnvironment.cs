@@ -32,6 +32,27 @@ internal static class TestEnvironment
     }
 }
 
+/// <summary>Removes every permission from a folder (like a macOS privacy-protected one) and restores it on dispose.</summary>
+[System.Runtime.Versioning.UnsupportedOSPlatform("windows")]
+internal sealed class LockedDirectory : IDisposable
+{
+    private readonly UnixFileMode _originalMode;
+
+    public LockedDirectory(string path)
+    {
+        Path = path;
+        _originalMode = File.GetUnixFileMode(path);
+        File.SetUnixFileMode(path, UnixFileMode.None);
+    }
+
+    public string Path { get; }
+
+    public void Dispose()
+    {
+        File.SetUnixFileMode(Path, _originalMode);
+    }
+}
+
 internal sealed class TemporaryDirectory : IDisposable
 {
     public TemporaryDirectory(string path)

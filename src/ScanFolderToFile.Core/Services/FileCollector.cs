@@ -12,9 +12,8 @@ public sealed class FileCollector : IFileCollector
     {
         cancellationToken.ThrowIfCancellationRequested();
 
-        var filePaths = Directory
-            .EnumerateFiles(request.SourceFolder, AppStrings.System.WildcardAllFiles, SearchOption.AllDirectories)
-            .Where(path => !Path.GetFileName(path).Equals(AppStrings.Filters.DesktopIni, StringComparison.OrdinalIgnoreCase))
+        var filePaths = SourceFileEnumeration
+            .EnumerateFiles(request.SourceFolder)
             .Select(path => new FileInfo(path))
             .Where(fileInfo => MatchesFilter(fileInfo, request.Filter))
             .Select(fileInfo => fileInfo.FullName)

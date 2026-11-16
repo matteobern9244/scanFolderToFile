@@ -139,4 +139,54 @@ public sealed class FileCollectorAndDuplicateTests
 
         duplicates.Should().BeEmpty();
     }
+
+    [Fact]
+    [System.Runtime.Versioning.UnsupportedOSPlatform("windows")]
+    public async Task CollectAsync_SkipsInaccessibleSubfolder_AndCollectsTheRest()
+    {
+        using var sourceDirectory = TestEnvironment.CreateTemporaryDirectory();
+        var rootFile = Path.Combine(sourceDirectory.Path, "a.txt");
+        var nestedDirectory = Directory.CreateDirectory(Path.Combine(sourceDirectory.Path, "nested"));
+        var nestedFile = Path.Combine(nestedDirectory.FullName, "b.txt");
+        var lockedDirectory = Directory.CreateDirectory(Path.Combine(sourceDirectory.Path, "locked"));
+        await File.WriteAllTextAsync(rootFile, "aa");
+        await File.WriteAllTextAsync(nestedFile, "bb");
+        await File.WriteAllTextAsync(Path.Combine(lockedDirectory.FullName, "secret.txt"), "cc");
+        using var locked = new LockedDirectory(lockedDirectory.FullName);
+
+        var collector = new FileCollector();
+        var items = await collector.CollectAsync(new ScanRequest
+        {
+            SourceFolder = sourceDirectory.Path,
+            OutputFolder = sourceDirectory.Path
+        });
+
+        items.Should().BeEquivalentTo(new[] { rootFile, nestedFile });
+    }
+
+    [Fact]
+    public async Task CollectAsync_ExcludesDsStore_AndKeepsOtherDotFiles()
+    {
+        using var sourceDirectory = TestEnvironment.CreateTemporaryDirectory();
+        var subDirectory = Directory.CreateDirectory(Path.Combine(sourceDirectory.Path, "sub"));
+        var dotDirectory = Directory.CreateDirectory(Path.Combine(sourceDirectory.Path, ".dotfolder"));
+        var rootDsStore = Path.Combine(sourceDirectory.Path, ".DS_Store");
+        var subDsStore = Path.Combine(subDirectory.FullName, ".DS_Store");
+        var hiddenFile = Path.Combine(sourceDirectory.Path, ".hidden.txt");
+        var dotFolderFile = Path.Combine(dotDirectory.FullName, "inside.txt");
+        await File.WriteAllTextAsync(rootDsStore, "x");
+        await File.WriteAllTextAsync(subDsStore, "x");
+        await File.WriteAllTextAsync(hiddenFile, "x");
+        await File.WriteAllTextAsync(dotFolderFile, "x");
+
+        var collector = new FileCollector();
+        var items = await collector.CollectAsync(new ScanRequest
+        {
+            SourceFolder = sourceDirectory.Path,
+            OutputFolder = sourceDirectory.Path
+        });
+
+        items.Should().NotContain(new[] { rootDsStore, subDsStore });
+        items.Should().Contain(new[] { hiddenFile, dotFolderFile });
+    }
 }

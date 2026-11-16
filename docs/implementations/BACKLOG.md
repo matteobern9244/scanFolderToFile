@@ -75,7 +75,7 @@ Nothing pending.
 - **Summary**: `ZipArchiveService.CreateZipAsync` writes `<output>/ZipFiles/<zip>` while `ZipFile.CreateFromDirectory` walks the source; with the default output `~/Documents/CONTENT` and a source of `~/Documents`, the archive likely tries to include itself (IOException or a corrupt entry). Fix: write to a temp file outside the source and move it, or reject/skip the output folder; add a Core test.
 
 ## BKLG-003 — macOS-safe file enumeration (inaccessible folders, `.DS_Store`)
-- **Status**: open
+- **Status**: in-progress — fixed in the working tree 2026-11-16 (shared EnumerationOptions with IgnoreInaccessible, `.DS_Store` excluded, Core tests green); committed, not tried on a real TCC-protected folder in the app
 - **Priority**: high
 - **Added**: 2026-11-12
 - **Manual**: no

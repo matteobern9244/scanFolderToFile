@@ -135,9 +135,8 @@ public sealed class FileOperationsService : IFileOperationsService
 
     private static List<string> EnumerateSourceFiles(string sourceFolder)
     {
-        return Directory
-            .EnumerateFiles(sourceFolder, AppStrings.System.WildcardAllFiles, SearchOption.AllDirectories)
-            .Where(path => !Path.GetFileName(path).Equals(AppStrings.Filters.DesktopIni, StringComparison.OrdinalIgnoreCase))
+        return SourceFileEnumeration
+            .EnumerateFiles(sourceFolder)
             .OrderBy(path => path, StringComparer.OrdinalIgnoreCase)
             .ToList();
     }
@@ -179,12 +178,19 @@ public sealed class FileOperationsService : IFileOperationsService
 
     private static void DeleteEmptyDirectories(string rootFolder)
     {
-        foreach (var directoryPath in Directory.EnumerateDirectories(rootFolder, AppStrings.System.WildcardAllFiles, SearchOption.AllDirectories)
+        foreach (var directoryPath in SourceFileEnumeration.EnumerateDirectories(rootFolder)
                      .OrderByDescending(path => path.Length))
         {
-            if (!Directory.EnumerateFileSystemEntries(directoryPath).Any())
+            try
             {
-                Directory.Delete(directoryPath, false);
+                if (!Directory.EnumerateFileSystemEntries(directoryPath).Any())
+                {
+                    Directory.Delete(directoryPath, false);
+                }
+            }
+            catch (UnauthorizedAccessException)
+            {
+                // A folder the process cannot read is still listed by its readable parent; leave it alone.
             }
         }
     }

@@ -70,6 +70,7 @@ Questo changelog segue il formato di [Keep a Changelog](https://keepachangelog.c
 - L'app macOS usa ora un bridge nativo AppKit come superficie primaria per editor e stampa, mantenendo le finestre Avalonia come fallback tecnico
 - Il launcher e i workflow moderni non forzano piu' l'installazione del workload `macos`, evitando errori di permessi sulle macchine dove il progetto e' gia' compilabile
 - `.gitignore` esclude ora esplicitamente i tool locali `.tools/` e i `TestResults` annidati generati dalle run di coverage
+- Scansione, copia, spostamento e riordino saltano le cartelle che macOS non permette di leggere invece di fallire, e ignorano `.DS_Store` come `desktop.ini`
 
 ### Completed
 
